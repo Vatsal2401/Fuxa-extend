@@ -412,10 +412,19 @@ ds-page-header + .work-panel {
   height: calc(100% - 112px) !important;
   left: var(--ds-sp-5) !important;
   right: var(--ds-sp-5) !important;
-  border: 1px solid var(--ds-border);
-  border-radius: var(--ds-radius-lg);
-  background: var(--ds-surface);
+  border: 1px solid var(--ds-border) !important;
+  border-radius: var(--ds-radius-lg) !important;
+  background: var(--ds-surface-2) !important;
   overflow: auto;
-  box-shadow: var(--ds-shadow-md);
+  box-shadow: var(--ds-shadow-md) !important;
 }
-ds-page-header + .work-panel .container { background: transparent !important; }
+/* keep inner wrappers + Material tables transparent so the card surface shows */
+ds-page-header + .work-panel .container,
+ds-page-header + .work-panel .mat-table,
+ds-page-header + .work-panel mat-table,
+ds-page-header + .work-panel table { background: transparent !important; }
+/* neutralise Material MDC table surface variable globally */
+.mat-mdc-table, .mat-table, mat-table, table.mat-table {
+  --mat-table-background-color: transparent !important;
+  background-color: transparent !important;
+}

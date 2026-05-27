@@ -1,7 +1,4 @@
-<div class="header-panel">
-    <mat-icon>code</mat-icon>
-    {{'scripts.list-title' | translate}}
-</div>
+<ds-page-header [title]="'scripts.list-title' | translate"></ds-page-header>
 <div class="work-panel">
     <div class="container">
         <mat-table #table [dataSource]="dataSource" matSort class="mat-table">

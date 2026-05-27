@@ -1,7 +1,4 @@
-<div class="header-panel">
-    <mat-icon>groups</mat-icon>
-    {{'roles.list-title' | translate}}
-</div>
+<ds-page-header [title]="'roles.list-title' | translate"></ds-page-header>
 <div class="work-panel">
 	<div class="container">
 		<mat-table #table [dataSource]="dataSource" matSort>
