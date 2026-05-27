@@ -5686,8 +5686,9 @@ input.color-picker-input {
    Phase 6e — editor app-header (Save / Edit Project / Help) visibility
    The fixed header-panel was getting covered / icons invisible.
    ============================================================ */
+/* Branded editor app-bar. The left cluster (brand + Save + Project) is widened,
+   and the external svg-editor #tools_top is shifted right to make room. */
 .header-panel, .header-right {
-  /* one cohesive 36px top bar, aligned with the svg-editor #tools_top (also 36px) */
   height: 36px !important;
   background: linear-gradient(180deg, #0e1c33, #0a1424) !important;
   color: #edf4ff !important;
@@ -5695,25 +5696,71 @@ input.color-picker-input {
   display: flex !important;
   align-items: center;
   gap: 4px;
-  padding: 0 6px !important;
+  padding: 0 8px !important;
   border-bottom: 1px solid var(--ds-border) !important;
   box-shadow: 0 1px 0 rgba(0, 0, 0, 0.35);
 }
 
 .header-panel {
+  width: 388px !important; /* fits brand + 2 labeled buttons */
   border-right: 1px solid var(--ds-border) !important;
-} /* divider into the svg toolbar */
-/* polished, consistent toolbar buttons */
+}
+
+#tools_top {
+  left: 392px !important;
+} /* make room for the branded left cluster */
+/* brand mark */
+.app-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 8px 0 2px;
+  margin-right: 2px;
+}
+
+.app-brand-logo {
+  color: var(--ds-brand) !important;
+  font-size: 22px !important;
+  width: 22px;
+  height: 22px;
+}
+
+.app-brand-name {
+  font-family: var(--ds-font-display);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  font-size: 14px;
+  color: #ffffff;
+}
+
+/* labeled toolbar buttons */
 .header-panel .main-btn, .header-right .main-btn {
   height: 28px !important;
-  width: 28px !important;
   min-width: 28px !important;
   display: inline-flex !important;
   align-items: center;
   justify-content: center;
+  gap: 6px;
+  padding: 0 10px !important;
   border-radius: 8px !important;
   color: #cdd9ee !important;
   transition: background var(--ds-dur-base) var(--ds-ease), color var(--ds-dur-base) var(--ds-ease), transform var(--ds-dur-fast) var(--ds-ease);
+}
+
+.header-panel .main-btn.labeled, .header-right .main-btn.labeled {
+  width: auto !important;
+  padding: 0 12px !important;
+}
+
+.header-panel .main-btn:not(.labeled), .header-right .main-btn:not(.labeled) {
+  width: 28px !important;
+  padding: 0 !important;
+}
+
+.main-btn .btn-label {
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
 }
 
 .header-panel mat-icon, .header-right mat-icon,
