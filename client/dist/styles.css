@@ -5646,6 +5646,41 @@ input.color-picker-input {
   background: var(--ds-brand) !important;
   color: var(--ds-on-brand) !important;
 }
+
+/* ============================================================
+   Phase 6d — FORCE dialog surfaces dark (Material injects its own
+   surface color at runtime; needs !important to override)
+   ============================================================ */
+.mat-mdc-dialog-surface, .mdc-dialog__surface,
+.mat-dialog-container, .mat-mdc-dialog-container,
+.cdk-dialog-container, .mat-mdc-dialog-content, .mat-dialog-content {
+  background: var(--ds-surface-2) !important;
+  color: var(--ds-text) !important;
+}
+
+.mat-mdc-dialog-surface {
+  border: 1px solid var(--ds-border) !important;
+  border-radius: var(--ds-radius-lg) !important;
+  box-shadow: var(--ds-shadow-lg) !important;
+}
+
+/* dialog inner wrappers should not re-introduce a light bg */
+.mat-mdc-dialog-surface .container,
+.mat-mdc-dialog-surface [mat-dialog-content],
+.mat-mdc-dialog-surface .wizard-content,
+.mat-dialog-container .container {
+  background: transparent !important;
+  color: var(--ds-text) !important;
+}
+
+.dialog-title, .dialog-close-btn, .wizard-text, [mat-dialog-content] p, [mat-dialog-content] label {
+  color: var(--ds-text) !important;
+}
+
+/* mat checkbox label + select trigger text in dialogs */
+.mat-mdc-dialog-surface .mdc-label, .mat-mdc-dialog-surface .mat-mdc-select-value {
+  color: var(--ds-text) !important;
+}
 /*!*********************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[5].rules[0].oneOf[0].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[5].rules[0].oneOf[0].use[2]!./node_modules/uplot/dist/uPlot.min.css?ngGlobalStyle ***!
   \*********************************************************************************************************************************************************************************************************************************************/
