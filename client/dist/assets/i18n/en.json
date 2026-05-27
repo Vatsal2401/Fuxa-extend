@@ -1224,6 +1224,8 @@
     "devices.list-status": "Status",
 
     "users.list-title": "Users settings",
+    "users.list-subtitle": "Manage user accounts and roles",
+    "users.add": "Add User",
     "users.list-name": "Username",
     "users.list-fullname": "Full Name",
     "users.list-groups": "Groups",
@@ -1588,6 +1590,8 @@
     "client.script-access-info": "Configure access to system functions from the frontend (e.g. widgets) via window.fuxaScriptAPI.",
 
     "reports.list-title": "Reports settings",
+    "reports.list-subtitle": "Scheduled and on-demand reports",
+    "reports.add": "New Report",
     "reports.list-name": "Name",
     "reports.list-type": "Type",
     "reports.list-receiver": "Receiver",
@@ -1705,6 +1709,7 @@
     "ar.marker-property-generate": "Generate marker",
 
     "logs.view-title": "System Logs",
+    "logs.view-subtitle": "System and event logs",
     "logs.view-files": "Logs files",
 
     "events.view-ontime": "Date/Time",

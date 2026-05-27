@@ -1,7 +1,8 @@
-<div class="header-panel">
-    <mat-icon>people</mat-icon>
-	{{'users.list-title' | translate}}
-</div>
+<ds-page-header [title]="'users.list-title' | translate" [subtitle]="'users.list-subtitle' | translate">
+    <button mat-raised-button color="primary" (click)="onAddUser()">
+        <mat-icon>person_add</mat-icon><span>{{'users.add' | translate}}</span>
+    </button>
+</ds-page-header>
 <div class="work-panel">
 	<div class="container">
 		<mat-table #table [dataSource]="dataSource" matSort>

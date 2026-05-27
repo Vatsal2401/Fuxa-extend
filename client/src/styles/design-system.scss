@@ -400,3 +400,22 @@ input.color-picker-input {
 }
 .svg-workarea-leftbar-h:hover { color: var(--ds-text) !important; }
 .leftbar-edit-btn:hover, .svg-workarea-leftbar-h .mat-icon:hover { color: var(--ds-brand) !important; }
+
+/* ============================================================
+   Operator data pages — when a ds-page-header precedes the legacy
+   absolute .work-panel (top:37px), offset it below the header.
+   One rule covers logs/reports/users/etc.
+   ============================================================ */
+ds-page-header { display: block; padding: var(--ds-sp-2) var(--ds-sp-5) 0; }
+ds-page-header + .work-panel {
+  top: 96px !important;
+  height: calc(100% - 112px) !important;
+  left: var(--ds-sp-5) !important;
+  right: var(--ds-sp-5) !important;
+  border: 1px solid var(--ds-border);
+  border-radius: var(--ds-radius-lg);
+  background: var(--ds-surface);
+  overflow: auto;
+  box-shadow: var(--ds-shadow-md);
+}
+ds-page-header + .work-panel .container { background: transparent !important; }

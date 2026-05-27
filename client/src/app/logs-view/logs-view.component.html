@@ -1,6 +1,4 @@
-<div class="header-panel">
-    {{'logs.view-title' | translate}}
-</div>
+<ds-page-header [title]="'logs.view-title' | translate" [subtitle]="'logs.view-subtitle' | translate"></ds-page-header>
  <div class="work-panel" #workPanel *ngIf="tableView">
     <mat-table #table [dataSource]="dataSource" matSort>
         <ng-container matColumnDef="ontime">
