@@ -5,6 +5,7 @@ import { BrowserModule, DomSanitizer } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClient, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { MaterialModule } from './material.module';
+import { SharedUiModule } from './shared/ui/shared-ui.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ColorPickerModule } from 'ngx-color-picker';
 
@@ -437,6 +438,7 @@ export const myCustomTooltipDefaults: MatTooltipDefaultOptions = {
         ReactiveFormsModule,
         routing,
         MaterialModule,
+        SharedUiModule,
         BrowserAnimationsModule,
         ColorPickerModule,
         AngularDraggableModule,

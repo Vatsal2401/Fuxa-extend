@@ -11,13 +11,13 @@
     }
 
     .work-editor {
-        background-color: #FFFFFF;
+        background-color: var(--ds-bg, #FFFFFF);
         height: calc(100% - (46px));
         min-width: 800px;
     }
 
     .work-home {
-        background-color: #FFFFFF;
+        background-color: var(--ds-bg, #FFFFFF);
         height: 100%;
         min-width: 640px;
     }

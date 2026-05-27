@@ -1,12 +1,28 @@
-<div class="header-panel">
-    <div *ngIf="showType === alarmShowType.alarms">
-        {{'alarms.view-title' | translate}}
-    </div>
-    <div *ngIf="showType === alarmShowType.history">
-        {{'alarms.history-title' | translate}}
-    </div>
+<!-- Full-page header (operator view). Hidden when embedded in a view container. -->
+<ds-page-header *ngIf="!showInContainer"
+    [title]="(showType === alarmShowType.history ? 'alarms.history-title' : 'alarms.view-title') | translate"
+    [subtitle]="'alarms.view-subtitle' | translate">
+    <button mat-stroked-button (click)="onAckAllAlarm()" matTooltip="{{'alarms.view-ack-all-alarms' | translate}}">
+        <mat-icon>check_circle_outline</mat-icon>
+        <span>{{'alarms.view-ack-all-alarms' | translate}}</span>
+    </button>
+    <button mat-stroked-button (click)="onShowAlarms()" [class.ds-active]="showType === alarmShowType.alarms">
+        {{'alarms.show-current' | translate}}
+    </button>
+    <button mat-stroked-button (click)="picker.open()" [class.ds-active]="showType === alarmShowType.history">
+        {{'alarms.show-history' | translate}}
+    </button>
+</ds-page-header>
+
+<!-- Compact title only when embedded as a widget -->
+<div class="header-panel" *ngIf="showInContainer">
+    <div *ngIf="showType === alarmShowType.alarms">{{'alarms.view-title' | translate}}</div>
+    <div *ngIf="showType === alarmShowType.history">{{'alarms.history-title' | translate}}</div>
 </div>
-<div class="work-panel" [ngStyle]="{'height': (!showInContainer && (fullview || currentShowMode === 'expand')) ? 'calc(100% - 83px)' : 'calc(100% - 37px)'}">
+
+<div class="work-panel" [class.embedded]="showInContainer"
+     [ngStyle]="{'height': (!showInContainer && (fullview || currentShowMode === 'expand')) ? 'calc(100% - 83px)' : 'calc(100% - 37px)'}">
+  <ds-card class="alarm-card" [flat]="showInContainer">
     <div class="table-container">
         <mat-table #table [dataSource]="dataSource" matSort>
             <ng-container matColumnDef="ontime">
@@ -27,7 +43,9 @@
             </ng-container>
             <ng-container matColumnDef="status">
                 <mat-header-cell *matHeaderCellDef mat-sort-header> {{'alarms.view-status' | translate}} </mat-header-cell>
-                <mat-cell *matCellDef="let element" [style.color]="element.color"> {{element.status}} </mat-cell>
+                <mat-cell *matCellDef="let element">
+                    <span class="alarm-status-pill" [style.color]="element.color" [style.borderColor]="element.color">{{element.status}}</span>
+                </mat-cell>
             </ng-container>
             <ng-container matColumnDef="offtime">
                 <mat-header-cell *matHeaderCellDef mat-sort-header> {{'alarms.view-offtime' | translate}} </mat-header-cell>
@@ -81,8 +99,17 @@
             <mat-header-row *matHeaderRowDef="displayColumns; sticky: true" class="my-header-row"></mat-header-row>
             <mat-row *matRowDef="let element; columns: displayColumns;" class="my-mat-row" [style.background-color]="element.bkcolor"></mat-row>
         </mat-table>
+
+        <!-- Empty state -->
+        <ds-empty-state *ngIf="!alarmsLoading && dataSource && dataSource.data && dataSource.data.length === 0"
+            icon="notifications_none"
+            [title]="'alarms.view-empty-title' | translate"
+            [message]="'alarms.view-empty-message' | translate">
+        </ds-empty-state>
     </div>
     <mat-paginator [pageSizeOptions]="[10, 25, 100]" [pageSize]="25" class="table-pagination"></mat-paginator>
+  </ds-card>
+
     <div *ngIf="alarmsLoading" class="spinner-overlay">
         <mat-spinner style="margin: auto" diameter="40" class="spinner"></mat-spinner>
     </div>
