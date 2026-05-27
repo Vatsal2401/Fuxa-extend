@@ -302,7 +302,7 @@
     }
 
     #alarms-panel {
-        background: white;
+        background: var(--workPanelBackground, #0f1a2e);
         height: 300px;
         transition: bottom 300ms;
         width: 100%;

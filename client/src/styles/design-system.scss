@@ -234,3 +234,71 @@ router-outlet + * { animation: ds-fade-in var(--ds-dur-base) var(--ds-ease-out);
   background: linear-gradient(135deg, var(--ds-brand), var(--ds-brand-2)) !important;
   color: var(--ds-on-brand) !important;
 }
+
+/* ============================================================
+   Phase 6b — editor/property dialog form controls (catch-all)
+   Fixes white inputs/color-pickers in view & gauge property dialogs.
+   ============================================================ */
+.my-form-field input,
+.my-form-field textarea,
+.property-container input,
+.property-container textarea,
+.mat-dialog-container input[type="text"],
+.mat-dialog-container input[type="number"],
+.mat-mdc-dialog-container input[type="text"],
+.mat-mdc-dialog-container input[type="number"],
+.cdk-overlay-pane input[type="text"],
+.cdk-overlay-pane input[type="number"] {
+  background: var(--ds-surface-2) !important;
+  color: var(--ds-text) !important;
+  border: 1px solid var(--ds-border) !important;
+  border-radius: var(--ds-radius-xs) !important;
+}
+.my-form-field input:focus,
+.property-container input:focus,
+.cdk-overlay-pane input:focus {
+  border-color: var(--ds-brand) !important;
+  box-shadow: 0 0 0 2px rgba(var(--ds-brand-rgb), .3) !important;
+}
+
+/* color picker button/box → themed */
+.ngx-color-picker-btn,
+.color-picker .selected-color,
+input.color-picker-input {
+  background: var(--ds-surface-2) !important;
+  color: var(--ds-text) !important;
+  border: 1px solid var(--ds-border) !important;
+  box-shadow: none !important;
+}
+
+/* mat-select trigger inside dialogs → themed surface */
+.my-form-field .mat-mdc-select-trigger,
+.property-container .mat-mdc-select-trigger {
+  background: var(--ds-surface-2) !important;
+  border: 1px solid var(--ds-border) !important;
+  border-radius: var(--ds-radius-xs) !important;
+}
+
+/* editor ruler text + zoom footer legibility */
+.svg-editor-ruler, .ruler, #fuxa-upload-shape-btn { color: var(--ds-text); }
+
+/* ============================================================
+   Phase 6c — date-range picker + scheduler (token recolor)
+   ============================================================ */
+.md-drppicker {
+  background: var(--ds-surface-2) !important;
+  color: var(--ds-text) !important;
+  border: 1px solid var(--ds-border) !important;
+  border-radius: var(--ds-radius-md) !important;
+  box-shadow: var(--ds-shadow-lg) !important;
+  .calendar-table, table, td, th { background: transparent !important; color: var(--ds-text) !important; border-color: var(--ds-border) !important; }
+  td.available:hover, th.available:hover { background: rgba(var(--ds-brand-rgb), .16) !important; }
+  td.active, td.active:hover { background: var(--ds-brand) !important; color: var(--ds-on-brand) !important; }
+  td.off { color: var(--ds-text-muted) !important; opacity: .5; }
+  .btn, button { color: var(--ds-text); }
+  input { background: var(--ds-panel) !important; color: var(--ds-text) !important; border: 1px solid var(--ds-border) !important; }
+}
+.days-of-month-calendar, .months-row {
+  .month-btn, .day-btn { background: var(--ds-surface-2) !important; color: var(--ds-text) !important; border: 1px solid var(--ds-border) !important; }
+  .month-btn.selected, .day-btn.selected { background: var(--ds-brand) !important; color: var(--ds-on-brand) !important; }
+}
