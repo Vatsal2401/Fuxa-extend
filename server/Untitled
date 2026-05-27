@@ -1,0 +1,38 @@
+Transform the existing frontend of the FUXA application using advanced Angular frontend design practices. Redesign all pages and components with a modern, responsive, highly interactive, and production-grade UI/UX approach suitable for a cloud-based SaaS platform.
+
+Follow a scalable Design System architecture so the entire application maintains visual consistency, reusable component patterns, accessibility standards, spacing rules, typography hierarchy, color tokens, responsive breakpoints, and interaction behaviors across all modules.
+
+Key requirements:
+
+Completely modernize the current UI/UX without breaking existing functionality
+Use clean SaaS-style dashboard aesthetics with polished layouts and smooth interactions
+Ensure fully responsive behavior across desktop, tablet, and mobile devices
+Improve usability, navigation flow, visual hierarchy, and user engagement
+Introduce reusable Angular component patterns and centralized styling architecture
+Follow modern frontend standards:
+Design tokens
+Component-driven architecture
+Consistent spacing/grid system
+Typography scale
+Accessibility (WCAG)
+Dark/light theme readiness
+Scalable state-friendly UI patterns
+Create a unified Design System including:
+Buttons
+Forms
+Tables
+Cards
+Modals
+Navigation
+Charts
+Notifications
+Empty states
+Loading states
+Error states
+Add modern micro-interactions, hover states, transitions, animations, and interactive feedback where appropriate
+Optimize layouts and user flows specifically for cloud-hosted product experience
+Maintain developer-friendly and scalable Angular architecture for future expansion
+Ensure consistency across all existing and future pages by strictly following the defined design system patterns
+
+Objective:
+Transform the current FUXA frontend into a modern cloud-grade platform experience comparable to contemporary SaaS products while keeping the application scalable, maintainable, performant, and visually consistent.

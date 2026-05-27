@@ -1,0 +1,248 @@
+/* scada-theme.css — "ThermoGrid" dark glassmorphism theme for FUXA
+   Reverse-engineered from modern-scada-dashboard.html design tokens.
+   Injected globally (no Angular rebuild). Override-only, uses !important. */
+
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  --sc-bg:        #08111f;
+  --sc-surface:   rgba(15,26,46,.82);
+  --sc-surface-2: rgba(15,26,46,.92);
+  --sc-panel:     #0f1a2e;
+  --sc-border:    rgba(148,184,255,.16);
+  --sc-text:      #edf4ff;
+  --sc-muted:     #9db0cb;
+  --sc-primary:   #4c9fff;
+  --sc-primary-2: #1ed5ff;
+  --sc-success:   #29d391;
+  --sc-warning:   #ffb547;
+  --sc-danger:    #ff6b7d;
+  --sc-glow:      0 0 0 1px rgba(30,213,255,.16), 0 18px 55px rgba(12,26,59,.42);
+  --sc-radius:    16px;
+  --sc-font:      'Inter', 'Roboto', sans-serif;
+  --sc-display:   'Orbitron', 'Inter', sans-serif;
+}
+
+/* ---- base ---- */
+html, body {
+  background:
+    radial-gradient(circle at top left, rgba(28,124,255,.18), transparent 28%),
+    radial-gradient(circle at top right, rgba(30,213,255,.13), transparent 22%),
+    var(--sc-bg) !important;
+  color: var(--sc-text) !important;
+  font-family: var(--sc-font) !important;
+}
+.mat-typography, .mat-app-background, app-root, .home-body, .content,
+mat-sidenav-content, .mat-drawer-content, .mat-sidenav-content {
+  background: transparent !important;
+  color: var(--sc-text) !important;
+}
+
+/* ---- top header bar (home + general chrome) ---- */
+.header, mat-toolbar, .mat-toolbar {
+  background: rgba(8,17,31,.62) !important;
+  backdrop-filter: blur(18px) !important;
+  -webkit-backdrop-filter: blur(18px) !important;
+  border-bottom: 1px solid var(--sc-border) !important;
+  color: var(--sc-text) !important;
+  box-shadow: 0 8px 28px rgba(0,0,0,.35) !important;
+}
+.header *, .header-menu *, mat-toolbar * { color: var(--sc-text) !important; }
+
+/* ---- side navigation ---- */
+.sidenav, .sidenav-container, mat-sidenav, .mat-drawer, .mat-sidenav {
+  background: linear-gradient(180deg, rgba(15,26,46,.92), rgba(10,18,32,.92)) !important;
+  border-right: 1px solid var(--sc-border) !important;
+  color: var(--sc-text) !important;
+  backdrop-filter: blur(20px) !important;
+}
+.sidenav a, .sidenav .mat-list-item, .sidenav-container a { color: var(--sc-muted) !important; }
+.sidenav a:hover, .sidenav .active, .sidenav .mat-list-item:hover {
+  background: rgba(76,159,255,.12) !important;
+  color: var(--sc-text) !important;
+  border-radius: 12px !important;
+}
+
+/* ---- cards / panels / dialogs (glassmorphism) ---- */
+mat-card, .mat-card, .mat-mdc-card,
+mat-expansion-panel, .mat-expansion-panel,
+.mat-dialog-container, .mat-mdc-dialog-container, .mat-mdc-dialog-surface,
+.side-card, .panel {
+  background: var(--sc-surface) !important;
+  backdrop-filter: blur(18px) !important;
+  -webkit-backdrop-filter: blur(18px) !important;
+  border: 1px solid var(--sc-border) !important;
+  border-radius: var(--sc-radius) !important;
+  color: var(--sc-text) !important;
+  box-shadow: 0 18px 48px rgba(0,0,0,.4) !important;
+}
+.mat-expansion-panel-header, .mat-expansion-panel-header-title,
+.mat-expansion-panel-header-description { color: var(--sc-text) !important; }
+
+/* ---- buttons ---- */
+.main-btn, button.mat-raised-button, .mat-mdc-raised-button,
+button.mat-button, .mat-mdc-button, .mat-flat-button {
+  color: var(--sc-text) !important;
+  border-radius: 12px !important;
+}
+.mat-raised-button.mat-primary, .mat-mdc-raised-button.mat-primary,
+.action-btn.primary, button[color="primary"] {
+  background: linear-gradient(135deg, var(--sc-primary), var(--sc-primary-2)) !important;
+  color: #fff !important;
+  border: none !important;
+  box-shadow: var(--sc-glow) !important;
+}
+.main-btn:hover, .mat-mdc-button:hover, .mat-mdc-raised-button:hover {
+  background: rgba(76,159,255,.14) !important;
+}
+
+/* ---- inputs / selects ---- */
+input, textarea, .mat-input-element, .mat-mdc-input-element,
+.mat-select-value, .mat-mdc-select-value { color: var(--sc-text) !important; }
+.mat-form-field, .mat-mdc-form-field { color: var(--sc-muted) !important; }
+
+/* ---- tables (alarms etc.) ---- */
+table, .mat-table, .mat-mdc-table, mat-row, mat-header-row,
+th.mat-header-cell, td.mat-cell {
+  background: transparent !important;
+  color: var(--sc-text) !important;
+  border-color: var(--sc-border) !important;
+}
+th.mat-header-cell, .mat-mdc-header-cell { color: var(--sc-muted) !important; }
+
+/* ---- titles → display font ---- */
+h1, h2, h3, .title-wrap h2, .panel-head h3, .brand-text h1 {
+  font-family: var(--sc-display) !important;
+  letter-spacing: .04em !important;
+  color: var(--sc-text) !important;
+}
+
+/* ---- FUXA floating round menu button → neon accent ---- */
+.mat-fab, .mat-mdc-fab, button.mat-fab, .fuxa-fab,
+button[mattooltip="menu"], .leftbar-item-menu.header-menu .mat-fab {
+  background: linear-gradient(135deg, var(--sc-primary), var(--sc-primary-2)) !important;
+  color: #fff !important;
+  box-shadow: var(--sc-glow) !important;
+}
+
+/* ---- editor: dark workarea panels ---- */
+.svg-sidenav, .svg-workarea-leftbar-p, .svg-workarea-leftbar-h,
+.editor-toolbar, .rightbar, #svg_editor_container {
+  background: var(--sc-panel) !important;
+  color: var(--sc-text) !important;
+  border-color: var(--sc-border) !important;
+}
+
+/* ---- status / badge accents ---- */
+.alarm-color, .button-counter.alarm-color { color: var(--sc-danger) !important; }
+.info-color,  .button-counter.info-color  { color: var(--sc-primary-2) !important; }
+
+/* ---- themed scrollbars ---- */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: rgba(255,255,255,.03); }
+::-webkit-scrollbar-thumb { background: rgba(76,159,255,.35); border-radius: 999px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(76,159,255,.55); }
+
+/* ---- our custom upload button matches theme ---- */
+#fuxa-upload-shape-btn { font-family: var(--sc-font) !important; }
+
+/* ============================================================
+   PASS 2 — full coverage so nothing looks like stock FUXA
+   ============================================================ */
+
+/* ---- Material overlays: menus, selects, autocomplete, dropdowns ---- */
+.cdk-overlay-pane .mat-menu-panel, .cdk-overlay-pane .mat-mdc-menu-panel,
+.mat-select-panel, .mat-mdc-select-panel,
+.mat-autocomplete-panel, .mat-mdc-autocomplete-panel,
+.mat-datepicker-content, .mat-mdc-menu-content {
+  background: var(--sc-surface-2) !important;
+  color: var(--sc-text) !important;
+  border: 1px solid var(--sc-border) !important;
+  border-radius: 14px !important;
+  backdrop-filter: blur(20px) !important;
+  box-shadow: 0 24px 60px rgba(0,0,0,.55) !important;
+}
+.mat-menu-item, .mat-mdc-menu-item, .mat-option, .mat-mdc-option,
+.mat-menu-item .mat-icon, .mat-mdc-menu-item .mat-icon { color: var(--sc-text) !important; }
+.mat-menu-item:hover, .mat-mdc-menu-item:hover,
+.mat-option:hover, .mat-mdc-option:hover,
+.mat-option.mat-active, .mat-mdc-option.mdc-list-item--selected {
+  background: rgba(76,159,255,.16) !important;
+}
+
+/* ---- tooltips ---- */
+.mat-tooltip, .mat-mdc-tooltip, .mdc-tooltip__surface {
+  background: var(--sc-panel) !important;
+  color: var(--sc-text) !important;
+  border: 1px solid var(--sc-border) !important;
+  border-radius: 8px !important;
+}
+
+/* ---- form fields / inputs / labels ---- */
+.my-form-field span, .mat-form-field-label, .mat-mdc-form-field-label,
+mat-label, .mat-hint { color: var(--sc-muted) !important; }
+.my-form-field input, input, textarea, select {
+  background: rgba(255,255,255,.04) !important;
+  color: var(--sc-text) !important;
+  border: 1px solid var(--sc-border) !important;
+  border-radius: 8px !important;
+  padding: 6px 10px !important;
+}
+input:focus, textarea:focus, select:focus {
+  outline: none !important;
+  border-color: var(--sc-primary) !important;
+  box-shadow: 0 0 0 2px rgba(76,159,255,.25) !important;
+}
+.mat-form-field-underline, .mat-form-field-ripple,
+.mdc-line-ripple::before, .mdc-line-ripple::after { background-color: var(--sc-border) !important; }
+.mat-select-arrow, .mat-mdc-select-arrow, .mat-select-value-text { color: var(--sc-text) !important; }
+
+/* ---- tabs ---- */
+.mat-tab-label, .mat-mdc-tab .mdc-tab__text-label, .mat-tab-link { color: var(--sc-muted) !important; }
+.mat-tab-label-active, .mdc-tab--active .mdc-tab__text-label { color: var(--sc-text) !important; }
+.mat-ink-bar, .mdc-tab-indicator__content--underline { background-color: var(--sc-primary) !important; border-color: var(--sc-primary) !important; }
+.mat-tab-header, .mat-mdc-tab-header { border-bottom: 1px solid var(--sc-border) !important; }
+
+/* ---- toggles / checkboxes / radios / slide-toggle ---- */
+.mat-slide-toggle-bar { background-color: rgba(255,255,255,.18) !important; }
+.mat-slide-toggle.mat-checked .mat-slide-toggle-bar,
+.mdc-switch--selected .mdc-switch__track { background-color: rgba(41,211,145,.5) !important; }
+.mat-checkbox-checked .mat-checkbox-background,
+.mat-mdc-checkbox-checked .mdc-checkbox__background { background-color: var(--sc-primary) !important; }
+.mat-radio-checked .mat-radio-outer-circle { border-color: var(--sc-primary) !important; }
+.mat-radio-inner-circle { background-color: var(--sc-primary) !important; }
+
+/* ---- icons default to light ---- */
+.mat-icon, .material-icons, .header .mat-icon, mat-icon { color: var(--sc-text); }
+
+/* ---- mat list ---- */
+.mat-list-item, .mat-mdc-list-item, .mat-nav-list a { color: var(--sc-text) !important; }
+.mat-list-item:hover { background: rgba(76,159,255,.1) !important; }
+
+/* ---- paginator (alarms etc.) ---- */
+.mat-paginator, .mat-mdc-paginator { background: transparent !important; color: var(--sc-muted) !important; }
+
+/* ---- editor: top toolbar + bottom bar + context menu + panels ---- */
+.bottom-bar, .tools_panel, .leftbar-panel, .view-panel,
+.svg-workarea-contextmenu, .contextMenu, #tools_top, #tools_left, .toolbar_button {
+  background: var(--sc-panel) !important;
+  color: var(--sc-text) !important;
+  border-color: var(--sc-border) !important;
+}
+.svg-workarea-contextmenu li:hover, .contextMenu li:hover { background: rgba(76,159,255,.16) !important; }
+.icon-tool, .material-icon-tool { color: var(--sc-text) !important; }
+.svg-tool-button:hover { background: rgba(76,159,255,.16) !important; border-radius: 8px !important; }
+.svg-tool-active { background: rgba(76,159,255,.24) !important; border-radius: 8px !important; }
+.rightbar-input, .attr_changer { background: rgba(255,255,255,.05) !important; color: var(--sc-text) !important; border: 1px solid var(--sc-border) !important; }
+
+/* ---- snackbars ---- */
+.mat-snack-bar-container, .mat-mdc-snack-bar-container .mdc-snackbar__surface {
+  background: var(--sc-surface-2) !important; color: var(--sc-text) !important;
+  border: 1px solid var(--sc-border) !important; border-radius: 12px !important;
+}
+
+/* ---- expansion panel body padding nicer ---- */
+.mat-expansion-panel-body { color: var(--sc-text) !important; }
+
+/* ---- dialog titles use display font ---- */
+[mat-dialog-title], .mat-dialog-title, .mdc-dialog__title { font-family: var(--sc-display) !important; color: var(--sc-text) !important; }

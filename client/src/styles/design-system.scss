@@ -1,0 +1,166 @@
+/* =============================================================================
+   FUXA Design System — global application theming (token-driven, built).
+   Replaces the injected assets/theme/scada-theme.css overlay.
+   ============================================================================= */
+@use 'mixins' as *;
+@use 'tokens';
+
+/* ---- base ---- */
+html, body {
+  background: var(--ds-bg-grad) !important;
+  color: var(--ds-text);
+  font-family: var(--ds-font);
+  font-size: var(--ds-fs-base);
+  line-height: var(--ds-lh-normal);
+}
+* { @include themed-scrollbar; }
+
+.mat-typography, .mat-app-background, app-root, .home-body, .content,
+mat-sidenav-content, .mat-drawer-content, .mat-sidenav-content {
+  background: transparent !important;
+  color: var(--ds-text);
+}
+
+/* ---- header / toolbar ---- */
+.header, mat-toolbar, .mat-toolbar {
+  @include glass(rgba(8,17,31,.55));
+  border: none;
+  border-bottom: 1px solid var(--ds-border);
+  color: var(--ds-text) !important;
+  box-shadow: var(--ds-shadow-md);
+}
+.header *, .header-menu *, mat-toolbar * { color: var(--ds-text); }
+
+/* ---- side navigation ---- */
+.sidenav, .sidenav-container, mat-sidenav, .mat-drawer, .mat-sidenav {
+  background: linear-gradient(180deg, var(--ds-surface-2), var(--ds-panel)) !important;
+  border-right: 1px solid var(--ds-border) !important;
+  color: var(--ds-text);
+  backdrop-filter: blur(20px);
+}
+.sidenav a, .sidenav .mat-list-item, .sidenav-container a { color: var(--ds-text-muted); }
+.sidenav a:hover, .sidenav .active, .sidenav .mat-list-item:hover {
+  background: rgba(var(--ds-brand-rgb), .12) !important;
+  color: var(--ds-text) !important;
+  border-radius: var(--ds-radius-md);
+}
+
+/* ---- cards / panels / dialogs ---- */
+mat-card, .mat-card, .mat-mdc-card,
+mat-expansion-panel, .mat-expansion-panel,
+.mat-dialog-container, .mat-mdc-dialog-container, .mat-mdc-dialog-surface,
+.side-card, .panel {
+  @include card;
+}
+.mat-expansion-panel-header, .mat-expansion-panel-header-title,
+.mat-expansion-panel-header-description, .mat-expansion-panel-body { color: var(--ds-text) !important; }
+
+/* ---- buttons ---- */
+.main-btn, button.mat-raised-button, .mat-mdc-raised-button,
+button.mat-button, .mat-mdc-button, .mat-flat-button {
+  color: var(--ds-text);
+  border-radius: var(--ds-radius-md) !important;
+  transition: transform var(--ds-dur-fast) var(--ds-ease), background var(--ds-dur-base) var(--ds-ease);
+}
+.mat-raised-button.mat-primary, .mat-mdc-raised-button.mat-primary,
+.action-btn.primary, button[color="primary"] {
+  background: linear-gradient(135deg, var(--ds-brand), var(--ds-brand-2)) !important;
+  color: var(--ds-on-brand) !important;
+  border: none !important;
+  box-shadow: var(--ds-glow) !important;
+}
+.main-btn:hover, .mat-mdc-button:hover, .mat-mdc-raised-button:hover { transform: translateY(-1px); }
+.mat-fab, .mat-mdc-fab, button.mat-fab, .fuxa-fab, button[mattooltip="menu"] {
+  background: linear-gradient(135deg, var(--ds-brand), var(--ds-brand-2)) !important;
+  color: var(--ds-on-brand) !important;
+  box-shadow: var(--ds-glow) !important;
+}
+
+/* ---- inputs / form fields ---- */
+.my-form-field span, .mat-form-field-label, .mat-mdc-form-field-label, mat-label, .mat-hint { color: var(--ds-text-muted) !important; }
+.my-form-field input, input, textarea, select {
+  background: rgba(255,255,255,.04);
+  color: var(--ds-text);
+  border: 1px solid var(--ds-border);
+  border-radius: var(--ds-radius-xs);
+}
+input:focus, textarea:focus, select:focus { @include focus-ring; border-color: var(--ds-brand); }
+.mat-form-field-underline, .mat-form-field-ripple,
+.mdc-line-ripple::before, .mdc-line-ripple::after { background-color: var(--ds-border) !important; }
+.mat-select-arrow, .mat-mdc-select-arrow, .mat-select-value-text,
+.mat-input-element, .mat-mdc-input-element, .mat-select-value, .mat-mdc-select-value { color: var(--ds-text) !important; }
+
+/* ---- Material overlays: menus, selects, autocomplete, tooltips ---- */
+.cdk-overlay-pane .mat-menu-panel, .cdk-overlay-pane .mat-mdc-menu-panel,
+.mat-select-panel, .mat-mdc-select-panel,
+.mat-autocomplete-panel, .mat-mdc-autocomplete-panel,
+.mat-datepicker-content, .mat-mdc-menu-content {
+  background: var(--ds-surface-2) !important;
+  color: var(--ds-text) !important;
+  border: 1px solid var(--ds-border) !important;
+  border-radius: var(--ds-radius-md) !important;
+  box-shadow: var(--ds-shadow-lg) !important;
+}
+.mat-menu-item, .mat-mdc-menu-item, .mat-option, .mat-mdc-option,
+.mat-menu-item .mat-icon, .mat-mdc-menu-item .mat-icon { color: var(--ds-text) !important; }
+.mat-menu-item:hover, .mat-mdc-menu-item:hover, .mat-option:hover, .mat-mdc-option:hover,
+.mat-option.mat-active, .mat-mdc-option.mdc-list-item--selected { background: rgba(var(--ds-brand-rgb), .16) !important; }
+.mat-tooltip, .mat-mdc-tooltip, .mdc-tooltip__surface {
+  background: var(--ds-panel) !important; color: var(--ds-text) !important;
+  border: 1px solid var(--ds-border) !important; border-radius: var(--ds-radius-xs) !important;
+}
+.cdk-overlay-dark-backdrop { background: var(--ds-overlay-scrim) !important; }
+
+/* ---- tabs ---- */
+.mat-tab-label, .mat-mdc-tab .mdc-tab__text-label, .mat-tab-link { color: var(--ds-text-muted) !important; }
+.mat-tab-label-active, .mdc-tab--active .mdc-tab__text-label { color: var(--ds-text) !important; }
+.mat-ink-bar, .mdc-tab-indicator__content--underline { background-color: var(--ds-brand) !important; border-color: var(--ds-brand) !important; }
+.mat-tab-header, .mat-mdc-tab-header { border-bottom: 1px solid var(--ds-border) !important; }
+
+/* ---- toggles / checkboxes / radios ---- */
+.mat-slide-toggle.mat-checked .mat-slide-toggle-bar, .mdc-switch--selected .mdc-switch__track { background-color: rgba(var(--ds-brand-rgb), .5) !important; }
+.mat-checkbox-checked .mat-checkbox-background, .mat-mdc-checkbox-checked .mdc-checkbox__background { background-color: var(--ds-brand) !important; }
+.mat-radio-checked .mat-radio-outer-circle { border-color: var(--ds-brand) !important; }
+.mat-radio-inner-circle { background-color: var(--ds-brand) !important; }
+
+/* ---- tables ---- */
+table, .mat-table, .mat-mdc-table, mat-row, mat-header-row, th.mat-header-cell, td.mat-cell {
+  background: transparent !important; color: var(--ds-text); border-color: var(--ds-border) !important;
+}
+th.mat-header-cell, .mat-mdc-header-cell { color: var(--ds-text-muted) !important; }
+.mat-paginator, .mat-mdc-paginator { background: transparent !important; color: var(--ds-text-muted) !important; }
+
+/* ---- icons / lists ---- */
+.mat-icon, .material-icons, mat-icon { color: var(--ds-text); }
+.mat-list-item, .mat-mdc-list-item, .mat-nav-list a { color: var(--ds-text); }
+
+/* ---- titles → display font ---- */
+h1, h2, h3, .title-wrap h2, .panel-head h3, .brand-text h1, [mat-dialog-title], .mat-dialog-title, .mdc-dialog__title {
+  font-family: var(--ds-font-display); letter-spacing: .04em; color: var(--ds-text);
+}
+
+/* ---- snackbar ---- */
+.mat-snack-bar-container, .mat-mdc-snack-bar-container .mdc-snackbar__surface {
+  background: var(--ds-surface-2) !important; color: var(--ds-text) !important;
+  border: 1px solid var(--ds-border) !important; border-radius: var(--ds-radius-md) !important;
+}
+
+/* ---- editor chrome (canvas itself is external) ---- */
+.svg-sidenav, .svg-workarea-leftbar-p, .svg-workarea-leftbar-h, .editor-toolbar, .rightbar,
+#svg_editor_container, .bottom-bar, .tools_panel, .leftbar-panel, .view-panel,
+.svg-workarea-contextmenu, .contextMenu {
+  background: var(--ds-panel) !important; color: var(--ds-text) !important; border-color: var(--ds-border) !important;
+}
+.icon-tool, .material-icon-tool { color: var(--ds-text) !important; }
+.svg-tool-button:hover { background: rgba(var(--ds-brand-rgb), .16) !important; border-radius: var(--ds-radius-xs); }
+.svg-tool-active { background: rgba(var(--ds-brand-rgb), .24) !important; border-radius: var(--ds-radius-xs); }
+.rightbar-input, .attr_changer { background: rgba(255,255,255,.05) !important; color: var(--ds-text) !important; border: 1px solid var(--ds-border) !important; }
+
+/* ---- status accents ---- */
+.alarm-color, .button-counter.alarm-color { color: var(--ds-danger) !important; }
+.info-color, .button-counter.info-color { color: var(--ds-info) !important; }
+
+/* ---- reduced motion ---- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+}
