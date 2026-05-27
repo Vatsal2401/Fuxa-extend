@@ -5687,25 +5687,71 @@ input.color-picker-input {
    The fixed header-panel was getting covered / icons invisible.
    ============================================================ */
 .header-panel, .header-right {
-  background: var(--headerBackground, #0b1626) !important;
+  /* one cohesive 36px top bar, aligned with the svg-editor #tools_top (also 36px) */
+  height: 36px !important;
+  background: linear-gradient(180deg, #0e1c33, #0a1424) !important;
   color: #edf4ff !important;
   z-index: 100001 !important; /* above svg-editor toolbar (z up to 99999) */
   display: flex !important;
   align-items: center;
-  border-bottom: 1px solid var(--ds-border);
+  gap: 4px;
+  padding: 0 6px !important;
+  border-bottom: 1px solid var(--ds-border) !important;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.35);
 }
 
-.header-panel .main-btn, .header-right .main-btn,
-.header-panel .mat-mdc-button, .header-right .mat-mdc-button,
+.header-panel {
+  border-right: 1px solid var(--ds-border) !important;
+} /* divider into the svg toolbar */
+/* polished, consistent toolbar buttons */
+.header-panel .main-btn, .header-right .main-btn {
+  height: 28px !important;
+  width: 28px !important;
+  min-width: 28px !important;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px !important;
+  color: #cdd9ee !important;
+  transition: background var(--ds-dur-base) var(--ds-ease), color var(--ds-dur-base) var(--ds-ease), transform var(--ds-dur-fast) var(--ds-ease);
+}
+
 .header-panel mat-icon, .header-right mat-icon,
 .header-panel .mat-icon, .header-right .mat-icon {
-  color: #edf4ff !important;
+  color: inherit !important;
+  font-size: 20px !important;
+  width: 20px;
+  height: 20px;
+  line-height: 20px !important;
   opacity: 1 !important;
   visibility: visible !important;
 }
 
 .header-panel .main-btn:hover, .header-right .main-btn:hover {
-  background: rgba(var(--ds-brand-rgb), 0.18) !important;
+  background: rgba(var(--ds-brand-rgb), 0.2) !important;
+  color: #ffffff !important;
+  transform: translateY(-1px);
+}
+
+.header-panel .main-btn:active, .header-right .main-btn:active {
+  transform: translateY(0);
+}
+
+/* editor left-panel section headers (Views/General/Controls…) — cleaner */
+.svg-workarea-leftbar-h {
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 11px !important;
+  font-weight: 600;
+  color: var(--ds-text-muted) !important;
+}
+
+.svg-workarea-leftbar-h:hover {
+  color: var(--ds-text) !important;
+}
+
+.leftbar-edit-btn:hover, .svg-workarea-leftbar-h .mat-icon:hover {
+  color: var(--ds-brand) !important;
 }
 /*!*********************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[5].rules[0].oneOf[0].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[5].rules[0].oneOf[0].use[2]!./node_modules/uplot/dist/uPlot.min.css?ngGlobalStyle ***!
