@@ -5180,12 +5180,12 @@ mat-sidenav-content, .mat-drawer-content, .mat-sidenav-content {
   color: var(--ds-text);
 }
 
-/* ---- header / toolbar ---- */
+/* ---- header / toolbar ----
+   NOTE: no backdrop-filter/transform here — `<app-header class="header">`
+   contains position:fixed children (.header-panel), and a filter on an
+   ancestor would break their fixed positioning (hide the Save/Edit/Help bar). */
 .header, mat-toolbar, .mat-toolbar {
-  background: rgba(8, 17, 31, 0.55);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-  border: 1px solid var(--ds-border);
+  background: rgba(8, 17, 31, 0.92);
   border: none;
   border-bottom: 1px solid var(--ds-border);
   color: var(--ds-text) !important;
@@ -5680,6 +5680,32 @@ input.color-picker-input {
 /* mat checkbox label + select trigger text in dialogs */
 .mat-mdc-dialog-surface .mdc-label, .mat-mdc-dialog-surface .mat-mdc-select-value {
   color: var(--ds-text) !important;
+}
+
+/* ============================================================
+   Phase 6e — editor app-header (Save / Edit Project / Help) visibility
+   The fixed header-panel was getting covered / icons invisible.
+   ============================================================ */
+.header-panel, .header-right {
+  background: var(--headerBackground, #0b1626) !important;
+  color: #edf4ff !important;
+  z-index: 100001 !important; /* above svg-editor toolbar (z up to 99999) */
+  display: flex !important;
+  align-items: center;
+  border-bottom: 1px solid var(--ds-border);
+}
+
+.header-panel .main-btn, .header-right .main-btn,
+.header-panel .mat-mdc-button, .header-right .mat-mdc-button,
+.header-panel mat-icon, .header-right mat-icon,
+.header-panel .mat-icon, .header-right .mat-icon {
+  color: #edf4ff !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+.header-panel .main-btn:hover, .header-right .main-btn:hover {
+  background: rgba(var(--ds-brand-rgb), 0.18) !important;
 }
 /*!*********************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[5].rules[0].oneOf[0].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[5].rules[0].oneOf[0].use[2]!./node_modules/uplot/dist/uPlot.min.css?ngGlobalStyle ***!
