@@ -5490,6 +5490,67 @@ h1, h2, h3, .title-wrap h2, .panel-head h3, .brand-text h1, [mat-dialog-title], 
 .content > router-outlet + *, .page-content {
   display: block;
 }
+
+/* ============================================================
+   Phase 4/6 — page polish, responsive, micro-interactions, a11y
+   ============================================================ */
+/* Card / tile hover lift (device tiles, list cards) */
+mat-card:hover, .mat-card:hover, .ngx-device:hover, .device-item:hover {
+  box-shadow: var(--ds-shadow-lg);
+}
+
+/* Responsive: tables scroll horizontally instead of breaking layout on small screens */
+.mat-table, .mat-mdc-table, table {
+  width: 100%;
+}
+
+.table-wrapper, .mat-table-container, .data-table-wrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Routed settings pages: keep content readable + breathing room on large screens */
+.work-panel, .work-container, .settings-content, .page-content {
+  padding: var(--ds-sp-5);
+}
+
+/* Mobile: drawer-style sidenav already (mode=over); ensure full-height + shadow */
+@media (max-width: 904px) {
+  mat-sidenav, .mat-sidenav {
+    box-shadow: var(--ds-shadow-lg);
+  }
+  .header-panel, .header-right {
+    gap: var(--ds-sp-1);
+  }
+}
+/* Visible keyboard focus for interactive elements (WCAG) */
+a:focus-visible, button:focus-visible, [tabindex]:focus-visible,
+.mat-mdc-button:focus-visible, .mat-icon-button:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--ds-bg), 0 0 0 4px rgba(var(--ds-brand-rgb), 0.6);
+  border-radius: var(--ds-radius-xs);
+}
+
+/* Smooth route/content fade */
+router-outlet + * {
+  animation: ds-fade-in var(--ds-dur-base) var(--ds-ease-out);
+}
+
+@keyframes ds-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+/* FUXA "+" add FAB (device/connections) → brand */
+.add-button, .fab-add, button.mat-fab.add {
+  background: linear-gradient(135deg, var(--ds-brand), var(--ds-brand-2)) !important;
+  color: var(--ds-on-brand) !important;
+}
 /*!*********************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[5].rules[0].oneOf[0].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[5].rules[0].oneOf[0].use[2]!./node_modules/uplot/dist/uPlot.min.css?ngGlobalStyle ***!
   \*********************************************************************************************************************************************************************************************************************************************/
