@@ -5440,6 +5440,56 @@ h1, h2, h3, .title-wrap h2, .panel-head h3, .brand-text h1, [mat-dialog-title], 
     transition-duration: 0.01ms !important;
   }
 }
+/* ============================================================
+   Phase 3 — App shell polish (sidenav nav + login)
+   Structural/interaction styling (colors stay project-configurable).
+   ============================================================ */
+/* Sidenav navigation items: modern hover/active, spacing, transitions */
+.sidenav-menu {
+  padding: var(--ds-sp-2);
+}
+.sidenav-menu .sidenav-header {
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  opacity: 0.9;
+}
+.sidenav-menu .sidenav-btn {
+  width: 100%;
+  justify-content: flex-start;
+  gap: var(--ds-sp-3);
+  border-radius: var(--ds-radius-md) !important;
+  transition: background var(--ds-dur-base) var(--ds-ease), transform var(--ds-dur-fast) var(--ds-ease);
+}
+.sidenav-menu .sidenav-btn:hover {
+  background: rgba(var(--ds-brand-rgb), 0.14) !important;
+  transform: translateX(2px);
+}
+.sidenav-menu .mat-list-item {
+  border-radius: var(--ds-radius-md);
+  margin: 2px 0;
+}
+.sidenav-menu .submenu-list {
+  margin-left: var(--ds-sp-3);
+  border-left: 1px solid var(--ds-border);
+}
+.sidenav-menu mat-icon {
+  transition: transform var(--ds-dur-base) var(--ds-ease);
+}
+
+/* Login card */
+.login-container .my-form-field span, form[novalidate] .my-form-field span, .mat-dialog-content form .my-form-field span {
+  display: block;
+  margin-bottom: 4px;
+  font-size: var(--ds-fs-xs);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ds-text-muted);
+}
+
+/* Generic page padding for routed settings pages so content breathes */
+.content > router-outlet + *, .page-content {
+  display: block;
+}
 /*!*********************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[5].rules[0].oneOf[0].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[5].rules[0].oneOf[0].use[2]!./node_modules/uplot/dist/uPlot.min.css?ngGlobalStyle ***!
   \*********************************************************************************************************************************************************************************************************************************************/

@@ -164,3 +164,31 @@ h1, h2, h3, .title-wrap h2, .panel-head h3, .brand-text h1, [mat-dialog-title], 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
 }
+
+/* ============================================================
+   Phase 3 — App shell polish (sidenav nav + login)
+   Structural/interaction styling (colors stay project-configurable).
+   ============================================================ */
+
+/* Sidenav navigation items: modern hover/active, spacing, transitions */
+.sidenav-menu {
+  padding: var(--ds-sp-2);
+  .sidenav-header { letter-spacing: .06em; text-transform: uppercase; opacity: .9; }
+  .sidenav-btn {
+    width: 100%; justify-content: flex-start; gap: var(--ds-sp-3);
+    border-radius: var(--ds-radius-md) !important;
+    transition: background var(--ds-dur-base) var(--ds-ease), transform var(--ds-dur-fast) var(--ds-ease);
+  }
+  .sidenav-btn:hover { background: rgba(var(--ds-brand-rgb), .14) !important; transform: translateX(2px); }
+  .mat-list-item { border-radius: var(--ds-radius-md); margin: 2px 0; }
+  .submenu-list { margin-left: var(--ds-sp-3); border-left: 1px solid var(--ds-border); }
+  mat-icon { transition: transform var(--ds-dur-base) var(--ds-ease); }
+}
+
+/* Login card */
+.login-container, form[novalidate], .mat-dialog-content form {
+  .my-form-field span { display:block; margin-bottom:4px; font-size: var(--ds-fs-xs); letter-spacing:.04em; text-transform:uppercase; color: var(--ds-text-muted); }
+}
+
+/* Generic page padding for routed settings pages so content breathes */
+.content > router-outlet + *, .page-content { display:block; }
