@@ -144,7 +144,7 @@
 			 #container
 			 (click)="checkToCloseSideNav()">
 			<!-- Welcome screen — shown only when no homeView is configured. -->
-			<div *ngIf="!homeView && !iframes?.length" class="brandx-welcome">
+			<div *ngIf="(!homeView?.id || showHomeLink) && !iframes?.length" class="brandx-welcome">
 				<div class="bw-hero">
 					<div class="bw-mark"><mat-icon>hub</mat-icon></div>
 					<h1 class="bw-title">Welcome to <span class="bw-brand">BrandX</span></h1>

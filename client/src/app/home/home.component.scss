@@ -329,8 +329,12 @@
    Token-driven so it flips between dark/light themes.
    ============================================================================= */
 .brandx-welcome {
-    position: absolute;
-    inset: 0;
+    /* Fill the container without depending on parent positioning — works inside
+       #container.home-container regardless of its display/positioning. */
+    display: block;
+    width: 100%;
+    min-height: 100%;
+    box-sizing: border-box;
     overflow: auto;
     padding: clamp(28px, 6vw, 64px) clamp(20px, 5vw, 56px);
     color: var(--ds-text);
