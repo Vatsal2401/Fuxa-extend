@@ -91,15 +91,22 @@ export class EditorDropService {
             // pushes onto the undo stack, auto-selects, and marks dirty — all for free.
             w.svgEditor.clickToSetMode(shape.name);
 
-            const fire = (type: 'mousedown' | 'mouseup') => {
+            // Size-based shapes (rect/circle/ellipse/custom) are drawn by the lib via
+            // mousedown → drag → mouseup. Firing down+up at ONE point makes a 0-size shape
+            // (or leaves the editor waiting for a second click). So we simulate a small
+            // drag: down at the drop point, move by a default size, then up — the shape is
+            // placed immediately at the drop location with a sensible default size.
+            const SIZE = 60;
+            const fire = (type: 'mousedown' | 'mousemove' | 'mouseup', px: number, py: number) => {
                 const ev = new MouseEvent(type, {
                     bubbles: true, cancelable: true, view: window,
-                    clientX: screenX, clientY: screenY, button: 0,
+                    clientX: px, clientY: py, button: 0, buttons: type === 'mouseup' ? 0 : 1,
                 });
                 svgRoot.dispatchEvent(ev);
             };
-            fire('mousedown');
-            fire('mouseup');
+            fire('mousedown', screenX, screenY);
+            fire('mousemove', screenX + SIZE, screenY + SIZE);
+            fire('mouseup',   screenX + SIZE, screenY + SIZE);
 
             // Reset mode so subsequent plain canvas clicks don't auto-place another shape.
             w.svgEditor.clickToSetMode('select');
