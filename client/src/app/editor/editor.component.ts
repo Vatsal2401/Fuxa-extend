@@ -1,9 +1,10 @@
 ﻿/* eslint-disable @angular-eslint/component-class-suffix */
-import { Component, Inject, OnInit, OnDestroy, AfterViewInit, ViewChild, ViewContainerRef, ComponentFactoryResolver, ElementRef } from '@angular/core';
+import { Component, Inject, OnInit, OnDestroy, AfterViewInit, ViewChild, ViewContainerRef, ComponentFactoryResolver, ElementRef, HostListener } from '@angular/core';
 import { ChangeDetectorRef } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { MatDialog as MatDialog, MatDialogRef as MatDialogRef, MAT_DIALOG_DATA as MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { MatDrawer } from '@angular/material/sidenav';
-import { Subject, Subscription, switchMap, takeUntil } from 'rxjs';
+import { Subject, Subscription, switchMap, takeUntil, debounceTime, distinctUntilChanged } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
 
 import { ProjectService, SaveMode } from '../_services/project.service';
@@ -119,6 +120,23 @@ export class EditorComponent implements OnInit, AfterViewInit, OnDestroy {
     svgViewType = ViewType.svg;
     mapsViewType = ViewType.maps;
     shapesGrps = [];
+
+    /* ---------- Symbol library search/filter ---------- */
+    symbolSearch = new FormControl('');
+    filteredShapesGrps: any[] = [];     // what the template renders
+    searching = false;                   // true while a query is active
+    searchResultCount = 0;
+    private prevPanelsState: any = null;  // remember collapse state to restore on clear
+    /** Aliases for abbreviated shape names so "diaphragm" matches "diaph", etc. */
+    private static readonly SYMBOL_ALIASES: { [k: string]: string } = {
+        diaph: 'diaphragm valve', eli: 'ellipse', poval: 'oval',
+        pumphidra: 'pump hydraulic', pumpjet: 'pump jet', pumpgear: 'pump gear',
+        pumpturbi: 'pump turbine', pumpcentri1: 'pump centrifugal', pumpcentri2: 'pump centrifugal',
+        centrifugal: 'centrifugal pump fan', fhpath: 'pencil freehand', fhrect: 'freehand rectangle',
+        looplimit: 'loop limit', prepara: 'preparation', trape: 'trapezoid',
+        offpage: 'off page connector', maninput: 'manual input', docu: 'document',
+        nosymbol: 'no entry blocking', star4: 'star four point', star5: 'star five point',
+    };
     private gaugesRef = {};
 
     private subscriptionSave: Subscription;
@@ -402,6 +420,76 @@ export class EditorComponent implements OnInit, AfterViewInit, OnDestroy {
             grps.push({ name: grpk, shapes: temp[grpk] });
         }),
         this.shapesGrps = grps;
+        // wire the live search once, then (re)apply current query to the new data
+        if (!this.symbolSearchSub) {
+            this.symbolSearchSub = this.symbolSearch.valueChanges
+                .pipe(debounceTime(150), distinctUntilChanged(), takeUntil(this.destroy$))
+                .subscribe((q: string) => this.applySymbolFilter(q || ''));
+        }
+        this.applySymbolFilter(this.symbolSearch.value || '');
+    }
+    private symbolSearchSub?: Subscription;
+
+    /** Normalise a shape name for matching: strip the typeId- prefix + append aliases. */
+    private symbolSearchText(shape: any, groupName: string): string {
+        const raw = (shape?.name || '').toLowerCase();
+        const noPrefix = raw.replace(/^[a-z0-9]+-/, '');        // 'shapes-rectangle' -> 'rectangle'
+        const alias = EditorComponent.SYMBOL_ALIASES[noPrefix] || '';
+        const cat = (groupName || '').toLowerCase();
+        return `${raw} ${noPrefix} ${alias} ${cat}`;
+    }
+
+    /** Live filter over the data-driven shape libraries. */
+    applySymbolFilter(query: string): void {
+        const q = (query || '').trim().toLowerCase();
+        if (!q) {
+            // restore: show everything, revert any auto-expansion
+            this.searching = false;
+            this.searchResultCount = 0;
+            this.filteredShapesGrps = this.shapesGrps;
+            if (this.prevPanelsState) {
+                this.panelsState = { ...this.panelsState, ...this.prevPanelsState };
+                this.prevPanelsState = null;
+            }
+            this.changeDetector.markForCheck?.();
+            return;
+        }
+        // remember collapse state once, so we can restore it when the search clears
+        if (!this.prevPanelsState) {
+            this.prevPanelsState = {};
+            this.shapesGrps.forEach(g => this.prevPanelsState[g.name] = this.panelsState[g.name]);
+        }
+        let count = 0;
+        this.filteredShapesGrps = this.shapesGrps
+            .map(grp => {
+                const shapes = grp.shapes.filter((s: any) => this.symbolSearchText(s, grp.name).includes(q));
+                if (shapes.length) {
+                    this.panelsState[grp.name] = true;     // auto-expand groups with matches
+                    count += shapes.length;
+                }
+                return { name: grp.name, shapes };
+            })
+            .filter(grp => grp.shapes.length > 0);          // hide zero-match groups
+        this.searching = true;
+        this.searchResultCount = count;
+        this.changeDetector.markForCheck?.();
+    }
+
+    /** Clear the search and restore the normal expanded/collapsed state. */
+    clearSymbolSearch(): void {
+        this.symbolSearch.setValue('');
+        this.applySymbolFilter('');
+    }
+
+    /** Press "/" to focus the symbol search (unless already typing in a field). */
+    @HostListener('document:keydown', ['$event'])
+    onEditorKeydown(e: KeyboardEvent): void {
+        if (e.key !== '/') { return; }
+        const t = e.target as HTMLElement;
+        const tag = (t?.tagName || '').toLowerCase();
+        if (tag === 'input' || tag === 'textarea' || t?.isContentEditable) { return; }
+        const input = document.getElementById('symbol-search-input') as HTMLInputElement | null;
+        if (input) { e.preventDefault(); input.focus(); }
     }
 
     /**

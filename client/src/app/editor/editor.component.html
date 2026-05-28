@@ -46,8 +46,23 @@
     <mat-drawer-container class="svg-workarea-container">
         <!-- LEFT BAR -->
         <mat-drawer mode="side" opened="true" class="svg-sidenav leave-header-area" disableClose>
+            <!-- Symbol library search/filter -->
+            <div class="symbol-search-bar">
+                <mat-icon class="symbol-search-icon">search</mat-icon>
+                <input id="symbol-search-input" type="text" autocomplete="off" spellcheck="false"
+                       [formControl]="symbolSearch"
+                       placeholder="{{'editor.symbol-search' | translate}}" />
+                <span class="symbol-search-count" *ngIf="searching">{{ searchResultCount }}</span>
+                <mat-icon class="symbol-search-clear" *ngIf="symbolSearch.value"
+                          (click)="clearSymbolSearch()" title="{{'general.clear' | translate}}">close</mat-icon>
+            </div>
+            <!-- Empty state -->
+            <div class="symbol-search-empty" *ngIf="searching && searchResultCount === 0">
+                <mat-icon>search_off</mat-icon>
+                <span>{{'editor.symbol-search-empty' | translate}}</span>
+            </div>
             <mat-accordion multi="true">
-                <mat-expansion-panel class="svg-workarea-leftbar-p" (opened)="panelsState.panelView=true;savePanelState()" (closed)="panelsState.panelView=false;savePanelState()"
+                <mat-expansion-panel class="svg-workarea-leftbar-p" (opened)="panelsState.panelView=true;savePanelState()" *ngIf="!searching" (closed)="panelsState.panelView=false;savePanelState()"
                     hideToggle="true" [expanded]="panelsState.panelView">
                     <mat-expansion-panel-header class="svg-workarea-leftbar-h">
                         <mat-panel-title>
@@ -74,7 +89,7 @@
                     </div>
                 </mat-expansion-panel>
                 <div *ngIf="editorMode === editorModeType.SVG">
-                    <mat-expansion-panel class="svg-workarea-leftbar-p" (opened)="panelsState.panelGeneral=true;savePanelState()"
+                    <mat-expansion-panel class="svg-workarea-leftbar-p" (opened)="panelsState.panelGeneral=true;savePanelState()" *ngIf="!searching"
                         (closed)="panelsState.panelGeneral=false;savePanelState()" hideToggle="true" [expanded]="panelsState.panelGeneral">
                         <mat-expansion-panel-header class="svg-workarea-leftbar-h">
                             <mat-panel-title>
@@ -120,7 +135,7 @@
                         </div>
                     </mat-expansion-panel>
                     <!-- CONTROLS  -->
-                    <mat-expansion-panel class="svg-workarea-leftbar-p" (opened)="panelsState.panelD=true;savePanelState()" (closed)="panelsState.panelD=false;savePanelState()"
+                    <mat-expansion-panel class="svg-workarea-leftbar-p" (opened)="panelsState.panelD=true;savePanelState()" *ngIf="!searching" (closed)="panelsState.panelD=false;savePanelState()"
                         hideToggle="true" [expanded]="panelsState.panelD">
                         <mat-expansion-panel-header class="svg-workarea-leftbar-h">
                             <mat-panel-title>
@@ -209,8 +224,8 @@
                             </div>
                         </div>
                     </mat-expansion-panel>
-                    <!-- SHAPES -->
-                    <mat-expansion-panel *ngFor="let shGrp of shapesGrps" class="svg-workarea-leftbar-p" (opened)="panelsState[shGrp.name]=true;savePanelState()"
+                    <!-- SHAPES (filtered live by the symbol search) -->
+                    <mat-expansion-panel *ngFor="let shGrp of filteredShapesGrps" class="svg-workarea-leftbar-p" (opened)="panelsState[shGrp.name]=true;savePanelState()"
                         (closed)="panelsState[shGrp.name]=false;savePanelState()" hideToggle="true" [expanded]="panelsState[shGrp.name]">
                         <mat-expansion-panel-header class="svg-workarea-leftbar-h">
                             <mat-panel-title>
@@ -228,7 +243,7 @@
                         </div>
                     </mat-expansion-panel>
                     <!-- WIDGETS -->
-                    <mat-expansion-panel class="svg-workarea-leftbar-p" (opened)="panelsState.panelWidgets=true;savePanelState()" (closed)="panelsState.panelWidgets=false;savePanelState()"
+                    <mat-expansion-panel class="svg-workarea-leftbar-p" (opened)="panelsState.panelWidgets=true;savePanelState()" *ngIf="!searching" (closed)="panelsState.panelWidgets=false;savePanelState()"
                         hideToggle="true" [expanded]="panelsState.panelWidgets">
                         <mat-expansion-panel-header class="svg-workarea-leftbar-h">
                             <mat-panel-title>
