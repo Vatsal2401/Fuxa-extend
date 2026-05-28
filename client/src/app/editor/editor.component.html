@@ -100,31 +100,31 @@
                         </mat-expansion-panel-header>
 
                         <div id="__tools_left" class="leftbar-panel h200">
-                            <div class="svg-tool-button" [ngClass]="{'svg-tool-active': isModeActive('select')}" [appSymbolTooltip]="{ name: ('editor.tools-select' | translate), category: ('editor.general' | translate), iconClass: 'icon-select' }" (click)="setMode('select')" [appPaletteDraggable]="'select'">
+                            <div class="svg-tool-button" [ngClass]="{'svg-tool-active': isModeActive('select')}" [appSymbolTooltip]="{ name: ('editor.tools-select' | translate), category: ('editor.general' | translate), materialIcon: 'open_with' }" (click)="setMode('select')" [appPaletteDraggable]="'select'">
                                 <span class="icon-select"></span>
                             </div>
-                            <div class="svg-tool-button" [ngClass]="{'svg-tool-active': isModeActive('fhpath')}" [appSymbolTooltip]="{ name: ('editor.tools-pencil' | translate), category: ('editor.general' | translate), iconClass: 'icon-pencil' }" (click)="setMode('fhpath')" [appPaletteDraggable]="'fhpath'">
+                            <div class="svg-tool-button" [ngClass]="{'svg-tool-active': isModeActive('fhpath')}" [appSymbolTooltip]="{ name: ('editor.tools-pencil' | translate), category: ('editor.general' | translate), materialIcon: 'edit' }" (click)="setMode('fhpath')" [appPaletteDraggable]="'fhpath'">
                                 <span class="icon-pencil"></span>
                             </div>
-                            <div class="svg-tool-button" [ngClass]="{'svg-tool-active': isModeActive('line')}" [appSymbolTooltip]="{ name: ('editor.tools-line' | translate), category: ('editor.general' | translate), iconClass: 'icon-line' }" (click)="setMode('line')" [appPaletteDraggable]="'line'">
+                            <div class="svg-tool-button" [ngClass]="{'svg-tool-active': isModeActive('line')}" [appSymbolTooltip]="{ name: ('editor.tools-line' | translate), category: ('editor.general' | translate), materialIcon: 'horizontal_rule' }" (click)="setMode('line')" [appPaletteDraggable]="'line'">
                                 <span class="icon-line"></span>
                             </div>
-                            <div class="svg-tool-button" [ngClass]="{'svg-tool-active': isModeActive('rect')}" [appSymbolTooltip]="{ name: ('editor.tools-rectangle' | translate), category: ('editor.general' | translate), iconClass: 'icon-rect' }" (click)="setMode('rect')" [appPaletteDraggable]="'rect'">
+                            <div class="svg-tool-button" [ngClass]="{'svg-tool-active': isModeActive('rect')}" [appSymbolTooltip]="{ name: ('editor.tools-rectangle' | translate), category: ('editor.general' | translate), materialIcon: 'crop_din' }" (click)="setMode('rect')" [appPaletteDraggable]="'rect'">
                                 <span class="icon-rect"></span>
                             </div>
-                            <div class="svg-tool-button" [ngClass]="{'svg-tool-active': isModeActive('circle')}" [appSymbolTooltip]="{ name: ('editor.tools-circle' | translate), category: ('editor.general' | translate), iconClass: 'icon-circle' }" (click)="setMode('circle')" [appPaletteDraggable]="'circle'">
+                            <div class="svg-tool-button" [ngClass]="{'svg-tool-active': isModeActive('circle')}" [appSymbolTooltip]="{ name: ('editor.tools-circle' | translate), category: ('editor.general' | translate), materialIcon: 'radio_button_unchecked' }" (click)="setMode('circle')" [appPaletteDraggable]="'circle'">
                                 <span class="icon-circle"></span>
                             </div>
-                            <div class="svg-tool-button" [ngClass]="{'svg-tool-active': isModeActive('ellipse')}" [appSymbolTooltip]="{ name: ('editor.tools-ellipse' | translate), category: ('editor.general' | translate), iconClass: 'icon-ellipse' }" (click)="setMode('ellipse')" [appPaletteDraggable]="'ellipse'">
+                            <div class="svg-tool-button" [ngClass]="{'svg-tool-active': isModeActive('ellipse')}" [appSymbolTooltip]="{ name: ('editor.tools-ellipse' | translate), category: ('editor.general' | translate), materialIcon: 'panorama_fish_eye' }" (click)="setMode('ellipse')" [appPaletteDraggable]="'ellipse'">
                                 <span class="icon-ellipse"></span>
                             </div>
-                            <div class="svg-tool-button" [ngClass]="{'svg-tool-active': isModeActive('path')}" [appSymbolTooltip]="{ name: ('editor.tools-path' | translate), category: ('editor.general' | translate), iconClass: 'icon-path' }" (click)="setMode('path')" [appPaletteDraggable]="'path'">
+                            <div class="svg-tool-button" [ngClass]="{'svg-tool-active': isModeActive('path')}" [appSymbolTooltip]="{ name: ('editor.tools-path' | translate), category: ('editor.general' | translate), materialIcon: 'gesture' }" (click)="setMode('path')" [appPaletteDraggable]="'path'">
                                 <span class="icon-path"></span>
                             </div>
-                            <div class="svg-tool-button" [ngClass]="{'svg-tool-active': isModeActive('text')}" [appSymbolTooltip]="{ name: ('editor.tools-text' | translate), category: ('editor.general' | translate), iconClass: 'icon-text' }" (click)="setMode('text')" [appPaletteDraggable]="'text'">
+                            <div class="svg-tool-button" [ngClass]="{'svg-tool-active': isModeActive('text')}" [appSymbolTooltip]="{ name: ('editor.tools-text' | translate), category: ('editor.general' | translate), materialIcon: 'text_fields' }" (click)="setMode('text')" [appPaletteDraggable]="'text'">
                                 <span class="icon-text"></span>
                             </div>
-                            <div class="svg-tool-button" [ngClass]="{'svg-tool-active': (isModeActive('image') || isModeActive('svg-image'))}" [appSymbolTooltip]="{ name: ('editor.tools-image' | translate), category: ('editor.general' | translate), iconClass: 'icon-image' }"
+                            <div class="svg-tool-button" [ngClass]="{'svg-tool-active': (isModeActive('image') || isModeActive('svg-image'))}" [appSymbolTooltip]="{ name: ('editor.tools-image' | translate), category: ('editor.general' | translate), materialIcon: 'image' }"
                                 (click)="imagefile.value = '';imagefile.click();">
                                 <span class="icon-image"></span>
                                 <input #imagefile type="file" style="display: none;" (change)="onSetImage($event)" accept="image/png|jpg|svg" />

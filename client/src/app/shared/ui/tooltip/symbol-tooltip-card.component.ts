@@ -68,7 +68,18 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
             background-repeat: no-repeat;
             filter: brightness(1.3);
         }
-        .sym-card__icon .icon-tool { font-size: 26px; color: #cfe3ff; }
+        /* Icon-class spans here are background-image sprites (not icon-font),
+           so they need explicit box + background sizing. The brightness filter
+           lifts the dark stroke colors so they read on the dark tooltip surface. */
+        .sym-card__icon .icon-tool {
+            display: block;
+            width: 36px; height: 36px;
+            background-size: 30px 30px;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: #cfe3ff;
+            filter: brightness(1.45) contrast(1.05);
+        }
         .sym-card__matico { font-size: 30px; width: 30px; height: 30px; color: #cfe3ff; }
         .sym-card__title-block { min-width: 0; }
         .sym-card__name {
