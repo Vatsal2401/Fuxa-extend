@@ -444,15 +444,16 @@ ds-page-header + .work-panel table { background: transparent !important; }
    #d0d0d0/#b0b0b0 rulers/panels). Override them to dark theme.
    ============================================================ */
 #workarea {
+  /* svg-editor lib hardcoded #a0a0a0; original top:36px assumed 15px ruler.
+     Hide the rulers (drawn on a <canvas> at init in the OLD light bg, can't be
+     restyled) and reclaim the strip so #workarea fills the editor area cleanly. */
   background-color: var(--ds-bg, #08111f) !important;
   border-color: var(--ds-border, rgba(148,184,255,.16)) !important;
+  top: 36px !important;   /* was already 36 in lib, but ensure no gap from rulers */
 }
 #rulers, #rulers > div, #ruler_corner, #ruler_x, #ruler_y {
-  background: var(--ds-panel, #0f1a2e) !important;
-  color: var(--ds-text-muted, #9db0cb) !important;
-  border-color: var(--ds-border, rgba(148,184,255,.16)) !important;
+  display: none !important;
 }
-#rulers canvas, #ruler_x canvas, #ruler_y canvas { background: transparent !important; filter: invert(.92) hue-rotate(180deg); }
 #svg_editor, #svgcanvas, #svgroot, .container_, #editor_pane {
   background-color: var(--ds-bg, #08111f) !important;
 }
