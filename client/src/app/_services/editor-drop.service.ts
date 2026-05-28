@@ -103,11 +103,26 @@ export class EditorDropService {
 
             // Reset mode so subsequent plain canvas clicks don't auto-place another shape.
             w.svgEditor.clickToSetMode('select');
+
+            // UX: drop confirmation pulse — a brand-blue ring expanding+fading at the
+            // exact drop point so the user sees where the shape landed.
+            this.emitDropPulse(screenX, screenY);
         } catch (e) {
             console.warn('[EditorDropService] placement failed', e);
         } finally {
             setTimeout(() => { this.placing = false; }, 100);
         }
         return true;
+    }
+
+    /** Visible confirmation: ring expands and fades at the drop point. */
+    private emitDropPulse(x: number, y: number): void {
+        const pulse = document.createElement('div');
+        pulse.className = 'ds-drop-pulse';
+        pulse.style.left = (x - 16) + 'px';
+        pulse.style.top  = (y - 16) + 'px';
+        document.body.appendChild(pulse);
+        // GC after the animation finishes (kept short — 600ms)
+        setTimeout(() => { pulse.parentNode?.removeChild(pulse); }, 700);
     }
 }

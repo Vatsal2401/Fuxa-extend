@@ -62,8 +62,9 @@ export class PaletteDraggableDirective implements OnInit, OnDestroy {
         e.dataTransfer?.setData('text/plain', this.mode);
         if (e.dataTransfer) { e.dataTransfer.effectAllowed = 'copy'; }
 
-        // Highlight the canvas as drop target
+        // Highlight the canvas as drop target + global drag-mode cues (cursor, invalid zones)
         document.getElementById('workarea')?.classList.add('ds-drop-zone-active');
+        document.body.classList.add('ds-dragging-shape');
 
         // Custom transparent ghost (the native drag image is hideous on dark themes)
         const src = this.el.nativeElement;
@@ -82,6 +83,7 @@ export class PaletteDraggableDirective implements OnInit, OnDestroy {
 
     private onDragEnd(e: DragEvent): void {
         document.getElementById('workarea')?.classList.remove('ds-drop-zone-active');
+        document.body.classList.remove('ds-dragging-shape');
         this.clearGhost();
         if (!this.mode) { return; }
         // dropEffect 'none' = user dropped outside any valid target / cancelled

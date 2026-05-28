@@ -650,11 +650,13 @@ export class EditorComponent implements OnInit, AfterViewInit, OnDestroy {
     onShapeDragStarted(): void {
         const workarea = document.getElementById('workarea');
         workarea?.classList.add('ds-drop-zone-active');
+        document.body.classList.add('ds-dragging-shape');     // global cursor + invalid-zone cues
     }
     /** Drag ends — clear highlight, then attempt placement at the drop screen-coords. */
     onShapeDragEnded(event: any, shape: any): void {
         const workarea = document.getElementById('workarea');
         workarea?.classList.remove('ds-drop-zone-active');
+        document.body.classList.remove('ds-dragging-shape');
         const p = event?.dropPoint;
         if (!p) { return; }                            // cancelled / Esc
         // CDK fires this even for tiny accidental drags (treated as clicks by the original

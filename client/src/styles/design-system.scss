@@ -560,3 +560,59 @@ html body #workarea { top: 36px !important; }
     object-fit: contain;
     filter: brightness(1.4);
 }
+
+/* ============================================================
+   Drag-and-drop UX polish — pulse, cursors, hover, invalid-drop
+   ============================================================ */
+
+/* ---- DROP CONFIRMATION PULSE (rendered at drop point) ---- */
+.ds-drop-pulse {
+    position: fixed;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(76, 159, 255, 0.0);
+    border: 2px solid rgba(76, 159, 255, 0.85);
+    box-shadow: 0 0 0 0 rgba(76, 159, 255, 0.45);
+    pointer-events: none;
+    z-index: 100050;
+    animation: ds-drop-pulse-anim 600ms cubic-bezier(.2, .6, .25, 1) forwards;
+}
+@keyframes ds-drop-pulse-anim {
+    0%   { transform: scale(0.5); opacity: 0.95; box-shadow: 0 0 0 0   rgba(76,159,255,.55); }
+    60%  { transform: scale(1.6); opacity: 0.55; box-shadow: 0 0 0 12px rgba(76,159,255,.10); }
+    100% { transform: scale(2.4); opacity: 0;    box-shadow: 0 0 0 20px rgba(76,159,255,0);   }
+}
+
+/* ---- CURSOR: "drop allowed" over canvas while a drag is active ---- */
+body.ds-dragging-shape #workarea,
+body.ds-dragging-shape #svgcanvas,
+body.ds-dragging-shape #svgcontent {
+    cursor: copy !important;
+}
+/* "Can't drop here" cursor over invalid zones while dragging */
+body.ds-dragging-shape .svg-sidenav,
+body.ds-dragging-shape .svg-workarea-leftbar-p,
+body.ds-dragging-shape .header,
+body.ds-dragging-shape .header-panel,
+body.ds-dragging-shape .header-right,
+body.ds-dragging-shape .bottom-bar {
+    cursor: not-allowed !important;
+}
+
+/* ---- PALETTE HOVER AFFORDANCE — subtle "I'm draggable" cue ---- */
+.svg-tool-button {
+    border-radius: 6px;
+    transition: transform var(--ds-dur-fast, 120ms) var(--ds-ease, ease),
+                background var(--ds-dur-base, 220ms) var(--ds-ease, ease),
+                box-shadow var(--ds-dur-base, 220ms) var(--ds-ease, ease);
+}
+.svg-tool-button:hover {
+    background: rgba(76, 159, 255, 0.10) !important;
+    box-shadow: inset 0 0 0 1px rgba(76, 159, 255, 0.28);
+    transform: translateY(-1px);
+}
+.svg-tool-button:active { transform: translateY(0); }
+
+/* ---- PREVENT BROWSER CONTEXT MENU during drag ---- */
+.svg-tool-button { -webkit-user-select: none; -ms-user-select: none; user-select: none; }
