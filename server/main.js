@@ -358,6 +358,16 @@ const allowCrossDomain = function (req, res, next) {
     next();
 };
 app.use(allowCrossDomain);
+// Disable caching of the SPA shell (index.html) — hashed JS/CSS files cache normally.
+// Without this, browsers cling to a stale index.html and load old bundle hashes.
+app.use((req, res, next) => {
+    if (req.path === '/' || req.path === '/index.html' || req.path.endsWith('/index.html')) {
+        res.set('Cache-Control', 'no-cache, no-store, must-revalidate');
+        res.set('Pragma', 'no-cache');
+        res.set('Expires', '0');
+    }
+    next();
+});
 app.use('/', express.static(settings.httpStatic));
 app.use('/home', express.static(settings.httpStatic));
 app.use('/home/:viewName', express.static(settings.httpStatic));
