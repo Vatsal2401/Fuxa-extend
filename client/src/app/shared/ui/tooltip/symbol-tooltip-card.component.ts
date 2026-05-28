@@ -15,8 +15,7 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
                 <div class="sym-card__icon"
                      [class.sym-card__icon--bg]="iconUrl"
                      [style.backgroundImage]="iconUrl ? 'url(' + iconUrl + ')' : null">
-                    <span *ngIf="iconClass && !iconUrl" [class]="'icon-tool ' + iconClass"></span>
-                    <mat-icon *ngIf="materialIcon && !iconUrl && !iconClass" class="sym-card__matico">{{ materialIcon }}</mat-icon>
+                    <mat-icon *ngIf="materialIcon && !iconUrl" class="sym-card__matico">{{ materialIcon }}</mat-icon>
                 </div>
                 <div class="sym-card__title-block">
                     <div class="sym-card__name">{{ name }}</div>
@@ -66,19 +65,7 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
             background-size: 38px 38px;
             background-position: center;
             background-repeat: no-repeat;
-            filter: brightness(1.3);
-        }
-        /* Icon-class spans here are background-image sprites (not icon-font),
-           so they need explicit box + background sizing. The brightness filter
-           lifts the dark stroke colors so they read on the dark tooltip surface. */
-        .sym-card__icon .icon-tool {
-            display: block;
-            width: 36px; height: 36px;
-            background-size: 30px 30px;
-            background-position: center;
-            background-repeat: no-repeat;
-            color: #cfe3ff;
-            filter: brightness(1.45) contrast(1.05);
+            filter: brightness(1.35) contrast(1.05);
         }
         .sym-card__matico { font-size: 30px; width: 30px; height: 30px; color: #cfe3ff; }
         .sym-card__title-block { min-width: 0; }
@@ -132,8 +119,16 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 export class SymbolTooltipCardComponent {
     @Input() name = '';
     @Input() category = '';
+    /**
+     * Icon source. Order of resolution: iconUrl → materialIcon.
+     *
+     * NOTE: do NOT add an "iconClass" input. The card renders via a CDK
+     * Overlay attached to <body>, so Angular's view-encapsulation-scoped
+     * .icon-X selectors (defined in editor.component.css) won't resolve
+     * here. Use iconUrl with the asset path (e.g. assets/images/bag.svg)
+     * for SVG-sprite icons, or materialIcon for Material glyphs.
+     */
     @Input() iconUrl?: string;
-    @Input() iconClass?: string;
     @Input() materialIcon?: string;
     @Input() tags: string[] = [];
     @Input() description?: string;

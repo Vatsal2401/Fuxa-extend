@@ -11,8 +11,9 @@ import { SymbolTooltipCardComponent } from './symbol-tooltip-card.component';
 export interface SymbolTooltipModel {
     name: string;
     category?: string;
+    /** Direct asset path (e.g. 'assets/images/bag.svg'). Renders via background-image. */
     iconUrl?: string;
-    iconClass?: string;
+    /** Material icon glyph name (e.g. 'edit', 'crop_din'). Renders as <mat-icon>. */
     materialIcon?: string;
     tags?: string[];
     description?: string;
@@ -100,7 +101,6 @@ export class SymbolTooltipDirective implements OnDestroy {
         c.name = this.model.name;
         c.category = this.model.category || '';
         c.iconUrl = this.model.iconUrl;
-        c.iconClass = this.model.iconClass;
         c.materialIcon = this.model.materialIcon;
         c.tags = this.model.tags || [];
         c.description = this.model.description;
