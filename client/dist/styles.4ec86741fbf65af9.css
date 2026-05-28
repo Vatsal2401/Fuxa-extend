@@ -6480,12 +6480,17 @@ html.theme-transitioning *::after {
    ============================================================================= */
 .header-right {
   gap: 8px !important;
-  padding: 0 18px 0 12px !important; /* breathing room from the right edge */
-  right: 0;
+  padding: 0 24px 0 12px !important; /* breathing room from the right edge */
+  right: 0 !important;
+  overflow: visible !important;
 }
 
 .header-right .header-help {
-  margin-right: 6px; /* extra space so BrandX Help isn't hugging the edge */
+  margin-right: 8px !important; /* extra space so the Help button isn't hugging the edge */
+}
+
+.header-right .header-help .main-btn {
+  padding: 0 10px !important; /* a touch more horizontal room around the icon+label */
 }
 
 .header-right .header-theme-toggle.mat-mdc-icon-button {
@@ -7342,4 +7347,4 @@ svg.leaflet-image-layer.leaflet-interactive path {
 .ng-resizable{position:relative}.ng-resizable-handle{position:absolute;font-size:0.1px;display:block;touch-action:none}.ng-resizable-handle.ng-resizable-e{cursor:e-resize;width:7px;right:-5px;height:100%;top:0}.ng-resizable-handle.ng-resizable-w{cursor:w-resize;width:7px;left:-5px;height:100%;top:0}.ng-resizable-handle.ng-resizable-s{cursor:s-resize;height:7px;bottom:-5px;width:100%;left:0}.ng-resizable-handle.ng-resizable-n{cursor:n-resize;height:7px;top:-5px;width:100%;left:0}.ng-resizable-handle.ng-resizable-se{cursor:se-resize;width:12px;height:12px;right:1px;bottom:1px}.ng-resizable-handle.ng-resizable-sw{cursor:sw-resize;width:12px;height:12px;left:1px;bottom:1px}.ng-resizable-handle.ng-resizable-ne{cursor:ne-resize;width:12px;height:12px;right:1px;top:1px}.ng-resizable-handle.ng-resizable-nw{cursor:nw-resize;width:12px;height:12px;left:1px;top:1px}.ng-resizable-diagonal{box-sizing:border-box;width:0;height:0;border-bottom:12px solid #aaa;border-left:12px solid transparent}
 
 
-/*# sourceMappingURL=styles.e70ea83835ee0772.css.map*/
+/*# sourceMappingURL=styles.4ec86741fbf65af9.css.map*/

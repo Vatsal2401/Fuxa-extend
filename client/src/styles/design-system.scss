@@ -907,11 +907,15 @@ html.theme-transitioning *::after {
    ============================================================================= */
 .header-right {
     gap: 8px !important;
-    padding: 0 18px 0 12px !important;     /* breathing room from the right edge */
-    right: 0;
+    padding: 0 24px 0 12px !important;     /* breathing room from the right edge */
+    right: 0 !important;
+    overflow: visible !important;
 }
 .header-right .header-help {
-    margin-right: 6px;                      /* extra space so BrandX Help isn't hugging the edge */
+    margin-right: 8px !important;          /* extra space so the Help button isn't hugging the edge */
+}
+.header-right .header-help .main-btn {
+    padding: 0 10px !important;            /* a touch more horizontal room around the icon+label */
 }
 .header-right .header-theme-toggle.mat-mdc-icon-button {
     flex: 0 0 36px;
