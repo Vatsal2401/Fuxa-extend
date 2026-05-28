@@ -179,13 +179,6 @@ export class EditorComponent implements OnInit, AfterViewInit, OnDestroy {
     ngAfterViewInit() {
         this.myInit();
         this.setMode('select');
-        // Move the svg-editor toolbar (#tools_top) into the app-header's middle slot
-        // so it sits as a real grid child alongside the brand cluster and the help cluster.
-        setTimeout(() => {
-            const toolsTop = document.getElementById('tools_top');
-            const slot = document.getElementById('header-tools-slot');
-            if (toolsTop && slot && toolsTop.parentElement !== slot) { slot.appendChild(toolsTop); }
-        }, 0);
         this.settingsService.loaded$.pipe(takeUntil(this.destroy$)).subscribe(loaded => {
             if (loaded) {
                 this.openOnboardingWizardIfNeeded();

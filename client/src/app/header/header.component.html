@@ -25,9 +25,6 @@
 
 </div>
 
-<!-- Middle column: editor's #tools_top is moved here at runtime by EditorComponent -->
-<div class="header-tools-slot" id="header-tools-slot" *ngIf="editorMode"></div>
-
 <div class="header-right" *ngIf="editorMode">
     <div class="header-help">
         <button mat-button title="{{'header.help' | translate}}" [matMenuTriggerFor]="helpmenu" class="main-btn labeled">

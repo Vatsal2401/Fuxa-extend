@@ -1,13 +1,8 @@
 :host {
-    /* Real CSS Grid layout: 3 explicit columns
-       ┌─────────────┬─────────────────────┬─────────────┐
-       │ .header-    │ .header-tools-slot  │ .header-    │
-       │  panel      │ (editor's #tools_top │  right      │
-       │ (brand)     │  is moved here)     │ (help)      │
-       └─────────────┴─────────────────────┴─────────────┘
-       Auto-sized brand | flexible tools | auto-sized help. */
-    display: grid;
-    grid-template-columns: auto 1fr auto;
+    /* App-header: brand cluster left, help cluster right (margin-left:auto pushes right).
+       The svg-editor toolbar (#tools_top) stays in the editor as its own row below — moving
+       it out of #svg_editor breaks the lib's drawing. Two stacked bars: header + svg toolbar. */
+    display: flex;
     align-items: center;
     width: 100%;
     height: 36px;
@@ -16,11 +11,7 @@
     position: relative;
     z-index: 99;
 
-    .header-panel       { grid-column: 1; }
-    .header-tools-slot  { grid-column: 2; position: relative; height: 36px; overflow: hidden; }
-    .header-right       { grid-column: 3; }
-
-    /* keep app-tutorial out of the grid layout (it's a popup, no layout cell needed) */
+    .header-right { margin-left: auto; }
     app-tutorial { position: absolute; left: 0; top: 0; }
 
     .header-panel {

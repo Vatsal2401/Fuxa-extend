@@ -352,16 +352,12 @@ html body [id$="_panel"]:not(.tabset-pane):not(#editor_panel) {
   border-color: rgba(148,184,255,.16) !important;
 }
 html body #tools_top {
-  /* #tools_top is moved into app-header's grid middle slot at runtime
-     (see EditorComponent.ngAfterViewInit). Inside the slot it just fills it. */
-  position: absolute !important;
-  top: 0 !important;
+  /* #tools_top stays in its natural location (absolute inside #svg_editor).
+     Two-row layout: app-header above, this svg toolbar below. No magic numbers. */
   left: 0 !important;
   right: 0 !important;
-  height: 36px !important;
-  z-index: auto !important;
   background-image: none !important;
-  overflow: hidden !important;
+  overflow: visible !important;
 }
 /* Trim svg-editor's internal margin before the play button */
 html body #tools_top > #editor_panel { padding-left: 8px !important; }
