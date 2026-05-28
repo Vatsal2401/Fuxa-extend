@@ -822,15 +822,23 @@ select#start_marker option[value="D"] {
 .symbol-search-empty mat-icon { font-size: 34px; width: 34px; height: 34px; opacity: 0.55; }
 
 /* =============================================================================
-   SIDEBAR REDESIGN — modern panel-based navigation
-   Senior-UX patterns from Figma / Linear / VS Code / Notion:
-   - clean section dividers (1px subtle border, no heavy shadows)
-   - proper 32px touch-target section headers
-   - typography: 11px semibold + .06em letter-spacing, refined hover state
-   - soft brand-tinted active/hover states with left accent stripe
-   - hover-reveal action buttons (cleaner default state)
-   - smooth 150ms transitions everywhere
+   SIDEBAR REDESIGN v2 — modern nav-style panels with brand-gradient highlight
+   Inspired by Linear / Stripe / contemporary dashboard nav patterns:
+   - the OUTER drawer becomes a glass card with rounded corners
+   - section headers are 40px nav rows with rounded pill containers
+   - the EXPANDED section gets a full brand-gradient bg + soft glow,
+     visually the same treatment a "selected" nav item would receive
+   - search field is a pill with focus glow
+   - sections separated by breathing room, not heavy dividers
    ============================================================================= */
+
+/* ---------- outer drawer surface ---------- */
+.svg-sidenav {
+    background: linear-gradient(180deg, var(--ds-surface-2), var(--ds-panel)) !important;
+    border-right: 1px solid var(--ds-border) !important;
+    padding: 8px 6px !important;
+    box-sizing: border-box;
+}
 
 /* ---------- section panel (mat-expansion-panel) ---------- */
 .svg-workarea-leftbar-p {
@@ -838,69 +846,87 @@ select#start_marker option[value="D"] {
     box-shadow: none !important;
     border: none !important;
     border-radius: 0 !important;
-    margin: 0 !important;
+    margin: 2px 0 !important;
 }
 
-/* ---------- section header (mat-expansion-panel-header) ---------- */
+/* ---------- section header — base state ---------- */
 .svg-workarea-leftbar-h {
-    max-height: 36px !important;
-    height: 36px !important;
+    max-height: 40px !important;
+    height: 40px !important;
     padding: 0 12px 0 10px !important;
-    border-top: 1px solid var(--ds-border) !important;
-    border-bottom: none !important;
-    box-shadow: none !important;       /* kill the legacy 0px 1px 3px #000 */
+    border: none !important;
+    border-radius: 10px !important;
     background: transparent !important;
     color: var(--ds-text-muted) !important;
-    transition: background var(--ds-dur-fast, 120ms) var(--ds-ease, ease),
-                color var(--ds-dur-fast, 120ms) var(--ds-ease, ease);
-}
-.svg-workarea-leftbar-h:hover {
-    background: rgba(var(--ds-brand-rgb), 0.06) !important;
-    color: var(--ds-text) !important;
+    box-shadow: none !important;
+    transition: background var(--ds-dur-base, 220ms) var(--ds-ease, ease),
+                color var(--ds-dur-base, 220ms) var(--ds-ease, ease),
+                box-shadow var(--ds-dur-base, 220ms) var(--ds-ease, ease) !important;
 }
 .svg-workarea-leftbar-h .mat-content {
     align-items: center;
 }
 
-/* Title typography — semibold, letter-spaced, mixed brightness on state */
+/* ---------- hover (not expanded) ---------- */
+.svg-workarea-leftbar-h:hover:not(.mat-expanded) {
+    background: rgba(var(--ds-brand-rgb), 0.08) !important;
+    color: var(--ds-text) !important;
+}
+
+/* ---------- EXPANDED state — brand gradient + glow (the "Notifications" look) ---------- */
+.mat-expanded.svg-workarea-leftbar-h,
+.svg-workarea-leftbar-p.mat-expanded > .svg-workarea-leftbar-h,
+.mat-expansion-panel.mat-expanded > .svg-workarea-leftbar-h {
+    background: linear-gradient(135deg, var(--ds-brand), var(--ds-brand-2)) !important;
+    color: var(--ds-on-brand) !important;
+    box-shadow: 0 6px 18px rgba(var(--ds-brand-rgb), 0.38),
+                0 0 0 1px rgba(255, 255, 255, 0.10) inset !important;
+}
+.mat-expanded.svg-workarea-leftbar-h span,
+.svg-workarea-leftbar-p.mat-expanded > .svg-workarea-leftbar-h span,
+.mat-expansion-panel.mat-expanded > .svg-workarea-leftbar-h span {
+    color: var(--ds-on-brand) !important;
+}
+.mat-expanded.svg-workarea-leftbar-h mat-icon,
+.svg-workarea-leftbar-p.mat-expanded > .svg-workarea-leftbar-h mat-icon,
+.mat-expansion-panel.mat-expanded > .svg-workarea-leftbar-h mat-icon {
+    color: var(--ds-on-brand) !important;
+    opacity: 1 !important;
+}
+
+/* Title typography */
 .svg-workarea-leftbar-h span {
     padding-top: 0 !important;
-    padding-left: 6px !important;
-    font-size: 11px !important;
+    padding-left: 8px !important;
+    font-size: 12px !important;
     font-weight: 600 !important;
-    letter-spacing: 0.06em !important;
+    letter-spacing: 0.04em !important;
     line-height: 1 !important;
     text-transform: uppercase;
     color: inherit;
     transition: color var(--ds-dur-fast, 120ms) var(--ds-ease, ease);
 }
 
-/* Expand/collapse chevron — smaller, less heavy */
+/* Chevron icon */
 .svg-workarea-leftbar-h .mat-panel-title > mat-icon:first-child,
 .svg-workarea-leftbar-h .mat-mdc-panel-title > mat-icon:first-child {
-    font-size: 14px !important;
-    width: 14px !important;
-    height: 14px !important;
-    line-height: 14px !important;
+    font-size: 16px !important;
+    width: 16px !important;
+    height: 16px !important;
+    line-height: 16px !important;
     margin-right: 0 !important;
-    opacity: 0.75;
+    opacity: 0.7;
     transition: opacity var(--ds-dur-fast, 120ms) var(--ds-ease, ease);
 }
 .svg-workarea-leftbar-h:hover .mat-panel-title > mat-icon:first-child { opacity: 1; }
 
-/* Expanded state: panel header gets a slightly brighter title */
-.mat-expanded > .svg-workarea-leftbar-h span,
-.svg-workarea-leftbar-p.mat-expanded > .svg-workarea-leftbar-h span {
-    color: var(--ds-text) !important;
-}
-
-/* ---------- inline action buttons (+, upload, etc.) ---------- */
+/* ---------- inline action buttons (+, upload, dots) ---------- */
 .leftbar-edit-btn {
-    width: 22px !important;
-    height: 22px !important;
+    width: 24px !important;
+    height: 24px !important;
     font-size: 16px !important;
-    line-height: 22px !important;
-    border-radius: 6px !important;
+    line-height: 24px !important;
+    border-radius: 7px !important;
     padding: 2px !important;
     margin-left: 4px !important;
     color: var(--ds-text-muted) !important;
@@ -911,49 +937,75 @@ select#start_marker option[value="D"] {
     opacity: 0;
 }
 .svg-workarea-leftbar-h:hover .leftbar-edit-btn,
+.svg-workarea-leftbar-h.mat-expanded .leftbar-edit-btn,
 .svg-workarea-leftbar-h .leftbar-edit-btn:focus-visible { opacity: 1; }
+
+/* Expanded header → action buttons get translucent on-brand surface */
+.mat-expanded.svg-workarea-leftbar-h .leftbar-edit-btn,
+.svg-workarea-leftbar-p.mat-expanded > .svg-workarea-leftbar-h .leftbar-edit-btn {
+    color: rgba(255, 255, 255, 0.85) !important;
+    background: rgba(255, 255, 255, 0.10) !important;
+}
+.mat-expanded.svg-workarea-leftbar-h .leftbar-edit-btn:hover,
+.svg-workarea-leftbar-p.mat-expanded > .svg-workarea-leftbar-h .leftbar-edit-btn:hover {
+    background: rgba(255, 255, 255, 0.22) !important;
+    color: #fff !important;
+}
 .leftbar-edit-btn:hover {
     background: rgba(var(--ds-brand-rgb), 0.16) !important;
     color: var(--ds-brand) !important;
 }
 
-/* The Upload SVG pill stays visible (its own discrete style) */
+/* The Upload SVG pill stays visible (it's the primary action) */
 #fuxa-upload-shape-btn { opacity: 1 !important; }
 
-/* ---------- panel body / leftbar-panel ---------- */
+/* ---------- panel body — slight inset, breathing room ---------- */
 ::ng-deep .svg-workarea-leftbar-p .mat-expansion-panel-body {
-    padding: 6px 6px 8px !important;
+    padding: 8px 6px 10px !important;
 }
 
 /* ---------- selected view item — soft brand tint + accent stripe ---------- */
 ::ng-deep .leftbar-item {
-    border-radius: 8px;
+    border-radius: 10px;
     margin: 2px 4px;
-    padding: 4px 8px !important;
+    padding: 6px 10px !important;
     position: relative;
     transition: background var(--ds-dur-fast, 120ms) var(--ds-ease, ease),
                 color var(--ds-dur-fast, 120ms) var(--ds-ease, ease);
 }
 ::ng-deep .leftbar-item:hover:not(.leftbar-item-active) {
-    background: rgba(var(--ds-brand-rgb), 0.08) !important;
+    background: rgba(var(--ds-brand-rgb), 0.10) !important;
     color: var(--ds-text) !important;
 }
 ::ng-deep .leftbar-item-active {
-    background: rgba(var(--ds-brand-rgb), 0.18) !important;
+    background: linear-gradient(135deg,
+        rgba(var(--ds-brand-rgb), 0.32),
+        rgba(var(--ds-brand-rgb), 0.18)) !important;
     color: var(--ds-text) !important;
+    box-shadow: 0 0 0 1px rgba(var(--ds-brand-rgb), 0.32) inset !important;
 }
 ::ng-deep .leftbar-item-active::before {
     content: '';
     position: absolute;
-    left: -2px;
-    top: 4px;
-    bottom: 4px;
+    left: -1px;
+    top: 6px;
+    bottom: 6px;
     width: 3px;
     background: linear-gradient(180deg, var(--ds-brand), var(--ds-brand-2));
     border-radius: 0 3px 3px 0;
+    box-shadow: 0 0 8px rgba(var(--ds-brand-rgb), 0.6);
 }
 
-/* Top section (no border on first child) */
-.svg-workarea-leftbar-p:first-of-type .svg-workarea-leftbar-h {
-    border-top: none !important;
+/* ---------- search bar refinement — pill with focus glow ---------- */
+.symbol-search-bar {
+    margin: 0 4px 8px !important;
+    border-radius: 10px !important;
+    background: rgba(var(--ds-brand-rgb), 0.04) !important;
+    border: 1px solid var(--ds-border) !important;
+    transition: border-color var(--ds-dur-fast, 120ms) var(--ds-ease, ease),
+                box-shadow var(--ds-dur-fast, 120ms) var(--ds-ease, ease);
+}
+.symbol-search-bar:focus-within {
+    border-color: rgba(var(--ds-brand-rgb), 0.55) !important;
+    box-shadow: 0 0 0 3px rgba(var(--ds-brand-rgb), 0.18) !important;
 }
