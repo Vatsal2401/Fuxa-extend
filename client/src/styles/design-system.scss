@@ -616,3 +616,31 @@ body.ds-dragging-shape .bottom-bar {
 
 /* ---- PREVENT BROWSER CONTEXT MENU during drag ---- */
 .svg-tool-button { -webkit-user-select: none; -ms-user-select: none; user-select: none; }
+
+/* ============================================================
+   CDK default drag-preview / placeholder styling
+   (used by the unified [appPaletteDraggable] directive across ALL palette items)
+   ============================================================ */
+
+/* The ghost following the cursor — a clone of the source element. */
+.cdk-drag-preview {
+    opacity: 0.95 !important;
+    border-radius: 8px;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.55), 0 0 0 2px rgba(76, 159, 255, 0.45) !important;
+    background: rgba(11, 22, 38, 0.92) !important;
+    transition: transform 80ms ease;
+    pointer-events: none;
+    z-index: 100000 !important;
+}
+
+/* Source slot while dragging — visible (slot stays filled) but dimmed so user knows it's the source. */
+.cdk-drag-placeholder {
+    opacity: 0.35 !important;
+    background: rgba(76, 159, 255, 0.08) !important;
+    box-shadow: inset 0 0 0 1px rgba(76, 159, 255, 0.30) !important;
+    border-radius: 6px;
+    transition: opacity 120ms ease;
+}
+
+/* While dragging anywhere on the page, lower drag-related animation duration */
+.cdk-drag-animating { transition: transform 180ms cubic-bezier(0, 0, 0.2, 1); }

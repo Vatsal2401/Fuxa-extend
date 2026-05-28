@@ -221,17 +221,9 @@
                         </mat-expansion-panel-header>
                         <div id="__tools_left" class="leftbar-panel h200">
                             <div *ngFor="let shape of shGrp.shapes" style="margin-left: 3px;margin-right: 3px;" class="svg-tool-button"
-                                cdkDrag [cdkDragData]="shape" [cdkDragStartDelay]="120"
-                                (cdkDragStarted)="onShapeDragStarted()"
-                                (cdkDragEnded)="onShapeDragEnded($event, shape)"
+                                [appPaletteDraggable]="shape.name"
                                 [ngClass]="{'svg-tool-active': isModeActive(shape.name)}" (click)="setMode(shape.name)">
                                 <span class="icon-tool" [style.backgroundImage]="'url(' + shape.ico + ')'"> </span>
-                                <!-- Ghost that follows the cursor — uses <img> so the icon is guaranteed to render visibly -->
-                                <img *cdkDragPreview class="ds-drag-preview-img" [src]="shape.ico" alt="" />
-                                <!-- Placeholder = identical clone of the source so the palette slot never looks 'removed' -->
-                                <div *cdkDragPlaceholder class="svg-tool-button" style="margin-left:3px;margin-right:3px;">
-                                    <span class="icon-tool" [style.backgroundImage]="'url(' + shape.ico + ')'"></span>
-                                </div>
                             </div>
                         </div>
                     </mat-expansion-panel>
