@@ -877,7 +877,7 @@
   "device.tags-template-name-title": "Nom du modèle de tags",
   "devices.import-template": "Importer des appareils avec le modèle",
   "device.property-client": "Propriété de l'appareil",
-  "device.property-server": "Propriété du serveur FUXA",
+  "device.property-server": "Propriété du serveur BrandX",
   "device.property-name": "Nom",
   "device.property-type": "Type",
   "device.property-polling": "Freq. d'interrogation",

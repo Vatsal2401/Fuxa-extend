@@ -20,7 +20,7 @@
     "header.edit-users": "Benutzer-Einstellungen",
     "header.edit-alarms": "Einstellungen für Alarme",
     "header.edit-texts": "Einstellungen für Texte",
-    "header.help": "FUXA-Hilfe",
+    "header.help": "BrandX-Hilfe",
     "header.help-tutorial": "Tutorial",
     "header.help-info": "Über",
     "header.info-version": "Version",
@@ -28,11 +28,11 @@
 
     "project.name": "Projektname",
 
-    "sidenav.title": "FUXA",
+    "sidenav.title": "BrandX",
 
-    "tutorial.title": "FUXA-Tutorial",
+    "tutorial.title": "BrandX-Tutorial",
 
-    "dlg.info-title": "FUXA",
+    "dlg.info-title": "BrandX",
 
     "dlg.layout-title": "Layout-Einstellungen",
     "dlg.layout-general": "Allgemein",
@@ -724,7 +724,7 @@
     "devices.export-csv": "CSV",
     "devices.import": "Geräte importieren",
     "device.property-client": "Geräteeigenschaft",
-    "device.property-server": "FUXA-Server-Eigenschaft",
+    "device.property-server": "BrandX-Server-Eigenschaft",
     "device.property-name": "Name",
     "device.property-type": "Typ",
     "device.property-polling": "Abfrage",

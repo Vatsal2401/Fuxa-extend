@@ -20,7 +20,7 @@
     "header.edit-users": "Användarinställningar",
     "header.edit-alarms": "Larminställningar",
     "header.edit-texts": "Textinställningar",
-    "header.help": "FUXA Hjälp",
+    "header.help": "BrandX Hjälp",
     "header.help-tutorial": "Guide",
     "header.help-info": "Om",
     "header.change-thema": "Byt tema (beta)",
@@ -29,11 +29,11 @@
 
     "project.name": "Projektnamn",
 
-    "sidenav.title": "FUXA",
+    "sidenav.title": "BrandX",
 
-    "tutorial.title": "FUXA Handledning",
+    "tutorial.title": "BrandX Handledning",
 
-    "dlg.info-title": "FUXA",
+    "dlg.info-title": "BrandX",
 	
     "dlg.layout-title": "Layoutinställningar",
     "dlg.layout-general": "Allmänt",
@@ -876,7 +876,7 @@
     "device.tags-template-name-title": "Taggmallens namn",
     "devices.import-template": "Importera enheter med mall",
     "device.property-client": "Anslutningsegenskaper",
-    "device.property-server": "FUXA-serveregenskaper",
+    "device.property-server": "BrandX-serveregenskaper",
     "device.property-name": "Namn",
     "device.property-type": "Typ",
     "device.property-polling": "Pollning",
