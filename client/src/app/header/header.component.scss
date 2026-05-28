@@ -102,3 +102,39 @@
         line-height: unset !important;
     }
 }
+
+
+/* =============================================================================
+   Theme toggle button (sun/moon) — sits between Edit Project and Help menu.
+   Token-driven so it follows the active theme automatically.
+   ============================================================================= */
+.header-theme-toggle.mat-mdc-icon-button {
+    width: 36px;
+    height: 36px;
+    line-height: 36px;
+    padding: 0;
+    margin-right: 4px;
+    border-radius: 8px;
+    color: var(--ds-text);
+    background: transparent;
+    transition: background var(--ds-dur-fast, 120ms) var(--ds-ease, ease),
+                color var(--ds-dur-fast, 120ms) var(--ds-ease, ease);
+
+    .mat-icon {
+        font-size: 20px;
+        width: 20px;
+        height: 20px;
+        line-height: 20px;
+        transition: transform var(--ds-dur-base, 220ms) var(--ds-ease, ease);
+    }
+
+    &:hover {
+        background: var(--ds-hover);
+        color: var(--ds-brand);
+        .mat-icon { transform: rotate(18deg) scale(1.05); }
+    }
+    &:focus-visible {
+        outline: none;
+        box-shadow: var(--ds-focus-ring);
+    }
+}

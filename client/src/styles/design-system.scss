@@ -736,3 +736,48 @@ body.ds-dragging-shape .bottom-bar {
     -webkit-backdrop-filter: blur(8px) saturate(120%);
     max-width: 280px;
 }
+
+/* =============================================================================
+   Theme switch — smooth color transition.
+   Applied only during the actual swap so micro-animations (hover/focus) stay
+   snappy after. ThemeService adds .theme-transitioning on <html> for ~260ms.
+   ============================================================================= */
+html.theme-transitioning,
+html.theme-transitioning body,
+html.theme-transitioning *,
+html.theme-transitioning *::before,
+html.theme-transitioning *::after {
+    transition: background-color 200ms var(--ds-ease, ease),
+                color 200ms var(--ds-ease, ease),
+                border-color 200ms var(--ds-ease, ease),
+                fill 200ms var(--ds-ease, ease),
+                stroke 200ms var(--ds-ease, ease),
+                box-shadow 200ms var(--ds-ease, ease) !important;
+}
+
+/* Token-driven scrollbar — both webkit + firefox. */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: var(--ds-scrollbar-thumb) var(--ds-scrollbar-track);
+}
+*::-webkit-scrollbar { width: 10px; height: 10px; }
+*::-webkit-scrollbar-track { background: var(--ds-scrollbar-track); }
+*::-webkit-scrollbar-thumb {
+    background: var(--ds-scrollbar-thumb);
+    border-radius: 8px;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+}
+*::-webkit-scrollbar-thumb:hover { background: var(--ds-scrollbar-thumb-hover); background-clip: padding-box; border: 2px solid transparent; }
+
+/* Visible focus ring for keyboard users — token-driven. */
+:focus-visible {
+    outline: none;
+    box-shadow: var(--ds-focus-ring);
+    border-radius: var(--ds-radius-xs);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html.theme-transitioning,
+    html.theme-transitioning * { transition: none !important; }
+}

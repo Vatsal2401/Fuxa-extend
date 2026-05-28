@@ -45,6 +45,22 @@
         }
     </style>
 
+    <script>
+        /* Pre-boot theme: applies the dark-theme class before Angular mounts
+           so there is no flash of the wrong theme. Precedence:
+             1. user pref in localStorage    (set by the in-app toggle)
+             2. OS prefers-color-scheme
+             3. default → dark (FUXA aesthetic) */
+        (function() {
+            try {
+                var saved = localStorage.getItem('fuxa.theme');
+                var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+                var dark = (saved === 'dark') || (!saved && (prefersDark || prefersDark === undefined));
+                if (dark) { document.documentElement.classList.add('dark-theme'); }
+            } catch (e) { document.documentElement.classList.add('dark-theme'); }
+        })();
+    </script>
+
     <!-- 1° Load styles -->
     <link rel="stylesheet" href="assets/lib/svgeditor/jquery-plugin.min.css">
 
@@ -74,7 +90,7 @@
 </head>
 <!-- 3. Display the application -->
 
-<body class="dark-theme">
+<body>
     <app-root>
         <div style="position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);">
             <div class="logo" style="display:block;width:60px;height:60px;background-size:60px 60px;margin-left: 45px;"></div>
