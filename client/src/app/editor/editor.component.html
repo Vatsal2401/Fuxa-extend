@@ -226,16 +226,12 @@
                                 (cdkDragEnded)="onShapeDragEnded($event, shape)"
                                 [ngClass]="{'svg-tool-active': isModeActive(shape.name)}" (click)="setMode(shape.name)">
                                 <span class="icon-tool" [style.backgroundImage]="'url(' + shape.ico + ')'"> </span>
-                                <!-- Ghost that follows the cursor (a COPY — source palette icon stays in place) -->
-                                <ng-template cdkDragPreview>
-                                    <span class="ds-drag-preview" [style.backgroundImage]="'url(' + shape.ico + ')'"></span>
-                                </ng-template>
-                                <!-- Placeholder = identical clone of the source so the palette slot stays filled, not empty -->
-                                <ng-template cdkDragPlaceholder>
-                                    <div class="svg-tool-button" style="margin-left:3px;margin-right:3px;">
-                                        <span class="icon-tool" [style.backgroundImage]="'url(' + shape.ico + ')'"></span>
-                                    </div>
-                                </ng-template>
+                                <!-- Ghost that follows the cursor — uses <img> so the icon is guaranteed to render visibly -->
+                                <img *cdkDragPreview class="ds-drag-preview-img" [src]="shape.ico" alt="" />
+                                <!-- Placeholder = identical clone of the source so the palette slot never looks 'removed' -->
+                                <div *cdkDragPlaceholder class="svg-tool-button" style="margin-left:3px;margin-right:3px;">
+                                    <span class="icon-tool" [style.backgroundImage]="'url(' + shape.ico + ')'"></span>
+                                </div>
                             </div>
                         </div>
                     </mat-expansion-panel>

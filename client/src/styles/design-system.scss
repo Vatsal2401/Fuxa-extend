@@ -545,3 +545,18 @@ html body #workarea { top: 36px !important; }
     0%   { transform: scale(0.6); opacity: 0.9; }
     100% { transform: scale(2.2); opacity: 0;   }
 }
+
+/* Image-based drag preview (CDK shape buttons) — guaranteed visible <img> */
+.ds-drag-preview-img {
+    display: block !important;
+    width: 44px;
+    height: 44px;
+    padding: 6px;
+    background: rgba(11, 22, 38, 0.94);
+    border: 1px solid rgba(76, 159, 255, 0.55);
+    border-radius: 10px;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.55), 0 0 0 3px rgba(76, 159, 255, 0.18);
+    pointer-events: none;
+    object-fit: contain;
+    filter: brightness(1.4);
+}
