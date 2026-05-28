@@ -378,16 +378,10 @@ html body #tools_top .main-btn {
 html body #tools_top > #editor_panel > .main-btn:first-of-type,
 html body #tools_top > #editor_panel > .main-btn-sep:first-of-type + .main-btn { margin-left: 0 !important; }
 
-/* The external svg-editor lib sets inline `style="z-index:-1"` on #svg_editor,
-   AND has no `position` set on it — so its absolute children (#tools_top,
-   #workarea, etc.) position relative to the VIEWPORT, putting them behind the
-   now-normal-flow <app-header>. Establish a positioning context here. */
-html body #svg_editor {
-  z-index: auto !important;
-  position: relative !important;   /* so abs children position inside #svg_editor, not viewport */
-  height: 100%;
-  width: 100%;
-}
+/* The external svg-editor lib sets inline `style="z-index:-1"` on #svg_editor.
+   We undo it so its children render above sibling overlays, but leave its
+   positioning/sizing alone — the lib manages those itself. */
+html body #svg_editor { z-index: auto !important; }
 html body #tools_top *, html body #tools_top .mat-icon, html body #tools_top .main-btn { color: #edf4ff !important; }
 html body #tools_top .main-btn:hover { background: rgba(76,159,255,.18) !important; }
 

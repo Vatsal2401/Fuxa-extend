@@ -1,18 +1,37 @@
 :host {
-    /* App-header: brand cluster left, help cluster right (margin-left:auto pushes right).
-       The svg-editor toolbar (#tools_top) stays in the editor as its own row below — moving
-       it out of #svg_editor breaks the lib's drawing. Two stacked bars: header + svg toolbar. */
-    display: flex;
-    align-items: center;
-    width: 100%;
-    height: 36px;
-    background-color: var(--headerBackground, #0b1626);
-    color: var(--headerColor, #edf4ff);
-    position: relative;
-    z-index: 99;
+    /* Original FUXA layout: app-header takes NO layout space. Its brand & help
+       clusters are fixed-positioned overlays at the top of the viewport, sitting
+       on top of the editor canvas (which extends underneath). This is how the
+       external svg-editor lib expects the layout to work. */
+    display: contents;
 
-    .header-right { margin-left: auto; }
-    app-tutorial { position: absolute; left: 0; top: 0; }
+    .header-panel {
+        z-index: 99 !important;
+        position: fixed;
+        top: 0;
+        left: 0;
+        background-color: var(--headerBackground, #0b1626);
+        color: var(--headerColor, #edf4ff);
+        height: 36px;
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        padding: 0 8px;
+    }
+
+    .header-right {
+        z-index: 99 !important;
+        position: fixed;
+        top: 0;
+        right: 0;
+        background-color: var(--headerBackground, #0b1626);
+        color: var(--headerColor, #edf4ff);
+        height: 36px;
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        padding: 0 8px;
+    }
 
     .header-panel {
         display: inline-flex;
