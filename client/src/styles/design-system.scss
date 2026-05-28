@@ -345,10 +345,12 @@ input.color-picker-input {
   box-shadow: 0 1px 0 rgba(0,0,0,.35);
 }
 .header-panel {
-  width: 388px !important;               /* fits brand + 2 labeled buttons */
+  width: auto !important;
+  max-width: 340px !important;
+  padding-right: 12px !important;
   border-right: 1px solid var(--ds-border) !important;
 }
-#tools_top { left: 392px !important; }   /* make room for the branded left cluster */
+#tools_top { left: 320px !important; }   /* tight gap; auto-width header-panel hugs its content */
 
 /* brand mark */
 .app-brand { display: inline-flex; align-items: center; gap: 6px; padding: 0 8px 0 2px; margin-right: 2px; }
