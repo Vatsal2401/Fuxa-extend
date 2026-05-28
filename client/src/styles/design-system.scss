@@ -375,8 +375,23 @@ html body #tools_top {
   background-image: none !important;
 }
 /* Trim the svg-editor's internal offset so the play button starts immediately */
-html body #tools_top > #editor_panel { padding-left: 6px !important; }
+html body #tools_top > #editor_panel { padding-left: 4px !important; margin-left: 0 !important; }
 html body #tools_top > #editor_panel > .main-btn-sep:first-child { display: none !important; }
+/* Neutralise the vintage outset grey separators between toolbar buttons */
+html body #tools_top .main-btn-sep {
+  background: transparent !important;
+  border: none !important;
+  width: 0 !important;
+  margin: 5px 2px !important;
+}
+/* Tighten the toolbar buttons — was margin-left/right:5px on every button */
+html body #tools_top .main-btn {
+  margin-left: 2px !important;
+  margin-right: 2px !important;
+}
+/* The very first visible button (play) gets 0 left margin so it sits against the divider */
+html body #tools_top > #editor_panel > .main-btn:first-of-type,
+html body #tools_top > #editor_panel > .main-btn-sep:first-of-type + .main-btn { margin-left: 0 !important; }
 
 /* The external svg-editor lib sets inline `style="z-index:-1"` on #svg_editor,
    which puts the WHOLE editor subtree (rulers, workarea, #tools_top) BEHIND
