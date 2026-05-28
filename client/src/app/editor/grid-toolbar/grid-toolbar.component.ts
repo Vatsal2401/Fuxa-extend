@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { EditorGridService } from '../../_services/editor-grid.service';
 
@@ -15,9 +15,8 @@ import { EditorGridService } from '../../_services/editor-grid.service';
  */
 @Component({
     selector: 'app-grid-toolbar',
-    changeDetection: ChangeDetectionStrategy.OnPush,
     template: `
-        <div class="grid-toolbar" *ngIf="ready">
+        <div class="grid-toolbar">
             <button class="gt-btn"
                     [class.gt-btn--on]="showGrid"
                     [appTooltip]="(showGrid ? 'editor.grid-hide' : 'editor.grid-show') | translate"
@@ -111,7 +110,7 @@ export class GridToolbarComponent implements OnInit, OnDestroy {
     private subs: Subscription[] = [];
     private libCheckTimer: any = null;
 
-    constructor(private grid: EditorGridService) {}
+    constructor(private grid: EditorGridService, private cdr: ChangeDetectorRef) {}
 
     ngOnInit(): void {
         this.subs.push(this.grid.showGrid$.subscribe(v => { this.showGrid = v; }));
