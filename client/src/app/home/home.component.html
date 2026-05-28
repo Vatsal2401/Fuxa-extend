@@ -144,7 +144,7 @@
 			 #container
 			 (click)="checkToCloseSideNav()">
 			<!-- Welcome screen — shown only when no homeView is configured. -->
-			<div *ngIf="(!homeView?.id || showHomeLink) && !iframes?.length" class="brandx-welcome">
+			<div *ngIf="!hmi?.layout?.start && !iframes?.length && !showHomeLink" class="brandx-welcome">
 				<div class="bw-hero">
 					<div class="bw-mark"><mat-icon>hub</mat-icon></div>
 					<h1 class="bw-title">Welcome to <span class="bw-brand">BrandX</span></h1>
@@ -190,7 +190,7 @@
 				</div>
 				<div class="bw-footer">Powered by <b>FUXA</b> &middot; <span><b>frango</b>team</span></div>
 			</div>
-			<ng-container *ngIf="!showHomeLink && homeView">
+			<ng-container *ngIf="!showHomeLink && homeView && hmi?.layout?.start">
 				<ng-container [ngSwitch]="homeView.type">
 					<ng-container *ngSwitchCase="cardViewType">
 						<app-cards-view #cardsview [edit]="false" [options]="gridOptions"
