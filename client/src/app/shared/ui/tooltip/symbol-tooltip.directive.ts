@@ -13,6 +13,7 @@ export interface SymbolTooltipModel {
     category?: string;
     iconUrl?: string;
     iconClass?: string;
+    materialIcon?: string;
     tags?: string[];
     description?: string;
 }
@@ -100,6 +101,7 @@ export class SymbolTooltipDirective implements OnDestroy {
         c.category = this.model.category || '';
         c.iconUrl = this.model.iconUrl;
         c.iconClass = this.model.iconClass;
+        c.materialIcon = this.model.materialIcon;
         c.tags = this.model.tags || [];
         c.description = this.model.description;
         c.pinned = this.pinned;

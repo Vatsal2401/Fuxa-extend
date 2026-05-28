@@ -15,7 +15,8 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
                 <div class="sym-card__icon"
                      [class.sym-card__icon--bg]="iconUrl"
                      [style.backgroundImage]="iconUrl ? 'url(' + iconUrl + ')' : null">
-                    <span *ngIf="iconClass" [class]="'icon-tool ' + iconClass"></span>
+                    <span *ngIf="iconClass && !iconUrl" [class]="'icon-tool ' + iconClass"></span>
+                    <mat-icon *ngIf="materialIcon && !iconUrl && !iconClass" class="sym-card__matico">{{ materialIcon }}</mat-icon>
                 </div>
                 <div class="sym-card__title-block">
                     <div class="sym-card__name">{{ name }}</div>
@@ -68,6 +69,7 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
             filter: brightness(1.3);
         }
         .sym-card__icon .icon-tool { font-size: 26px; color: #cfe3ff; }
+        .sym-card__matico { font-size: 30px; width: 30px; height: 30px; color: #cfe3ff; }
         .sym-card__title-block { min-width: 0; }
         .sym-card__name {
             font-size: 13px; font-weight: 600;
@@ -121,6 +123,7 @@ export class SymbolTooltipCardComponent {
     @Input() category = '';
     @Input() iconUrl?: string;
     @Input() iconClass?: string;
+    @Input() materialIcon?: string;
     @Input() tags: string[] = [];
     @Input() description?: string;
     @Input() pinned = false;
