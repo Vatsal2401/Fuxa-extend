@@ -6,6 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClient, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { MaterialModule } from './material.module';
 import { SharedUiModule } from './shared/ui/shared-ui.module';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ColorPickerModule } from 'ngx-color-picker';
 
@@ -439,6 +440,7 @@ export const myCustomTooltipDefaults: MatTooltipDefaultOptions = {
         routing,
         MaterialModule,
         SharedUiModule,
+        DragDropModule,
         BrowserAnimationsModule,
         ColorPickerModule,
         AngularDraggableModule,

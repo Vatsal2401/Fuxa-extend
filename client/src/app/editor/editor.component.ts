@@ -9,6 +9,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { ProjectService, SaveMode } from '../_services/project.service';
 import { Hmi, View, GaugeSettings, SelElement, LayoutSettings, ViewType, ISvgElement, GaugeProperty, DocProfile } from '../_models/hmi';
 import { WindowRef } from '../_helpers/windowref';
+import { EditorDropService } from '../_services/editor-drop.service';
 import { GaugePropertyComponent, GaugeDialogType, GaugePropertyData } from '../gauges/gauge-property/gauge-property.component';
 
 import { GaugesManager } from '../gauges/gauges.component';
@@ -128,6 +129,7 @@ export class EditorComponent implements OnInit, AfterViewInit, OnDestroy {
 
     constructor(private projectService: ProjectService,
         private winRef: WindowRef,
+        private editorDrop: EditorDropService,
         public dialog: MatDialog,
         private changeDetector: ChangeDetectorRef,
         private translateService: TranslateService,
@@ -641,6 +643,29 @@ export class EditorComponent implements OnInit, AfterViewInit, OnDestroy {
      */
     isModeActive(mode) {
         return (this.currentMode === mode);
+    }
+
+    /* ---------- Drag-and-drop placement (Phase 1-3 of dnd plan) ---------- */
+    /** Drag starts on a palette shape — highlight the canvas as a valid drop target. */
+    onShapeDragStarted(): void {
+        const workarea = document.getElementById('workarea');
+        workarea?.classList.add('ds-drop-zone-active');
+    }
+    /** Drag ends — clear highlight, then attempt placement at the drop screen-coords. */
+    onShapeDragEnded(event: any, shape: any): void {
+        const workarea = document.getElementById('workarea');
+        workarea?.classList.remove('ds-drop-zone-active');
+        const p = event?.dropPoint;
+        if (!p) { return; }                            // cancelled / Esc
+        // CDK fires this even for tiny accidental drags (treated as clicks by the original
+        // click handler). If distance is below threshold, do nothing — let the click do its job.
+        if (event?.distance && Math.hypot(event.distance.x, event.distance.y) < 5) { return; }
+        const placed = this.editorDrop.placeAtScreenPoint(shape, p.x, p.y);
+        if (placed) {
+            // Service already resets to 'select' mode internally; sync our local state.
+            this.currentMode = 'select';
+        }
+        this.changeDetector.markForCheck?.();
     }
 
     /**

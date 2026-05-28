@@ -221,8 +221,15 @@
                         </mat-expansion-panel-header>
                         <div id="__tools_left" class="leftbar-panel h200">
                             <div *ngFor="let shape of shGrp.shapes" style="margin-left: 3px;margin-right: 3px;" class="svg-tool-button"
+                                cdkDrag [cdkDragData]="shape" [cdkDragStartDelay]="120"
+                                (cdkDragStarted)="onShapeDragStarted()"
+                                (cdkDragEnded)="onShapeDragEnded($event, shape)"
                                 [ngClass]="{'svg-tool-active': isModeActive(shape.name)}" (click)="setMode(shape.name)">
                                 <span class="icon-tool" [style.backgroundImage]="'url(' + shape.ico + ')'"> </span>
+                                <!-- Ghost that follows the cursor while dragging -->
+                                <span *cdkDragPreview class="ds-drag-preview" [style.backgroundImage]="'url(' + shape.ico + ')'"></span>
+                                <!-- Original button remains visible but dimmed -->
+                                <span *cdkDragPlaceholder class="ds-drag-placeholder"></span>
                             </div>
                         </div>
                     </mat-expansion-panel>

@@ -492,3 +492,56 @@ html body #workarea { top: 36px !important; }
   background-color: var(--ds-panel, #0f1a2e) !important;
   color: var(--ds-text, #edf4ff) !important;
 }
+
+/* ============================================================
+   Drag-and-drop palette → canvas (Phase 4: visual polish)
+   ============================================================ */
+
+/* Palette items show grab cursor; preserves accidental-click behaviour via cdkDragStartDelay */
+.svg-tool-button { cursor: grab; touch-action: none; }
+.svg-tool-button:active { cursor: grabbing; }
+
+/* The ghost that follows the cursor — a thumbnail of the shape icon */
+.ds-drag-preview {
+    display: block;
+    width: 44px;
+    height: 44px;
+    background-size: 32px 32px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: rgba(11, 22, 38, 0.92);
+    border: 1px solid rgba(76, 159, 255, 0.45);
+    border-radius: 10px;
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.5), 0 0 0 3px rgba(76, 159, 255, 0.18);
+    pointer-events: none;
+    /* mat-icon font-color shows in light icons via filter */
+    filter: invert(0) brightness(1.2);
+}
+
+/* The original button while dragging — dim it so user sees it's the source */
+.ds-drag-placeholder {
+    display: block;
+    width: 40px;
+    height: 40px;
+    background: rgba(76, 159, 255, 0.08);
+    border: 1px dashed rgba(76, 159, 255, 0.35);
+    border-radius: 8px;
+    opacity: 0.6;
+}
+
+/* Drop-zone highlight on the canvas while a palette drag is in progress */
+#workarea.ds-drop-zone-active {
+    outline: 2px dashed var(--ds-brand, #4c9fff) !important;
+    outline-offset: -6px;
+    transition: outline-color var(--ds-dur-base, 220ms) var(--ds-ease, ease);
+    box-shadow: inset 0 0 0 1px rgba(76, 159, 255, 0.2);
+}
+
+/* While dragging anywhere, ensure preview sits above modals */
+.cdk-drag-preview { z-index: 100000 !important; }
+
+/* Optional drop pulse — applied briefly by JS at placement point in a future iteration */
+@keyframes ds-drop-pulse {
+    0%   { transform: scale(0.6); opacity: 0.9; }
+    100% { transform: scale(2.2); opacity: 0;   }
+}
