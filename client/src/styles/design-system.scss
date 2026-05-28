@@ -330,11 +330,11 @@ input.color-picker-input {
    Phase 6e — editor app-header (Save / Edit Project / Help) visibility
    The fixed header-panel was getting covered / icons invisible.
    ============================================================ */
-/* Branded editor app-bar. The left cluster (brand + Save + Project) is widened,
-   and the external svg-editor #tools_top is shifted right to make room. */
+/* Branded editor app-bar. Uses the SAME solid color as #tools_top so the bar
+   reads as one continuous strip (no visible band/divider between left and right). */
 .header-panel, .header-right {
   height: 36px !important;
-  background: linear-gradient(180deg, #0e1c33, #0a1424) !important;
+  background: #0b1626 !important;       /* same color as #tools_top below */
   color: #edf4ff !important;
   z-index: 100001 !important;            /* above svg-editor toolbar (z up to 99999) */
   display: flex !important;
@@ -348,7 +348,7 @@ input.color-picker-input {
   width: auto !important;
   max-width: 360px !important;          /* fits the longer "Edit Project" label */
   padding-right: 14px !important;
-  border-right: 1px solid var(--ds-border) !important;
+  border-right: none !important;         /* no divider — same color continues */
 }
 /* External svg-editor top toolbar — solid dark bar matching the branded header.
    Maximum-specificity selectors so this wins over anything else. */
