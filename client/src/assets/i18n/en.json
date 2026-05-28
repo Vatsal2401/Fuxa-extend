@@ -4,6 +4,7 @@
     "app.home": "Home",
     "app.lab": "Lab",
     "app.editor": "Editor",
+    "app.navigation": "Navigation",
 
     "header.new-project": "New Project",
     "header.save-project": "Save Project",

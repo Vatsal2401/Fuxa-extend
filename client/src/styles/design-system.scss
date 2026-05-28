@@ -822,47 +822,63 @@ html.theme-transitioning *::after {
    ============================================================================= */
 /* Dev nav FAB inside the editor — compact, modern, doesn't clash with sidebar
    palette or the grid toolbar. Bottom-left of canvas, just past the sidebar. */
-.work-editor > .fab-button {
+/* Modern dev-nav button — small icon trigger + Material dropdown menu.
+   Replaces the old ngx-fab-button stack (3 large pills) with the standard
+   "apps" launcher pattern used in Material/Google products. */
+.dev-nav-btn.mat-mdc-icon-button {
     position: fixed !important;
-    top: 50px !important;         /* just below the header */
-    right: 18px !important;
-    bottom: auto !important;
-    left: auto !important;
-    z-index: 28 !important;
-}
-.work-editor > .fab-button ngx-fab-button > button,
-.work-editor > .fab-button .ngx-fab-button button,
-.work-editor > .fab-button ngx-fab-item-button > button {
-    width: 34px !important;
-    height: 34px !important;
-    min-width: 34px !important;
-    line-height: 34px !important;
+    top: 50px;
+    right: 18px;
+    width: 34px;
+    height: 34px;
+    line-height: 34px;
+    padding: 0;
+    border-radius: 999px;
     background: linear-gradient(135deg, var(--ds-brand), var(--ds-brand-2)) !important;
+    color: var(--ds-on-brand) !important;
     box-shadow: 0 6px 14px rgba(0, 0, 0, 0.32),
-                0 0 0 1px rgba(255, 255, 255, 0.08) inset !important;
-    transition: transform var(--ds-dur-fast) var(--ds-ease) !important;
+                0 0 0 1px rgba(255, 255, 255, 0.10) inset !important;
+    z-index: 28;
+    transition: transform var(--ds-dur-fast) var(--ds-ease),
+                box-shadow var(--ds-dur-base) var(--ds-ease);
 }
-.work-editor > .fab-button ngx-fab-button > button:hover,
-.work-editor > .fab-button .ngx-fab-button button:hover {
-    transform: translateY(-2px) !important;
+.dev-nav-btn.mat-mdc-icon-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 22px rgba(0, 0, 0, 0.42),
+                0 0 0 1px rgba(255, 255, 255, 0.14) inset !important;
 }
-.work-editor > .fab-button mat-icon {
-    font-size: 17px !important;
-    width: 17px !important;
-    height: 17px !important;
-    line-height: 17px !important;
+.dev-nav-btn .mat-icon {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+    line-height: 18px;
     color: var(--ds-on-brand);
 }
-.work-editor > .fab-button ngx-fab-item-button .ngx-fab-content {
-    font-size: 11px !important;
-    font-weight: 600 !important;
-    padding: 5px 10px !important;
-    border-radius: 6px !important;
-    background: var(--ds-panel) !important;
-    color: var(--ds-text) !important;
-    border: 1px solid var(--ds-border) !important;
-    box-shadow: var(--ds-shadow-sm) !important;
+/* Dropdown menu — token-driven surface, compact items with icon + label.
+   The global .mat-mdc-menu-panel rule already themes the surface; just tweak
+   spacing + min width here. */
+.dev-nav-menu.mat-mdc-menu-panel {
+    min-width: 168px !important;
+    border-radius: var(--ds-radius-sm) !important;
+    margin-top: 6px;
 }
+.dev-nav-menu .mat-mdc-menu-item {
+    min-height: 38px !important;
+    height: 38px !important;
+    padding: 0 12px !important;
+    font: 600 12.5px var(--ds-font) !important;
+    letter-spacing: .01em;
+}
+.dev-nav-menu .mat-mdc-menu-item .mat-icon {
+    margin-right: 10px !important;
+    font-size: 18px !important;
+    width: 18px !important;
+    height: 18px !important;
+    color: var(--ds-brand) !important;
+}
+/* Belt-and-braces — hide the old ngx-fab-button rendering if any leaks through
+   (e.g. while users are mid-deploy with both versions in cache). */
+.work-editor > .fab-button { display: none !important; }
 .fab-button ngx-fab-button > button,
 .fab-button ngx-fab-item-button > button,
 .fab-button .ngx-fab-button button {
