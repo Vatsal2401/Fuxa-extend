@@ -43,6 +43,7 @@
             "buildOptimizer": false,
             "sourceMap": true,
             "optimization": false,
+            "outputHashing": "all",
             "namedChunks": true,
             "allowedCommonJsDependencies": [
               "chart.js",
