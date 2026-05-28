@@ -347,8 +347,10 @@ input.color-picker-input {
 .header-panel {
   width: auto !important;
   max-width: 360px !important;          /* fits the longer "Edit Project" label */
-  padding-right: 14px !important;
-  border-right: none !important;         /* no divider — same color continues */
+  padding-right: 12px !important;
+  /* subtle brand-tinted divider between the FUXA brand cluster and the SVG tools */
+  border-right: 1px solid rgba(76,159,255,.22) !important;
+  box-shadow: 1px 0 0 rgba(255,255,255,.03);
 }
 /* External svg-editor top toolbar — solid dark bar matching the branded header.
    Maximum-specificity selectors so this wins over anything else. */
@@ -368,10 +370,13 @@ html body [id$="_panel"]:not(.tabset-pane):not(#editor_panel) {
   border-color: rgba(148,184,255,.16) !important;
 }
 html body #tools_top {
-  left: 320px !important;
+  left: 305px !important;                /* sits right after the brand cluster + divider */
   border-bottom: 1px solid rgba(148,184,255,.16) !important;
   background-image: none !important;
 }
+/* Trim the svg-editor's internal offset so the play button starts immediately */
+html body #tools_top > #editor_panel { padding-left: 6px !important; }
+html body #tools_top > #editor_panel > .main-btn-sep:first-child { display: none !important; }
 
 /* The external svg-editor lib sets inline `style="z-index:-1"` on #svg_editor,
    which puts the WHOLE editor subtree (rulers, workarea, #tools_top) BEHIND

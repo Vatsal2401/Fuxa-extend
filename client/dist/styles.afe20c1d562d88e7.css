@@ -5704,8 +5704,10 @@ input.color-picker-input {
 .header-panel {
   width: auto !important;
   max-width: 360px !important; /* fits the longer "Edit Project" label */
-  padding-right: 14px !important;
-  border-right: none !important; /* no divider — same color continues */
+  padding-right: 12px !important;
+  /* subtle brand-tinted divider between the FUXA brand cluster and the SVG tools */
+  border-right: 1px solid rgba(76, 159, 255, 0.22) !important;
+  box-shadow: 1px 0 0 rgba(255, 255, 255, 0.03);
 }
 
 /* External svg-editor top toolbar — solid dark bar matching the branded header.
@@ -5727,9 +5729,18 @@ html body [id$=_panel]:not(.tabset-pane):not(#editor_panel) {
 }
 
 html body #tools_top {
-  left: 320px !important;
+  left: 305px !important; /* sits right after the brand cluster + divider */
   border-bottom: 1px solid rgba(148, 184, 255, 0.16) !important;
   background-image: none !important;
+}
+
+/* Trim the svg-editor's internal offset so the play button starts immediately */
+html body #tools_top > #editor_panel {
+  padding-left: 6px !important;
+}
+
+html body #tools_top > #editor_panel > .main-btn-sep:first-child {
+  display: none !important;
 }
 
 /* The external svg-editor lib sets inline `style="z-index:-1"` on #svg_editor,
@@ -6756,4 +6767,4 @@ svg.leaflet-image-layer.leaflet-interactive path {
 .ng-resizable{position:relative}.ng-resizable-handle{position:absolute;font-size:0.1px;display:block;touch-action:none}.ng-resizable-handle.ng-resizable-e{cursor:e-resize;width:7px;right:-5px;height:100%;top:0}.ng-resizable-handle.ng-resizable-w{cursor:w-resize;width:7px;left:-5px;height:100%;top:0}.ng-resizable-handle.ng-resizable-s{cursor:s-resize;height:7px;bottom:-5px;width:100%;left:0}.ng-resizable-handle.ng-resizable-n{cursor:n-resize;height:7px;top:-5px;width:100%;left:0}.ng-resizable-handle.ng-resizable-se{cursor:se-resize;width:12px;height:12px;right:1px;bottom:1px}.ng-resizable-handle.ng-resizable-sw{cursor:sw-resize;width:12px;height:12px;left:1px;bottom:1px}.ng-resizable-handle.ng-resizable-ne{cursor:ne-resize;width:12px;height:12px;right:1px;top:1px}.ng-resizable-handle.ng-resizable-nw{cursor:nw-resize;width:12px;height:12px;left:1px;top:1px}.ng-resizable-diagonal{box-sizing:border-box;width:0;height:0;border-bottom:12px solid #aaa;border-left:12px solid transparent}
 
 
-/*# sourceMappingURL=styles.e03d8c8e6df0db38.css.map*/
+/*# sourceMappingURL=styles.afe20c1d562d88e7.css.map*/
