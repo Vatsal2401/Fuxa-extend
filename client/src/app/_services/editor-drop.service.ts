@@ -23,8 +23,39 @@ export class EditorDropService {
 
     /** In-flight guard prevents double placement on rapid successive drops. */
     private placing = false;
+    /** Ensures the canvas drop listener is attached exactly once. */
+    private dropListenerAttached = false;
 
     constructor(private winRef: WindowRef) {}
+
+    /**
+     * Attach the canvas dragover+drop listeners ONCE. Placement happens on the
+     * native 'drop' event (fires the instant the pointer is released over the
+     * canvas) — NOT on 'dragend', which the browser delays ~200-300ms for its
+     * drag-image snap-back animation. This removes the perceived lag.
+     */
+    ensureCanvasDropListener(): void {
+        if (this.dropListenerAttached) { return; }
+        const workarea = document.getElementById('workarea');
+        if (!workarea) { return; }   // editor not ready yet; a later directive init will retry
+        this.dropListenerAttached = true;
+
+        // dragover must preventDefault for the element to be a valid drop target
+        workarea.addEventListener('dragover', (e: DragEvent) => {
+            e.preventDefault();
+            if (e.dataTransfer) { e.dataTransfer.dropEffect = 'copy'; }
+        });
+
+        workarea.addEventListener('drop', (e: DragEvent) => {
+            e.preventDefault();
+            const mode = e.dataTransfer?.getData('text/plain');
+            document.getElementById('workarea')?.classList.remove('ds-drop-zone-active');
+            document.body.classList.remove('ds-dragging-shape');
+            if (mode) {
+                this.placeAtScreenPoint({ name: mode }, e.clientX, e.clientY);
+            }
+        });
+    }
 
     /** Feature-detect lib API. Components should fall back to click-to-place if false. */
     isReady(): boolean {

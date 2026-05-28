@@ -29,7 +29,6 @@ export class PaletteDraggableDirective implements OnInit, OnDestroy {
     private ghost?: HTMLDivElement;
     private onStart = (e: DragEvent) => this.handleStart(e);
     private onEnd   = (e: DragEvent) => this.handleEnd(e);
-    private onWorkareaOver = (e: DragEvent) => { e.preventDefault(); if (e.dataTransfer) { e.dataTransfer.dropEffect = 'copy'; } };
 
     constructor(
         private el: ElementRef<HTMLElement>,
@@ -43,15 +42,16 @@ export class PaletteDraggableDirective implements OnInit, OnDestroy {
         this.renderer.setStyle(node, 'cursor', 'grab');
         node.addEventListener('dragstart', this.onStart);
         node.addEventListener('dragend', this.onEnd);
-        // Canvas must allow drop (dragover.preventDefault) for HTML5 drop to work
-        document.getElementById('workarea')?.addEventListener('dragover', this.onWorkareaOver);
+        // The actual placement happens on the canvas 'drop' event (instant — no
+        // dragend snap-back delay). EditorDropService owns the single canvas
+        // dragover/drop listeners; we just register intent here.
+        this.drop.ensureCanvasDropListener();
     }
 
     ngOnDestroy(): void {
         const node = this.el.nativeElement;
         node.removeEventListener('dragstart', this.onStart);
         node.removeEventListener('dragend', this.onEnd);
-        document.getElementById('workarea')?.removeEventListener('dragover', this.onWorkareaOver);
         this.clearGhost();
     }
 
@@ -90,13 +90,11 @@ export class PaletteDraggableDirective implements OnInit, OnDestroy {
         try { e.dataTransfer?.setDragImage(ghost, 22, 22); } catch { /* ignore */ }
     }
 
+    /** dragend = cleanup ONLY. Placement happens on the canvas 'drop' event (instant). */
     private handleEnd(e: DragEvent): void {
         document.getElementById('workarea')?.classList.remove('ds-drop-zone-active');
         document.body.classList.remove('ds-dragging-shape');
         this.clearGhost();
-        if (!this.mode) { return; }
-        if (e.dataTransfer?.dropEffect === 'none') { return; }   // dropped on invalid zone / cancelled
-        this.drop.placeAtScreenPoint({ name: this.mode }, e.clientX, e.clientY);
     }
 
     private clearGhost(): void {
