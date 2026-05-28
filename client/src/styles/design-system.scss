@@ -820,10 +820,48 @@ html.theme-transitioning *::after {
    Default size is 56px and the menu expands UPWARD over the left sidebar
    palette. Shrink + push to bottom-right so it doesn't obscure shapes.
    ============================================================================= */
-/* Hide the dev-nav FAB inside the editor — header chrome + grid toolbar own that real estate.
-   The FAB stays visible on home/lab routes via the unchanged ngx-fab-button styling. */
+/* Dev nav FAB inside the editor — compact, modern, doesn't clash with sidebar
+   palette or the grid toolbar. Bottom-left of canvas, just past the sidebar. */
 .work-editor > .fab-button {
-    display: none !important;
+    position: fixed !important;
+    top: 50px !important;         /* just below the header */
+    right: 18px !important;
+    bottom: auto !important;
+    left: auto !important;
+    z-index: 28 !important;
+}
+.work-editor > .fab-button ngx-fab-button > button,
+.work-editor > .fab-button .ngx-fab-button button,
+.work-editor > .fab-button ngx-fab-item-button > button {
+    width: 34px !important;
+    height: 34px !important;
+    min-width: 34px !important;
+    line-height: 34px !important;
+    background: linear-gradient(135deg, var(--ds-brand), var(--ds-brand-2)) !important;
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.32),
+                0 0 0 1px rgba(255, 255, 255, 0.08) inset !important;
+    transition: transform var(--ds-dur-fast) var(--ds-ease) !important;
+}
+.work-editor > .fab-button ngx-fab-button > button:hover,
+.work-editor > .fab-button .ngx-fab-button button:hover {
+    transform: translateY(-2px) !important;
+}
+.work-editor > .fab-button mat-icon {
+    font-size: 17px !important;
+    width: 17px !important;
+    height: 17px !important;
+    line-height: 17px !important;
+    color: var(--ds-on-brand);
+}
+.work-editor > .fab-button ngx-fab-item-button .ngx-fab-content {
+    font-size: 11px !important;
+    font-weight: 600 !important;
+    padding: 5px 10px !important;
+    border-radius: 6px !important;
+    background: var(--ds-panel) !important;
+    color: var(--ds-text) !important;
+    border: 1px solid var(--ds-border) !important;
+    box-shadow: var(--ds-shadow-sm) !important;
 }
 .fab-button ngx-fab-button > button,
 .fab-button ngx-fab-item-button > button,
@@ -852,8 +890,12 @@ html.theme-transitioning *::after {
    room on narrower viewports so the "BrandX Help" label doesn't get clipped.
    ============================================================================= */
 .header-right {
-    gap: 6px !important;
-    padding-right: 12px !important;
+    gap: 8px !important;
+    padding: 0 18px 0 12px !important;     /* breathing room from the right edge */
+    right: 0;
+}
+.header-right .header-help {
+    margin-right: 6px;                      /* extra space so BrandX Help isn't hugging the edge */
 }
 .header-right .header-theme-toggle.mat-mdc-icon-button {
     flex: 0 0 36px;
