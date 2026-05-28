@@ -820,3 +820,140 @@ select#start_marker option[value="D"] {
     font-size: 13px;
 }
 .symbol-search-empty mat-icon { font-size: 34px; width: 34px; height: 34px; opacity: 0.55; }
+
+/* =============================================================================
+   SIDEBAR REDESIGN — modern panel-based navigation
+   Senior-UX patterns from Figma / Linear / VS Code / Notion:
+   - clean section dividers (1px subtle border, no heavy shadows)
+   - proper 32px touch-target section headers
+   - typography: 11px semibold + .06em letter-spacing, refined hover state
+   - soft brand-tinted active/hover states with left accent stripe
+   - hover-reveal action buttons (cleaner default state)
+   - smooth 150ms transitions everywhere
+   ============================================================================= */
+
+/* ---------- section panel (mat-expansion-panel) ---------- */
+.svg-workarea-leftbar-p {
+    background: transparent !important;
+    box-shadow: none !important;
+    border: none !important;
+    border-radius: 0 !important;
+    margin: 0 !important;
+}
+
+/* ---------- section header (mat-expansion-panel-header) ---------- */
+.svg-workarea-leftbar-h {
+    max-height: 36px !important;
+    height: 36px !important;
+    padding: 0 12px 0 10px !important;
+    border-top: 1px solid var(--ds-border) !important;
+    border-bottom: none !important;
+    box-shadow: none !important;       /* kill the legacy 0px 1px 3px #000 */
+    background: transparent !important;
+    color: var(--ds-text-muted) !important;
+    transition: background var(--ds-dur-fast, 120ms) var(--ds-ease, ease),
+                color var(--ds-dur-fast, 120ms) var(--ds-ease, ease);
+}
+.svg-workarea-leftbar-h:hover {
+    background: rgba(var(--ds-brand-rgb), 0.06) !important;
+    color: var(--ds-text) !important;
+}
+.svg-workarea-leftbar-h .mat-content {
+    align-items: center;
+}
+
+/* Title typography — semibold, letter-spaced, mixed brightness on state */
+.svg-workarea-leftbar-h span {
+    padding-top: 0 !important;
+    padding-left: 6px !important;
+    font-size: 11px !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.06em !important;
+    line-height: 1 !important;
+    text-transform: uppercase;
+    color: inherit;
+    transition: color var(--ds-dur-fast, 120ms) var(--ds-ease, ease);
+}
+
+/* Expand/collapse chevron — smaller, less heavy */
+.svg-workarea-leftbar-h .mat-panel-title > mat-icon:first-child,
+.svg-workarea-leftbar-h .mat-mdc-panel-title > mat-icon:first-child {
+    font-size: 14px !important;
+    width: 14px !important;
+    height: 14px !important;
+    line-height: 14px !important;
+    margin-right: 0 !important;
+    opacity: 0.75;
+    transition: opacity var(--ds-dur-fast, 120ms) var(--ds-ease, ease);
+}
+.svg-workarea-leftbar-h:hover .mat-panel-title > mat-icon:first-child { opacity: 1; }
+
+/* Expanded state: panel header gets a slightly brighter title */
+.mat-expanded > .svg-workarea-leftbar-h span,
+.svg-workarea-leftbar-p.mat-expanded > .svg-workarea-leftbar-h span {
+    color: var(--ds-text) !important;
+}
+
+/* ---------- inline action buttons (+, upload, etc.) ---------- */
+.leftbar-edit-btn {
+    width: 22px !important;
+    height: 22px !important;
+    font-size: 16px !important;
+    line-height: 22px !important;
+    border-radius: 6px !important;
+    padding: 2px !important;
+    margin-left: 4px !important;
+    color: var(--ds-text-muted) !important;
+    background: transparent !important;
+    transition: background var(--ds-dur-fast, 120ms) var(--ds-ease, ease),
+                color var(--ds-dur-fast, 120ms) var(--ds-ease, ease),
+                opacity var(--ds-dur-fast, 120ms) var(--ds-ease, ease);
+    opacity: 0;
+}
+.svg-workarea-leftbar-h:hover .leftbar-edit-btn,
+.svg-workarea-leftbar-h .leftbar-edit-btn:focus-visible { opacity: 1; }
+.leftbar-edit-btn:hover {
+    background: rgba(var(--ds-brand-rgb), 0.16) !important;
+    color: var(--ds-brand) !important;
+}
+
+/* The Upload SVG pill stays visible (its own discrete style) */
+#fuxa-upload-shape-btn { opacity: 1 !important; }
+
+/* ---------- panel body / leftbar-panel ---------- */
+::ng-deep .svg-workarea-leftbar-p .mat-expansion-panel-body {
+    padding: 6px 6px 8px !important;
+}
+
+/* ---------- selected view item — soft brand tint + accent stripe ---------- */
+::ng-deep .leftbar-item {
+    border-radius: 8px;
+    margin: 2px 4px;
+    padding: 4px 8px !important;
+    position: relative;
+    transition: background var(--ds-dur-fast, 120ms) var(--ds-ease, ease),
+                color var(--ds-dur-fast, 120ms) var(--ds-ease, ease);
+}
+::ng-deep .leftbar-item:hover:not(.leftbar-item-active) {
+    background: rgba(var(--ds-brand-rgb), 0.08) !important;
+    color: var(--ds-text) !important;
+}
+::ng-deep .leftbar-item-active {
+    background: rgba(var(--ds-brand-rgb), 0.18) !important;
+    color: var(--ds-text) !important;
+}
+::ng-deep .leftbar-item-active::before {
+    content: '';
+    position: absolute;
+    left: -2px;
+    top: 4px;
+    bottom: 4px;
+    width: 3px;
+    background: linear-gradient(180deg, var(--ds-brand), var(--ds-brand-2));
+    border-radius: 0 3px 3px 0;
+}
+
+/* Top section (no border on first child) */
+.svg-workarea-leftbar-p:first-of-type .svg-workarea-leftbar-h {
+    border-top: none !important;
+}
