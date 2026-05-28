@@ -379,10 +379,15 @@ html body #tools_top > #editor_panel > .main-btn:first-of-type,
 html body #tools_top > #editor_panel > .main-btn-sep:first-of-type + .main-btn { margin-left: 0 !important; }
 
 /* The external svg-editor lib sets inline `style="z-index:-1"` on #svg_editor,
-   which puts the WHOLE editor subtree (rulers, workarea, #tools_top) BEHIND
-   sibling elements in the mat-drawer-content. That's why tools_top showed a
-   grey strip — a sibling's default bg was rendering on top. Override it. */
-html body #svg_editor { z-index: auto !important; }
+   AND has no `position` set on it — so its absolute children (#tools_top,
+   #workarea, etc.) position relative to the VIEWPORT, putting them behind the
+   now-normal-flow <app-header>. Establish a positioning context here. */
+html body #svg_editor {
+  z-index: auto !important;
+  position: relative !important;   /* so abs children position inside #svg_editor, not viewport */
+  height: 100%;
+  width: 100%;
+}
 html body #tools_top *, html body #tools_top .mat-icon, html body #tools_top .main-btn { color: #edf4ff !important; }
 html body #tools_top .main-btn:hover { background: rgba(76,159,255,.18) !important; }
 

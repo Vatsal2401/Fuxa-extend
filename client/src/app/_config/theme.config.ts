@@ -42,7 +42,7 @@ export const THEMES = {
         inputTime: 'invert(0%)',
     },
     dark: {
-        headerBackground: '#333333',
+        headerBackground: '#0b1626',
         // ThermoGrid design-system palette (kept in sync with src/styles/_tokens.scss)
         headerColor: '#edf4ff',
         tableHeaderColor: 'rgba(157,176,203,0.9)',
