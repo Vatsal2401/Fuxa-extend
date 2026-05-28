@@ -1,7 +1,8 @@
-<div class="header-panel">
-    <mat-icon>content_paste</mat-icon>
-    {{'reports.list-title' | translate}}
-</div>
+<ds-page-header [title]="'reports.list-title' | translate" [subtitle]="'reports.list-subtitle' | translate">
+    <button mat-raised-button color="primary" (click)="onAddReport()">
+        <mat-icon>add</mat-icon><span>{{'reports.add' | translate}}</span>
+    </button>
+</ds-page-header>
 <div class="work-panel">
     <div class="container">
         <table mat-table #table [dataSource]="dataSource" multiTemplateDataRows matSort>

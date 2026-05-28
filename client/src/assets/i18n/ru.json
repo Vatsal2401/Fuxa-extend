@@ -28,11 +28,11 @@
 
     "project.name": "Название проекта",
 
-    "sidenav.title": "FUXA",
+    "sidenav.title": "BrandX",
 
-    "tutorial.title": "Руководство FUXA",
+    "tutorial.title": "Руководство BrandX",
 
-    "dlg.info-title": "FUXA",
+    "dlg.info-title": "BrandX",
 
     "dlg.layout-title": "Настройки вида",
     "dlg.layout-general": "Общие",
@@ -685,7 +685,7 @@
     "devices.export-csv": "CSV",
     "devices.import": "Импорт устройств",
     "device.property-client": "Свойства устройства",
-    "device.property-server": "Свойства сервера FUXA",
+    "device.property-server": "Свойства сервера BrandX",
     "device.property-name": "Название",
     "device.property-type": "Тип",
     "device.property-polling": "Опрос",

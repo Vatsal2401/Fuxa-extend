@@ -1,7 +1,4 @@
-<div class="header-panel">
-    <mat-icon>location_on</mat-icon>
-    {{'maps.locations-list-title' | translate}}
-</div>
+<ds-page-header [title]="'maps.locations-list-title' | translate"></ds-page-header>
 <div class="work-panel">
     <div class="container">
         <mat-table #table [dataSource]="dataSource" matSort>

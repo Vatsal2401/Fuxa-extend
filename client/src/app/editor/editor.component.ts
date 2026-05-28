@@ -1,14 +1,17 @@
 ﻿/* eslint-disable @angular-eslint/component-class-suffix */
-import { Component, Inject, OnInit, OnDestroy, AfterViewInit, ViewChild, ViewContainerRef, ComponentFactoryResolver, ElementRef } from '@angular/core';
+import { Component, Inject, OnInit, OnDestroy, AfterViewInit, ViewChild, ViewContainerRef, ComponentFactoryResolver, ElementRef, HostListener } from '@angular/core';
 import { ChangeDetectorRef } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { MatDialog as MatDialog, MatDialogRef as MatDialogRef, MAT_DIALOG_DATA as MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { MatDrawer } from '@angular/material/sidenav';
-import { Subject, Subscription, switchMap, takeUntil } from 'rxjs';
+import { Subject, Subscription, switchMap, takeUntil, debounceTime, distinctUntilChanged } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
 
 import { ProjectService, SaveMode } from '../_services/project.service';
 import { Hmi, View, GaugeSettings, SelElement, LayoutSettings, ViewType, ISvgElement, GaugeProperty, DocProfile } from '../_models/hmi';
 import { WindowRef } from '../_helpers/windowref';
+import { EditorDropService } from '../_services/editor-drop.service';
+import { EditorGridService } from '../_services/editor-grid.service';
 import { GaugePropertyComponent, GaugeDialogType, GaugePropertyData } from '../gauges/gauge-property/gauge-property.component';
 
 import { GaugesManager } from '../gauges/gauges.component';
@@ -118,6 +121,23 @@ export class EditorComponent implements OnInit, AfterViewInit, OnDestroy {
     svgViewType = ViewType.svg;
     mapsViewType = ViewType.maps;
     shapesGrps = [];
+
+    /* ---------- Symbol library search/filter ---------- */
+    symbolSearch = new FormControl('');
+    filteredShapesGrps: any[] = [];     // what the template renders
+    searching = false;                   // true while a query is active
+    searchResultCount = 0;
+    private prevPanelsState: any = null;  // remember collapse state to restore on clear
+    /** Aliases for abbreviated shape names so "diaphragm" matches "diaph", etc. */
+    private static readonly SYMBOL_ALIASES: { [k: string]: string } = {
+        diaph: 'diaphragm valve', eli: 'ellipse', poval: 'oval',
+        pumphidra: 'pump hydraulic', pumpjet: 'pump jet', pumpgear: 'pump gear',
+        pumpturbi: 'pump turbine', pumpcentri1: 'pump centrifugal', pumpcentri2: 'pump centrifugal',
+        centrifugal: 'centrifugal pump fan', fhpath: 'pencil freehand', fhrect: 'freehand rectangle',
+        looplimit: 'loop limit', prepara: 'preparation', trape: 'trapezoid',
+        offpage: 'off page connector', maninput: 'manual input', docu: 'document',
+        nosymbol: 'no entry blocking', star4: 'star four point', star5: 'star five point',
+    };
     private gaugesRef = {};
 
     private subscriptionSave: Subscription;
@@ -128,6 +148,8 @@ export class EditorComponent implements OnInit, AfterViewInit, OnDestroy {
 
     constructor(private projectService: ProjectService,
         private winRef: WindowRef,
+        private editorDrop: EditorDropService,
+        private editorGrid: EditorGridService,
         public dialog: MatDialog,
         private changeDetector: ChangeDetectorRef,
         private translateService: TranslateService,
@@ -400,6 +422,123 @@ export class EditorComponent implements OnInit, AfterViewInit, OnDestroy {
             grps.push({ name: grpk, shapes: temp[grpk] });
         }),
         this.shapesGrps = grps;
+        // wire the live search once, then (re)apply current query to the new data
+        if (!this.symbolSearchSub) {
+            this.symbolSearchSub = this.symbolSearch.valueChanges
+                .pipe(debounceTime(150), distinctUntilChanged(), takeUntil(this.destroy$))
+                .subscribe((q: string) => this.applySymbolFilter(q || ''));
+        }
+        this.applySymbolFilter(this.symbolSearch.value || '');
+    }
+    private symbolSearchSub?: Subscription;
+
+    /** Normalise a shape name for matching: strip the typeId- prefix + append aliases. */
+    private symbolSearchText(shape: any, groupName: string): string {
+        const raw = (shape?.name || '').toLowerCase();
+        const noPrefix = raw.replace(/^[a-z0-9]+-/, '');        // 'shapes-rectangle' -> 'rectangle'
+        const alias = EditorComponent.SYMBOL_ALIASES[noPrefix] || '';
+        const cat = (groupName || '').toLowerCase();
+        return `${raw} ${noPrefix} ${alias} ${cat}`;
+    }
+
+    /**
+     * Build the rich-preview model consumed by [appSymbolTooltip] on palette items.
+     * Reuses the alias map so search keywords and tooltip tags stay in sync.
+     */
+    public symbolTooltipModel(shape: any, groupName: string): any {
+        const raw = (shape?.name || '');
+        const noPrefix = raw.toLowerCase().replace(/^[a-z0-9]+-/, '');
+        const alias = EditorComponent.SYMBOL_ALIASES[noPrefix] || '';
+        const tags = Array.from(new Set(
+            [noPrefix, ...alias.split(' ')].filter(t => t && t.length > 1)
+        )).slice(0, 4);
+        return {
+            name: (noPrefix || raw).replace(/[-_]/g, ' '),
+            category: groupName || '',
+            iconUrl: shape?.ico,
+            tags,
+        };
+    }
+
+    /** Live filter over the data-driven shape libraries. */
+    applySymbolFilter(query: string): void {
+        const q = (query || '').trim().toLowerCase();
+        if (!q) {
+            // restore: show everything, revert any auto-expansion
+            this.searching = false;
+            this.searchResultCount = 0;
+            this.filteredShapesGrps = this.shapesGrps;
+            if (this.prevPanelsState) {
+                this.panelsState = { ...this.panelsState, ...this.prevPanelsState };
+                this.prevPanelsState = null;
+            }
+            this.changeDetector.markForCheck?.();
+            return;
+        }
+        // remember collapse state once, so we can restore it when the search clears
+        if (!this.prevPanelsState) {
+            this.prevPanelsState = {};
+            this.shapesGrps.forEach(g => this.prevPanelsState[g.name] = this.panelsState[g.name]);
+        }
+        let count = 0;
+        this.filteredShapesGrps = this.shapesGrps
+            .map(grp => {
+                const shapes = grp.shapes.filter((s: any) => this.symbolSearchText(s, grp.name).includes(q));
+                if (shapes.length) {
+                    this.panelsState[grp.name] = true;     // auto-expand groups with matches
+                    count += shapes.length;
+                }
+                return { name: grp.name, shapes };
+            })
+            .filter(grp => grp.shapes.length > 0);          // hide zero-match groups
+        this.searching = true;
+        this.searchResultCount = count;
+        this.changeDetector.markForCheck?.();
+    }
+
+    /** Clear the search and restore the normal expanded/collapsed state. */
+    clearSymbolSearch(): void {
+        this.symbolSearch.setValue('');
+        this.applySymbolFilter('');
+    }
+
+    /** Editor-level keyboard shortcuts. Skipped when the user is in a text field. */
+    @HostListener('document:keydown', ['$event'])
+    onEditorKeydown(e: KeyboardEvent): void {
+        const t = e.target as HTMLElement;
+        const tag = (t?.tagName || '').toLowerCase();
+        const inField = tag === 'input' || tag === 'textarea' || t?.isContentEditable;
+
+        // Alt-hold → temporarily disables grid/guide snap (even inside fields,
+        // because the user might be dragging while a property field has focus).
+        if (e.altKey && !e.repeat) { this.editorGrid.setSnapHold(true); }
+
+        if (inField || e.ctrlKey || e.metaKey) { return; }
+
+        // "/" focuses the symbol search box.
+        if (e.key === '/') {
+            const input = document.getElementById('symbol-search-input') as HTMLInputElement | null;
+            if (input) { e.preventDefault(); input.focus(); }
+            return;
+        }
+        // "G" toggles grid visibility.
+        if (e.key === 'g' || e.key === 'G') {
+            e.preventDefault();
+            this.editorGrid.setShowGrid(!this.editorGrid.showGrid$.value);
+            return;
+        }
+        // "S" toggles snap.
+        if (e.key === 's' || e.key === 'S') {
+            e.preventDefault();
+            this.editorGrid.setSnap(!this.editorGrid.snap$.value);
+            return;
+        }
+    }
+
+    /** Release Alt → restore the user's saved snap preference. */
+    @HostListener('document:keyup', ['$event'])
+    onEditorKeyup(e: KeyboardEvent): void {
+        if (e.key === 'Alt' || !e.altKey) { this.editorGrid.setSnapHold(false); }
     }
 
     /**
@@ -641,6 +780,31 @@ export class EditorComponent implements OnInit, AfterViewInit, OnDestroy {
      */
     isModeActive(mode) {
         return (this.currentMode === mode);
+    }
+
+    /* ---------- Drag-and-drop placement (Phase 1-3 of dnd plan) ---------- */
+    /** Drag starts on a palette shape — highlight the canvas as a valid drop target. */
+    onShapeDragStarted(): void {
+        const workarea = document.getElementById('workarea');
+        workarea?.classList.add('ds-drop-zone-active');
+        document.body.classList.add('ds-dragging-shape');     // global cursor + invalid-zone cues
+    }
+    /** Drag ends — clear highlight, then attempt placement at the drop screen-coords. */
+    onShapeDragEnded(event: any, shape: any): void {
+        const workarea = document.getElementById('workarea');
+        workarea?.classList.remove('ds-drop-zone-active');
+        document.body.classList.remove('ds-dragging-shape');
+        const p = event?.dropPoint;
+        if (!p) { return; }                            // cancelled / Esc
+        // CDK fires this even for tiny accidental drags (treated as clicks by the original
+        // click handler). If distance is below threshold, do nothing — let the click do its job.
+        if (event?.distance && Math.hypot(event.distance.x, event.distance.y) < 5) { return; }
+        const placed = this.editorDrop.placeAtScreenPoint(shape, p.x, p.y);
+        if (placed) {
+            // Service already resets to 'select' mode internally; sync our local state.
+            this.currentMode = 'select';
+        }
+        this.changeDetector.markForCheck?.();
     }
 
     /**

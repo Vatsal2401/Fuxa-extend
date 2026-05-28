@@ -8,7 +8,7 @@
     height: 800px;
     /* background-color:black; */
     /* box-shadow: 0 2px 5px 0 rgba(0,0,0,.26); */
-    box-shadow: 0px 1px 4px 1px #888888;
+    box-shadow: var(--ds-shadow-sm);
 }
 
 .card-close {
@@ -17,7 +17,7 @@
     right: 0px;
     height: 22px;
     width: 22px;
-    color: rgba(0, 0, 0, 0.7);
+    color: var(--ds-text);
     background-color: transparent;
     font-size: 12px;
     cursor: move !important;
@@ -41,7 +41,7 @@
     width: 800px;
     height: 600px;
     background-color: black;
-    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+    box-shadow: var(--ds-shadow-md);
     /* box-shadow: 0px 2px 6px -1px #888888; */
 }
 
@@ -91,8 +91,8 @@
 }
 
 .dialog-modal-content {
-    border: 1px solid #888;
-    box-shadow: 0 0 12px #000000 !important;
+    border: 1px solid var(--ds-border);
+    box-shadow: var(--ds-shadow-lg) !important;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -105,7 +105,7 @@
     right: 0px;
     height: 22px;
     width: 100%;
-    color: rgba(0, 0, 0, 0.7);
+    color: var(--ds-text);
     background-color: transparent;
     font-size: 12px;
     cursor: move !important;
@@ -118,17 +118,17 @@
 /* input */
 .dialog-input {
     z-index: 9999; /* Sit on top */
-    box-shadow: 1px 2px 5px -1px #888;
+    box-shadow: var(--ds-shadow-sm);
     position: absolute;
     padding: 5px;
-    background-color: #fff;
+    background-color: var(--ds-panel);
     min-width: 80px;
-    border: 0.5px solid #888;
+    border: 0.5px solid var(--ds-border);
     border-radius: 2px;
 }
 
 .dialog-input input {
-    border: 0.5px solid rgba(0,0,0,0.1);
+    border: 0.5px solid var(--ds-border);
     border-radius: 2px;
     padding: 6px 3px 7px 4px;
     width: 100%;

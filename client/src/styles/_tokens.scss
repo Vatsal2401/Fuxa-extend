@@ -1,0 +1,197 @@
+/* =============================================================================
+   FUXA Design System — Design Tokens (single source of truth)
+   CSS custom properties. Light values on :root, dark overrides on .dark-theme
+   (reuses FUXA's existing .dark-theme class switch in theme.scss).
+   Consumed by SCSS, Material overrides, and shared UI components.
+   ============================================================================= */
+
+:root {
+  /* ---- Brand ---- */
+  --ds-brand:        #1874ff;
+  --ds-brand-2:      #24b4ff;
+  --ds-brand-rgb:    24 116 255;
+
+  /* ---- Semantic ---- */
+  --ds-success:      #17b26a;
+  --ds-warning:      #f79009;
+  --ds-danger:       #ef4444;
+  --ds-info:         #24b4ff;
+
+  /* ---- Surfaces (light) ---- */
+  --ds-bg:           #eef2f8;
+  --ds-bg-grad:      radial-gradient(circle at top left, rgba(24,116,255,.08), transparent 30%),
+                     radial-gradient(circle at top right, rgba(36,180,255,.06), transparent 24%),
+                     var(--ds-bg);
+  --ds-surface:      rgba(255,255,255,.78);
+  --ds-surface-2:    #ffffff;
+  --ds-panel:        #ffffff;
+  --ds-border:       rgba(37,63,98,.16);
+  --ds-overlay-scrim: rgba(18,32,51,.38);
+
+  /* ---- Text (light) ---- */
+  --ds-text:         #122033;
+  --ds-text-muted:   #50637b;
+  --ds-text-invert:  #ffffff;
+  --ds-on-brand:     #ffffff;
+
+  /* ---- Elevation / glow ---- */
+  --ds-shadow-sm:    0 2px 6px rgba(18,32,51,.08);
+  --ds-shadow-md:    0 10px 28px rgba(18,32,51,.10);
+  --ds-shadow-lg:    0 18px 48px rgba(18,32,51,.14);
+  --ds-glow:         0 0 0 1px rgba(36,180,255,.16), 0 14px 50px rgba(24,116,255,.12);
+
+  /* ---- Radius ---- */
+  --ds-radius-xs:    8px;
+  --ds-radius-sm:    10px;
+  --ds-radius-md:    14px;
+  --ds-radius-lg:    20px;
+  --ds-radius-xl:    28px;
+  --ds-radius-pill:  999px;
+
+  /* ---- Spacing scale (4px base) ---- */
+  --ds-sp-1: 4px;  --ds-sp-2: 8px;  --ds-sp-3: 12px; --ds-sp-4: 16px;
+  --ds-sp-5: 20px; --ds-sp-6: 24px; --ds-sp-8: 32px; --ds-sp-10: 40px; --ds-sp-12: 48px;
+
+  /* ---- Typography ---- */
+  --ds-font:         'Inter', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  --ds-font-display: 'Orbitron', 'Inter', sans-serif;
+  --ds-fs-xs: 12px; --ds-fs-sm: 13px; --ds-fs-base: 14px; --ds-fs-md: 16px;
+  --ds-fs-lg: 20px; --ds-fs-xl: 26px; --ds-fs-2xl: 34px;
+  --ds-fw-regular: 400; --ds-fw-medium: 500; --ds-fw-semibold: 600; --ds-fw-bold: 700;
+  --ds-lh-tight: 1.25; --ds-lh-normal: 1.5; --ds-lh-loose: 1.7;
+
+  /* ---- Motion ---- */
+  --ds-dur-fast:   120ms;
+  --ds-dur-base:   220ms;
+  --ds-dur-slow:   360ms;
+  --ds-ease:       cubic-bezier(.4, 0, .2, 1);
+  --ds-ease-out:   cubic-bezier(0, 0, .2, 1);
+
+  /* ---- Z-index scale ---- */
+  --ds-z-base: 1; --ds-z-sticky: 100; --ds-z-drawer: 1000; --ds-z-overlay: 1100;
+  --ds-z-modal: 1200; --ds-z-toast: 1300; --ds-z-tooltip: 1400;
+
+  /* ---- Layout ---- */
+  --ds-sidenav-w: 264px;
+  --ds-header-h: 56px;
+
+  /* ---- Interactive states ---- */
+  --ds-hover:        rgba(24,116,255,.08);
+  --ds-active:       rgba(24,116,255,.16);
+  --ds-focus-ring:   0 0 0 2px rgba(24,116,255,.45);
+  --ds-selection:    rgba(24,116,255,.22);
+
+  /* ---- Canvas (SVG workarea inside the editor) ---- */
+  --ds-canvas-bg:    #e9edf3;
+  --ds-canvas-grid:  rgba(18,32,51,.06);
+
+  /* ---- Scrollbars ---- */
+  --ds-scrollbar-track: rgba(18,32,51,.04);
+  --ds-scrollbar-thumb: rgba(18,32,51,.22);
+  --ds-scrollbar-thumb-hover: rgba(18,32,51,.36);
+
+  /* =============================================================================
+     Legacy FUXA theme aliases — keep code that uses --headerBackground et al.
+     working by pointing those vars at the modern --ds-* tokens above.
+     Switching themes (.dark-theme on body/html) re-resolves --ds-* and these
+     aliases automatically follow. No JS theme.config sync needed.
+     ============================================================================= */
+  --headerBackground:           var(--ds-panel);
+  --headerColor:                var(--ds-text);
+  --headerBorder:               var(--ds-border);
+  --tableHeaderColor:           var(--ds-text-muted);
+  --toolboxBackground:          var(--ds-panel);
+  --toolboxColor:               var(--ds-text);
+  --toolboxBorder:              var(--ds-border);
+  --toolboxPanelBackground:     var(--ds-panel);
+  --toolboxButton:              var(--ds-surface-2);
+  --toolboxItemActiveBackground:var(--ds-brand);
+  --toolboxItemActiveColor:     var(--ds-on-brand);
+  --toolboxFlyColor:            var(--ds-text);
+  --sidenavBackground:          var(--ds-panel);
+  --footZoomBackground:         var(--ds-panel);
+  --footZoomBackgroundHover:    var(--ds-hover);
+  --footZoomColor:              var(--ds-text);
+  --svgEditRulersBackground:    var(--ds-panel);
+  --svgEditRulersColor:         var(--ds-text-muted);
+  --svgEditWorkareaBackground:  var(--ds-canvas-bg);
+  --svgEditWorkareaContextMenu: var(--ds-panel);
+  --svgEditWorkareaContextColor:var(--ds-text);
+  --formInputBackground:        var(--ds-surface-2);
+  --formExtInputBackground:     var(--ds-surface-2);
+  --formInputColor:             var(--ds-text);
+  --formInputReadonlyBackground:var(--ds-hover);
+  --formInputBorderFocus:       var(--ds-brand);
+  --formInputBackgroundFocus:   var(--ds-surface-2);
+  --formSliderBackground:       var(--ds-hover);
+  --formSeparatorColor:         var(--ds-border);
+  --formBorder:                 var(--ds-border);
+  --setupSeparatorColor:        var(--ds-border);
+  --workPanelBackground:        var(--ds-panel);
+  --workPanelExpandBackground:  var(--ds-bg);
+  --mapBorderColor:             var(--ds-border);
+  --formExtBackground:          var(--ds-hover);
+  --formInputExtBackground:     var(--ds-surface-2);
+  --scrollbarTrack:             var(--ds-scrollbar-track);
+  --scrollbarThumb:             var(--ds-scrollbar-thumb);
+  --chipsBackground:            var(--ds-hover);
+  --chipSelectedBackground:     var(--ds-brand);
+  --chipSelectedColor:          var(--ds-on-brand);
+  --inputTime:                  invert(0%);
+}
+
+/* =============================================================================
+   DARK THEME — overrides applied when .dark-theme is present on the root.
+   This is the DEFAULT theme (ThemeService adds .dark-theme on startup).
+   ============================================================================= */
+.dark-theme {
+  --ds-brand:        #4c9fff;
+  --ds-brand-2:      #1ed5ff;
+  --ds-brand-rgb:    76 159 255;
+
+  --ds-success:      #29d391;
+  --ds-warning:      #ffb547;
+  --ds-danger:       #ff6b7d;
+  --ds-info:         #1ed5ff;
+
+  --ds-bg:           #08111f;
+  --ds-bg-grad:      radial-gradient(circle at top left, rgba(28,124,255,.18), transparent 28%),
+                     radial-gradient(circle at top right, rgba(30,213,255,.13), transparent 22%),
+                     var(--ds-bg);
+  --ds-surface:      rgba(15,26,46,.82);
+  --ds-surface-2:    rgba(15,26,46,.94);
+  --ds-panel:        #0f1a2e;
+  --ds-border:       rgba(148,184,255,.16);
+  --ds-overlay-scrim: rgba(2,6,14,.62);
+
+  --ds-text:         #edf4ff;
+  --ds-text-muted:   #9db0cb;
+  --ds-on-brand:     #ffffff;
+
+  --ds-shadow-sm:    0 2px 8px rgba(0,0,0,.35);
+  --ds-shadow-md:    0 14px 36px rgba(0,0,0,.42);
+  --ds-shadow-lg:    0 28px 60px rgba(0,0,0,.5);
+  --ds-glow:         0 0 0 1px rgba(30,213,255,.16), 0 18px 55px rgba(12,26,59,.42);
+
+  /* ---- Interactive states (dark) ---- */
+  --ds-hover:        rgba(76,159,255,.10);
+  --ds-active:       rgba(76,159,255,.20);
+  --ds-focus-ring:   0 0 0 2px rgba(76,159,255,.55);
+  --ds-selection:    rgba(76,159,255,.28);
+
+  /* ---- Canvas (dark) ---- */
+  --ds-canvas-bg:    #08111f;
+  --ds-canvas-grid:  rgba(148,184,255,.06);
+
+  /* ---- Scrollbars (dark) ---- */
+  --ds-scrollbar-track: rgba(148,184,255,.06);
+  --ds-scrollbar-thumb: rgba(76,159,255,.32);
+  --ds-scrollbar-thumb-hover: rgba(76,159,255,.55);
+
+  /* ---- Legacy alias overrides (dark) — most aliases already follow --ds-*,
+     a few need a different mapping in dark vs light. ---- */
+  --toolboxButton:              #13213a;
+  --workPanelExpandBackground:  #0b1626;
+  --formInputExtBackground:     #13213a;
+  --inputTime:                  invert(100%);
+}

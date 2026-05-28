@@ -1,6 +1,11 @@
 <div class="header-panel" *ngIf="editorMode">
-    <button mat-button title="{{'header.save-project' | translate}}" [matMenuTriggerFor]="prjview" #prjviewtrigger="matMenuTrigger" class="main-btn">
+    <span class="app-brand">
+        <mat-icon class="app-brand-logo" aria-hidden="true">hub</mat-icon>
+        <span class="app-brand-name">BrandX</span>
+    </span>
+    <button mat-button [appTooltip]="'header.save-project' | translate" appTooltipShortcut="Ctrl+S" appTooltipPlacement="below" [matMenuTriggerFor]="prjview" #prjviewtrigger="matMenuTrigger" class="main-btn labeled">
         <mat-icon aria-label="Save Project">save</mat-icon>
+        <span class="btn-label">{{'header.save-project' | translate}}</span>
     </button>
     <mat-menu #prjview="matMenu" class="leftbar-item-menu header-menu" yPosition="below" [overlapTrigger]="false">
         <button mat-menu-item (click)="onNewProject()">{{'header.new-project' | translate}}</button>
@@ -13,23 +18,29 @@
         <button mat-menu-item (click)="onRenameProject()">{{'header.rename-project' | translate}}</button>
         <input type="file" #fileImportInput style="display: none" id="projectFileUpload" (change)="onFileChangeListener($event)" accept=".json" />
     </mat-menu>
-    <button mat-button title="{{'header.edit-project' | translate}}" class="main-btn" (click)="onSetup()">
+    <button mat-button [appTooltip]="'header.edit-project' | translate" appTooltipPlacement="below" class="main-btn labeled" (click)="onSetup()">
         <mat-icon aria-label="Edit Views">settings</mat-icon>
+        <span class="btn-label">{{'header.edit-project' | translate}}</span>
     </button>
 
 </div>
 
 <div class="header-right" *ngIf="editorMode">
+    <button mat-icon-button class="header-theme-toggle"
+            [appTooltip]="(isDark ? 'header.theme-switch-light' : 'header.theme-switch-dark') | translate"
+            appTooltipPlacement="below"
+            (click)="onToggleTheme()">
+        <mat-icon>{{ isDark ? 'light_mode' : 'dark_mode' }}</mat-icon>
+    </button>
     <div class="header-help">
-        <button mat-button title="{{'header.help' | translate}}" [matMenuTriggerFor]="helpmenu" class="main-btn">
+        <button mat-button [appTooltip]="'header.help' | translate" appTooltipPlacement="below" [matMenuTriggerFor]="helpmenu" class="main-btn labeled">
             <mat-icon aria-label="HELP">help_outline</mat-icon>
+            <span class="btn-label">{{'header.help' | translate}}</span>
         </button>
         <mat-menu #helpmenu="matMenu" class="leftbar-item-menu header-menu" yPosition="below" [overlapTrigger]="false">
             <button mat-menu-item (click)="onShowHelp('help')">{{'header.help-tutorial' | translate}}</button>
             <mat-divider class="menu-separator"></mat-divider>
             <button mat-menu-item (click)="onShowHelp('info')">{{'header.help-info' | translate}}</button>
-            <mat-divider class="menu-separator"></mat-divider>
-            <button mat-menu-item (click)="onChangeTheme()">{{'header.change-thema' | translate}}</button>
         </mat-menu>
     </div>
 </div>

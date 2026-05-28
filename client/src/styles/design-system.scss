@@ -1,0 +1,930 @@
+/* =============================================================================
+   FUXA Design System — global application theming (token-driven, built).
+   Replaces the injected assets/theme/scada-theme.css overlay.
+   ============================================================================= */
+@use 'mixins' as *;
+@use 'tokens';
+
+/* ---- base ---- */
+html, body {
+  background: var(--ds-bg-grad) !important;
+  color: var(--ds-text);
+  font-family: var(--ds-font);
+  font-size: var(--ds-fs-base);
+  line-height: var(--ds-lh-normal);
+}
+* { @include themed-scrollbar; }
+
+.mat-typography, .mat-app-background, app-root, .home-body, .content,
+mat-sidenav-content, .mat-drawer-content, .mat-sidenav-content {
+  background: transparent !important;
+  color: var(--ds-text);
+}
+
+/* ---- header / toolbar ----
+   NOTE: no backdrop-filter/transform here — `<app-header class="header">`
+   contains position:fixed children (.header-panel), and a filter on an
+   ancestor would break their fixed positioning (hide the Save/Edit/Help bar). */
+.header, mat-toolbar, .mat-toolbar {
+  background: rgba(8,17,31,.92);
+  border: none;
+  border-bottom: 1px solid var(--ds-border);
+  color: var(--ds-text) !important;
+  box-shadow: var(--ds-shadow-md);
+}
+.header *, .header-menu *, mat-toolbar * { color: var(--ds-text); }
+
+/* ---- side navigation ----
+   NOTE: NO backdrop-filter / transform / filter here! These host palette items
+   whose CDK drag-preview is position:fixed. Any containing-block-creating CSS on
+   an ancestor clips the preview to the panel (ghost vanishes when dragging toward
+   the canvas). */
+.sidenav, .sidenav-container, mat-sidenav, .mat-drawer, .mat-sidenav {
+  background: linear-gradient(180deg, var(--ds-surface-2), var(--ds-panel)) !important;
+  border-right: 1px solid var(--ds-border) !important;
+  color: var(--ds-text);
+}
+.sidenav a, .sidenav .mat-list-item, .sidenav-container a { color: var(--ds-text-muted); }
+.sidenav a:hover, .sidenav .active, .sidenav .mat-list-item:hover {
+  background: rgba(var(--ds-brand-rgb), .12) !important;
+  color: var(--ds-text) !important;
+  border-radius: var(--ds-radius-md);
+}
+
+/* ---- cards / panels / dialogs ---- */
+mat-card, .mat-card, .mat-mdc-card,
+mat-expansion-panel, .mat-expansion-panel,
+.mat-dialog-container, .mat-mdc-dialog-container, .mat-mdc-dialog-surface,
+.side-card, .panel {
+  @include card;
+}
+.mat-expansion-panel-header, .mat-expansion-panel-header-title,
+.mat-expansion-panel-header-description, .mat-expansion-panel-body { color: var(--ds-text) !important; }
+
+/* ---- buttons ---- */
+.main-btn, button.mat-raised-button, .mat-mdc-raised-button,
+button.mat-button, .mat-mdc-button, .mat-flat-button {
+  color: var(--ds-text);
+  border-radius: var(--ds-radius-md) !important;
+  transition: transform var(--ds-dur-fast) var(--ds-ease), background var(--ds-dur-base) var(--ds-ease);
+}
+.mat-raised-button.mat-primary:not([disabled]):not(.mat-mdc-button-disabled),
+.mat-mdc-raised-button.mat-primary:not([disabled]):not(.mat-mdc-button-disabled),
+.action-btn.primary:not([disabled]):not(.mat-mdc-button-disabled),
+button[color="primary"]:not([disabled]):not(.mat-mdc-button-disabled) {
+  background: linear-gradient(135deg, var(--ds-brand), var(--ds-brand-2)) !important;
+  color: var(--ds-on-brand) !important;
+  border: none !important;
+  box-shadow: var(--ds-glow) !important;
+}
+/* Disabled brand-coloured buttons get a clearly-inactive, readable look. */
+.mat-raised-button.mat-primary[disabled], .mat-mdc-raised-button.mat-primary[disabled],
+.action-btn.primary[disabled], button[color="primary"][disabled],
+.mat-raised-button.mat-primary.mat-mdc-button-disabled,
+.mat-mdc-raised-button.mat-primary.mat-mdc-button-disabled,
+.action-btn.primary.mat-mdc-button-disabled,
+button[color="primary"].mat-mdc-button-disabled {
+  background: var(--ds-hover) !important;
+  color: var(--ds-text-muted) !important;
+  border: 1px solid var(--ds-border) !important;
+  box-shadow: none !important;
+  cursor: not-allowed;
+  opacity: 0.75;
+}
+.main-btn:hover, .mat-mdc-button:hover, .mat-mdc-raised-button:hover { transform: translateY(-1px); }
+.mat-fab, .mat-mdc-fab, button.mat-fab, .fuxa-fab, button[mattooltip="menu"] {
+  background: linear-gradient(135deg, var(--ds-brand), var(--ds-brand-2)) !important;
+  color: var(--ds-on-brand) !important;
+  box-shadow: var(--ds-glow) !important;
+}
+
+/* ---- inputs / form fields ---- */
+.my-form-field span, .mat-form-field-label, .mat-mdc-form-field-label, mat-label, .mat-hint { color: var(--ds-text-muted) !important; }
+.my-form-field input, input, textarea, select {
+  background: rgba(255,255,255,.04);
+  color: var(--ds-text);
+  border: 1px solid var(--ds-border);
+  border-radius: var(--ds-radius-xs);
+}
+input:focus, textarea:focus, select:focus { @include focus-ring; border-color: var(--ds-brand); }
+.mat-form-field-underline, .mat-form-field-ripple,
+.mdc-line-ripple::before, .mdc-line-ripple::after { background-color: var(--ds-border) !important; }
+.mat-select-arrow, .mat-mdc-select-arrow, .mat-select-value-text,
+.mat-input-element, .mat-mdc-input-element, .mat-select-value, .mat-mdc-select-value { color: var(--ds-text) !important; }
+
+/* ---- Material overlays: menus, selects, autocomplete, tooltips ---- */
+.cdk-overlay-pane .mat-menu-panel, .cdk-overlay-pane .mat-mdc-menu-panel,
+.mat-select-panel, .mat-mdc-select-panel,
+.mat-autocomplete-panel, .mat-mdc-autocomplete-panel,
+.mat-datepicker-content, .mat-mdc-menu-content {
+  background: var(--ds-surface-2) !important;
+  color: var(--ds-text) !important;
+  border: 1px solid var(--ds-border) !important;
+  border-radius: var(--ds-radius-md) !important;
+  box-shadow: var(--ds-shadow-lg) !important;
+}
+.mat-menu-item, .mat-mdc-menu-item, .mat-option, .mat-mdc-option,
+.mat-menu-item .mat-icon, .mat-mdc-menu-item .mat-icon { color: var(--ds-text) !important; }
+.mat-menu-item:hover, .mat-mdc-menu-item:hover, .mat-option:hover, .mat-mdc-option:hover,
+.mat-option.mat-active, .mat-mdc-option.mdc-list-item--selected { background: rgba(var(--ds-brand-rgb), .16) !important; }
+.mat-tooltip, .mat-mdc-tooltip, .mdc-tooltip__surface {
+  background: var(--ds-panel) !important; color: var(--ds-text) !important;
+  border: 1px solid var(--ds-border) !important; border-radius: var(--ds-radius-xs) !important;
+}
+.cdk-overlay-dark-backdrop { background: var(--ds-overlay-scrim) !important; }
+
+/* ---- tabs ---- */
+.mat-tab-label, .mat-mdc-tab .mdc-tab__text-label, .mat-tab-link { color: var(--ds-text-muted) !important; }
+.mat-tab-label-active, .mdc-tab--active .mdc-tab__text-label { color: var(--ds-text) !important; }
+.mat-ink-bar, .mdc-tab-indicator__content--underline { background-color: var(--ds-brand) !important; border-color: var(--ds-brand) !important; }
+.mat-tab-header, .mat-mdc-tab-header { border-bottom: 1px solid var(--ds-border) !important; }
+
+/* ---- toggles / checkboxes / radios ---- */
+.mat-slide-toggle.mat-checked .mat-slide-toggle-bar, .mdc-switch--selected .mdc-switch__track { background-color: rgba(var(--ds-brand-rgb), .5) !important; }
+.mat-checkbox-checked .mat-checkbox-background, .mat-mdc-checkbox-checked .mdc-checkbox__background { background-color: var(--ds-brand) !important; }
+.mat-radio-checked .mat-radio-outer-circle { border-color: var(--ds-brand) !important; }
+.mat-radio-inner-circle { background-color: var(--ds-brand) !important; }
+
+/* ---- tables ---- */
+table, .mat-table, .mat-mdc-table, mat-row, mat-header-row, th.mat-header-cell, td.mat-cell {
+  background: transparent !important; color: var(--ds-text); border-color: var(--ds-border) !important;
+}
+th.mat-header-cell, .mat-mdc-header-cell { color: var(--ds-text-muted) !important; }
+.mat-paginator, .mat-mdc-paginator { background: transparent !important; color: var(--ds-text-muted) !important; }
+
+/* ---- icons / lists ---- */
+.mat-icon, .material-icons, mat-icon { color: var(--ds-text); }
+.mat-list-item, .mat-mdc-list-item, .mat-nav-list a { color: var(--ds-text); }
+
+/* ---- titles → display font ---- */
+h1, h2, h3, .title-wrap h2, .panel-head h3, .brand-text h1, [mat-dialog-title], .mat-dialog-title, .mdc-dialog__title {
+  font-family: var(--ds-font-display); letter-spacing: .04em; color: var(--ds-text);
+}
+
+/* ---- snackbar ---- */
+.mat-snack-bar-container, .mat-mdc-snack-bar-container .mdc-snackbar__surface {
+  background: var(--ds-surface-2) !important; color: var(--ds-text) !important;
+  border: 1px solid var(--ds-border) !important; border-radius: var(--ds-radius-md) !important;
+}
+
+/* ---- editor chrome (canvas itself is external) ---- */
+.svg-sidenav, .svg-workarea-leftbar-p, .svg-workarea-leftbar-h, .editor-toolbar, .rightbar,
+#svg_editor_container, .bottom-bar, .tools_panel, .leftbar-panel, .view-panel,
+.svg-workarea-contextmenu, .contextMenu {
+  background: var(--ds-panel) !important; color: var(--ds-text) !important; border-color: var(--ds-border) !important;
+}
+.icon-tool, .material-icon-tool { color: var(--ds-text) !important; }
+.svg-tool-button:hover { background: rgba(var(--ds-brand-rgb), .16) !important; border-radius: var(--ds-radius-xs); }
+.svg-tool-active { background: rgba(var(--ds-brand-rgb), .24) !important; border-radius: var(--ds-radius-xs); }
+.rightbar-input, .attr_changer { background: rgba(255,255,255,.05) !important; color: var(--ds-text) !important; border: 1px solid var(--ds-border) !important; }
+
+/* ---- status accents ---- */
+.alarm-color, .button-counter.alarm-color { color: var(--ds-danger) !important; }
+.info-color, .button-counter.info-color { color: var(--ds-info) !important; }
+
+/* ---- reduced motion ---- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+}
+
+/* ============================================================
+   Phase 3 — App shell polish (sidenav nav + login)
+   Structural/interaction styling (colors stay project-configurable).
+   ============================================================ */
+
+/* Sidenav navigation items: modern hover/active, spacing, transitions */
+.sidenav-menu {
+  padding: var(--ds-sp-2);
+  .sidenav-header { letter-spacing: .06em; text-transform: uppercase; opacity: .9; }
+  .sidenav-btn {
+    width: 100%; justify-content: flex-start; gap: var(--ds-sp-3);
+    border-radius: var(--ds-radius-md) !important;
+    transition: background var(--ds-dur-base) var(--ds-ease), transform var(--ds-dur-fast) var(--ds-ease);
+  }
+  .sidenav-btn:hover { background: rgba(var(--ds-brand-rgb), .14) !important; transform: translateX(2px); }
+  .mat-list-item { border-radius: var(--ds-radius-md); margin: 2px 0; }
+  .submenu-list { margin-left: var(--ds-sp-3); border-left: 1px solid var(--ds-border); }
+  mat-icon { transition: transform var(--ds-dur-base) var(--ds-ease); }
+}
+
+/* Login card */
+.login-container, form[novalidate], .mat-dialog-content form {
+  .my-form-field span { display:block; margin-bottom:4px; font-size: var(--ds-fs-xs); letter-spacing:.04em; text-transform:uppercase; color: var(--ds-text-muted); }
+}
+
+/* Generic page padding for routed settings pages so content breathes */
+.content > router-outlet + *, .page-content { display:block; }
+
+/* ============================================================
+   Phase 4/6 — page polish, responsive, micro-interactions, a11y
+   ============================================================ */
+
+/* Card / tile hover lift (device tiles, list cards) */
+mat-card:hover, .mat-card:hover, .ngx-device:hover, .device-item:hover {
+  box-shadow: var(--ds-shadow-lg);
+}
+
+/* Responsive: tables scroll horizontally instead of breaking layout on small screens */
+.mat-table, .mat-mdc-table, table { width: 100%; }
+.table-wrapper, .mat-table-container, .data-table-wrapper { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+/* Routed settings pages: keep content readable + breathing room on large screens */
+.work-panel, .work-container, .settings-content, .page-content {
+  padding: var(--ds-sp-5);
+}
+
+/* Mobile: drawer-style sidenav already (mode=over); ensure full-height + shadow */
+@media (max-width: 904px) {
+  mat-sidenav, .mat-sidenav { box-shadow: var(--ds-shadow-lg); }
+  .header-panel, .header-right { gap: var(--ds-sp-1); }
+}
+
+/* Visible keyboard focus for interactive elements (WCAG) */
+a:focus-visible, button:focus-visible, [tabindex]:focus-visible,
+.mat-mdc-button:focus-visible, .mat-icon-button:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--ds-bg), 0 0 0 4px rgba(var(--ds-brand-rgb), .6);
+  border-radius: var(--ds-radius-xs);
+}
+
+/* Smooth route/content fade */
+router-outlet + * { animation: ds-fade-in var(--ds-dur-base) var(--ds-ease-out); }
+@keyframes ds-fade-in { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+
+/* FUXA "+" add FAB (device/connections) → brand */
+.add-button, .fab-add, button.mat-fab.add {
+  background: linear-gradient(135deg, var(--ds-brand), var(--ds-brand-2)) !important;
+  color: var(--ds-on-brand) !important;
+}
+
+/* ============================================================
+   Phase 6b — editor/property dialog form controls (catch-all)
+   Fixes white inputs/color-pickers in view & gauge property dialogs.
+   ============================================================ */
+.my-form-field input,
+.my-form-field textarea,
+.property-container input,
+.property-container textarea,
+.mat-dialog-container input[type="text"],
+.mat-dialog-container input[type="number"],
+.mat-mdc-dialog-container input[type="text"],
+.mat-mdc-dialog-container input[type="number"],
+.cdk-overlay-pane input[type="text"],
+.cdk-overlay-pane input[type="number"] {
+  background: var(--ds-surface-2) !important;
+  color: var(--ds-text) !important;
+  border: 1px solid var(--ds-border) !important;
+  border-radius: var(--ds-radius-xs) !important;
+}
+.my-form-field input:focus,
+.property-container input:focus,
+.cdk-overlay-pane input:focus {
+  border-color: var(--ds-brand) !important;
+  box-shadow: 0 0 0 2px rgba(var(--ds-brand-rgb), .3) !important;
+}
+
+/* color picker button/box → themed */
+.ngx-color-picker-btn,
+.color-picker .selected-color,
+input.color-picker-input {
+  background: var(--ds-surface-2) !important;
+  color: var(--ds-text) !important;
+  border: 1px solid var(--ds-border) !important;
+  box-shadow: none !important;
+}
+
+/* mat-select trigger inside dialogs → themed surface */
+.my-form-field .mat-mdc-select-trigger,
+.property-container .mat-mdc-select-trigger {
+  background: var(--ds-surface-2) !important;
+  border: 1px solid var(--ds-border) !important;
+  border-radius: var(--ds-radius-xs) !important;
+}
+
+/* editor ruler text + zoom footer legibility */
+.svg-editor-ruler, .ruler, #fuxa-upload-shape-btn { color: var(--ds-text); }
+
+/* ============================================================
+   Phase 6c — date-range picker + scheduler (token recolor)
+   ============================================================ */
+.md-drppicker {
+  background: var(--ds-surface-2) !important;
+  color: var(--ds-text) !important;
+  border: 1px solid var(--ds-border) !important;
+  border-radius: var(--ds-radius-md) !important;
+  box-shadow: var(--ds-shadow-lg) !important;
+  .calendar-table, table, td, th { background: transparent !important; color: var(--ds-text) !important; border-color: var(--ds-border) !important; }
+  td.available:hover, th.available:hover { background: rgba(var(--ds-brand-rgb), .16) !important; }
+  td.active, td.active:hover { background: var(--ds-brand) !important; color: var(--ds-on-brand) !important; }
+  td.off { color: var(--ds-text-muted) !important; opacity: .5; }
+  .btn, button { color: var(--ds-text); }
+  input { background: var(--ds-panel) !important; color: var(--ds-text) !important; border: 1px solid var(--ds-border) !important; }
+}
+.days-of-month-calendar, .months-row {
+  .month-btn, .day-btn { background: var(--ds-surface-2) !important; color: var(--ds-text) !important; border: 1px solid var(--ds-border) !important; }
+  .month-btn.selected, .day-btn.selected { background: var(--ds-brand) !important; color: var(--ds-on-brand) !important; }
+}
+
+/* ============================================================
+   Phase 6d — FORCE dialog surfaces dark (Material injects its own
+   surface color at runtime; needs !important to override)
+   ============================================================ */
+.mat-mdc-dialog-surface, .mdc-dialog__surface,
+.mat-dialog-container, .mat-mdc-dialog-container,
+.cdk-dialog-container, .mat-mdc-dialog-content, .mat-dialog-content {
+  background: var(--ds-surface-2) !important;
+  color: var(--ds-text) !important;
+}
+.mat-mdc-dialog-surface { border: 1px solid var(--ds-border) !important; border-radius: var(--ds-radius-lg) !important; box-shadow: var(--ds-shadow-lg) !important; }
+/* dialog inner wrappers should not re-introduce a light bg */
+.mat-mdc-dialog-surface .container,
+.mat-mdc-dialog-surface [mat-dialog-content],
+.mat-mdc-dialog-surface .wizard-content,
+.mat-dialog-container .container { background: transparent !important; color: var(--ds-text) !important; }
+.dialog-title, .dialog-close-btn, .wizard-text, [mat-dialog-content] p, [mat-dialog-content] label { color: var(--ds-text) !important; }
+/* mat checkbox label + select trigger text in dialogs */
+.mat-mdc-dialog-surface .mdc-label, .mat-mdc-dialog-surface .mat-mdc-select-value { color: var(--ds-text) !important; }
+
+/* ============================================================
+   Phase 6e — editor app-header (Save / Edit Project / Help) visibility
+   The fixed header-panel was getting covered / icons invisible.
+   ============================================================ */
+/* app-header is now a real flex bar (managed by header.component.scss).
+   We just ensure its bottom edge looks like a divider into the SVG tools below. */
+.header-panel, .header-right { background: #0b1626 !important; color: #edf4ff !important; }
+.header { border-bottom: 1px solid var(--ds-border) !important; box-shadow: 0 1px 0 rgba(0,0,0,.35); }
+/* External svg-editor top toolbar — solid dark bar matching the branded header.
+   Maximum-specificity selectors so this wins over anything else. */
+html body #tools_top,
+html body #tools_top > div,
+html body #tools_top.tools_panel,
+html body #editor_panel,
+html body #selected_panel,
+html body #multiselected_panel,
+html body #text_panel,
+html body #path_node_panel,
+html body #g_panel,
+html body [id$="_panel"]:not(.tabset-pane):not(#editor_panel) {
+  background: #0b1626 !important;
+  background-color: #0b1626 !important;
+  color: #edf4ff !important;
+  border-color: rgba(148,184,255,.16) !important;
+}
+html body #tools_top {
+  /* #tools_top stays in its natural location (absolute inside #svg_editor).
+     Two-row layout: app-header above, this svg toolbar below. No magic numbers. */
+  left: 0 !important;
+  right: 0 !important;
+  background-image: none !important;
+  overflow: visible !important;
+  height: 44px !important;            /* match BrandX header height */
+  min-height: 44px !important;
+  display: flex !important;
+  align-items: center !important;
+}
+/* Trim svg-editor's internal margin before the play button */
+html body #tools_top > #editor_panel { padding-left: 8px !important; }
+html body #tools_top > #editor_panel > .main-btn-sep:first-child { display: none !important; }
+/* Neutralise the vintage outset grey separators between toolbar buttons */
+html body #tools_top .main-btn-sep {
+  background: transparent !important;
+  border: none !important;
+  width: 0 !important;
+  margin: 5px 2px !important;
+}
+/* Tighten the toolbar buttons — was margin-left/right:5px on every button */
+html body #tools_top .main-btn {
+  margin-left: 2px !important;
+  margin-right: 2px !important;
+}
+/* The very first visible button (play) gets 0 left margin so it sits against the divider */
+html body #tools_top > #editor_panel > .main-btn:first-of-type,
+html body #tools_top > #editor_panel > .main-btn-sep:first-of-type + .main-btn { margin-left: 0 !important; }
+
+/* The external svg-editor lib sets inline `style="z-index:-1"` on #svg_editor.
+   We undo it so its children render above sibling overlays, but leave its
+   positioning/sizing alone — the lib manages those itself. */
+html body #svg_editor { z-index: auto !important; }
+html body #tools_top *, html body #tools_top .mat-icon, html body #tools_top .main-btn { color: #edf4ff !important; }
+html body #tools_top .main-btn:hover { background: rgba(76,159,255,.18) !important; }
+
+/* brand mark */
+.app-brand { display: inline-flex; align-items: center; gap: 6px; padding: 0 8px 0 2px; margin-right: 2px; }
+.app-brand-logo { color: var(--ds-brand) !important; font-size: 22px !important; width: 22px; height: 22px; }
+.app-brand-name { font-family: var(--ds-font-display); font-weight: 700; letter-spacing: .12em; font-size: 14px; color: #ffffff; }
+
+/* labeled toolbar buttons */
+.header-panel .main-btn, .header-right .main-btn {
+  height: 28px !important;
+  min-width: 28px !important;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 0 10px !important;
+  border-radius: 8px !important;
+  color: #cdd9ee !important;
+  transition: background var(--ds-dur-base) var(--ds-ease), color var(--ds-dur-base) var(--ds-ease), transform var(--ds-dur-fast) var(--ds-ease);
+}
+.header-panel .main-btn.labeled, .header-right .main-btn.labeled {
+  width: auto !important;
+  padding: 0 12px !important;
+}
+.header-panel .main-btn:not(.labeled), .header-right .main-btn:not(.labeled) { width: 28px !important; padding: 0 !important; }
+.main-btn .btn-label { font-size: 12px; font-weight: 600; white-space: nowrap; }
+.header-panel mat-icon, .header-right mat-icon,
+.header-panel .mat-icon, .header-right .mat-icon {
+  color: inherit !important;
+  font-size: 20px !important;
+  width: 20px; height: 20px;
+  line-height: 20px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+.header-panel .main-btn:hover, .header-right .main-btn:hover {
+  background: rgba(var(--ds-brand-rgb), .20) !important;
+  color: #ffffff !important;
+  transform: translateY(-1px);
+}
+.header-panel .main-btn:active, .header-right .main-btn:active { transform: translateY(0); }
+
+/* editor left-panel section headers (Views/General/Controls…) — cleaner */
+.svg-workarea-leftbar-h {
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  font-size: 11px !important;
+  font-weight: 600;
+  color: var(--ds-text-muted) !important;
+}
+.svg-workarea-leftbar-h:hover { color: var(--ds-text) !important; }
+.leftbar-edit-btn:hover, .svg-workarea-leftbar-h .mat-icon:hover { color: var(--ds-brand) !important; }
+
+/* ============================================================
+   Operator data pages — when a ds-page-header precedes the legacy
+   absolute .work-panel (top:37px), offset it below the header.
+   One rule covers logs/reports/users/etc.
+   ============================================================ */
+ds-page-header { display: block; padding: var(--ds-sp-2) var(--ds-sp-5) 0; }
+ds-page-header + .work-panel {
+  top: 96px !important;
+  height: calc(100% - 112px) !important;
+  left: var(--ds-sp-5) !important;
+  right: var(--ds-sp-5) !important;
+  border: 1px solid var(--ds-border) !important;
+  border-radius: var(--ds-radius-lg) !important;
+  background: var(--ds-surface-2) !important;
+  overflow: auto;
+  box-shadow: var(--ds-shadow-md) !important;
+}
+/* keep inner wrappers + Material tables transparent so the card surface shows */
+ds-page-header + .work-panel .container,
+ds-page-header + .work-panel .mat-table,
+ds-page-header + .work-panel mat-table,
+ds-page-header + .work-panel table { background: transparent !important; }
+/* neutralise Material MDC table surface variable globally */
+.mat-mdc-table, .mat-table, mat-table, table.mat-table {
+  --mat-table-background-color: transparent !important;
+  background-color: transparent !important;
+}
+
+/* ============================================================
+   External svg-editor lib hardcodes light greys (#a0a0a0 workarea,
+   #d0d0d0/#b0b0b0 rulers/panels). Override them to dark theme.
+   ============================================================ */
+/* Editor canvas area — hardcode dark navy literal so the workarea is dark
+   regardless of theme state (was resolving to light --ds-bg before `.dark-theme`
+   class was applied to body). */
+html body #workarea,
+html body #svg_editor_container,
+html body .svg-workarea-container,
+html body mat-drawer-container.svg-workarea-container,
+html body mat-drawer-content.mat-drawer-content {
+  background: #08111f !important;
+  background-color: #08111f !important;
+  border-color: rgba(148,184,255,.16) !important;
+}
+html body #workarea { top: 36px !important; }
+#rulers, #rulers > div, #ruler_corner, #ruler_x, #ruler_y {
+  display: none !important;
+}
+#svg_editor, #svgcanvas, #svgroot, .container_, #editor_pane {
+  background-color: var(--ds-bg, #08111f) !important;
+}
+/* Any remaining hardcoded grey panels in svg-editor */
+[id^="tools_"], [id$="_panel"]:not(#editor_panel) {
+  background-color: var(--ds-panel, #0f1a2e) !important;
+  color: var(--ds-text, #edf4ff) !important;
+}
+
+/* ============================================================
+   Drag-and-drop palette → canvas (Phase 4: visual polish)
+   ============================================================ */
+
+/* Palette items show grab cursor; preserves accidental-click behaviour via cdkDragStartDelay */
+.svg-tool-button { cursor: grab; touch-action: none; }
+.svg-tool-button:active { cursor: grabbing; }
+
+/* The ghost that follows the cursor — a thumbnail of the shape icon */
+.ds-drag-preview {
+    display: block;
+    width: 44px;
+    height: 44px;
+    background-size: 32px 32px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: rgba(11, 22, 38, 0.92);
+    border: 1px solid rgba(76, 159, 255, 0.45);
+    border-radius: 10px;
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.5), 0 0 0 3px rgba(76, 159, 255, 0.18);
+    pointer-events: none;
+    /* mat-icon font-color shows in light icons via filter */
+    filter: invert(0) brightness(1.2);
+}
+
+/* The original button while dragging — dim it so user sees it's the source */
+.ds-drag-placeholder {
+    display: block;
+    width: 40px;
+    height: 40px;
+    background: rgba(76, 159, 255, 0.08);
+    border: 1px dashed rgba(76, 159, 255, 0.35);
+    border-radius: 8px;
+    opacity: 0.6;
+}
+
+/* Drop-zone highlight on the canvas while a palette drag is in progress */
+#workarea.ds-drop-zone-active {
+    outline: 2px dashed var(--ds-brand, #4c9fff) !important;
+    outline-offset: -6px;
+    transition: outline-color var(--ds-dur-base, 220ms) var(--ds-ease, ease);
+    box-shadow: inset 0 0 0 1px rgba(76, 159, 255, 0.2);
+}
+
+/* While dragging anywhere, ensure preview sits above modals */
+.cdk-drag-preview { z-index: 100000 !important; }
+
+/* Optional drop pulse — applied briefly by JS at placement point in a future iteration */
+@keyframes ds-drop-pulse {
+    0%   { transform: scale(0.6); opacity: 0.9; }
+    100% { transform: scale(2.2); opacity: 0;   }
+}
+
+/* Image-based drag preview (CDK shape buttons) — guaranteed visible <img> */
+.ds-drag-preview-img {
+    display: block !important;
+    width: 44px;
+    height: 44px;
+    padding: 6px;
+    background: rgba(11, 22, 38, 0.94);
+    border: 1px solid rgba(76, 159, 255, 0.55);
+    border-radius: 10px;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.55), 0 0 0 3px rgba(76, 159, 255, 0.18);
+    pointer-events: none;
+    object-fit: contain;
+    filter: brightness(1.4);
+}
+
+/* ============================================================
+   Drag-and-drop UX polish — pulse, cursors, hover, invalid-drop
+   ============================================================ */
+
+/* ---- DROP CONFIRMATION PULSE (rendered at drop point) ---- */
+.ds-drop-pulse {
+    position: fixed;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(76, 159, 255, 0.0);
+    border: 2px solid rgba(76, 159, 255, 0.85);
+    box-shadow: 0 0 0 0 rgba(76, 159, 255, 0.45);
+    pointer-events: none;
+    z-index: 100050;
+    animation: ds-drop-pulse-anim 600ms cubic-bezier(.2, .6, .25, 1) forwards;
+}
+@keyframes ds-drop-pulse-anim {
+    0%   { transform: scale(0.5); opacity: 0.95; box-shadow: 0 0 0 0   rgba(76,159,255,.55); }
+    60%  { transform: scale(1.6); opacity: 0.55; box-shadow: 0 0 0 12px rgba(76,159,255,.10); }
+    100% { transform: scale(2.4); opacity: 0;    box-shadow: 0 0 0 20px rgba(76,159,255,0);   }
+}
+
+/* ---- CURSOR: "drop allowed" over canvas while a drag is active ---- */
+body.ds-dragging-shape #workarea,
+body.ds-dragging-shape #svgcanvas,
+body.ds-dragging-shape #svgcontent {
+    cursor: copy !important;
+}
+/* "Can't drop here" cursor over invalid zones while dragging */
+body.ds-dragging-shape .svg-sidenav,
+body.ds-dragging-shape .svg-workarea-leftbar-p,
+body.ds-dragging-shape .header,
+body.ds-dragging-shape .header-panel,
+body.ds-dragging-shape .header-right,
+body.ds-dragging-shape .bottom-bar {
+    cursor: not-allowed !important;
+}
+
+/* ---- PALETTE HOVER AFFORDANCE — subtle "I'm draggable" cue ---- */
+.svg-tool-button {
+    border-radius: 6px;
+    transition: transform var(--ds-dur-fast, 120ms) var(--ds-ease, ease),
+                background var(--ds-dur-base, 220ms) var(--ds-ease, ease),
+                box-shadow var(--ds-dur-base, 220ms) var(--ds-ease, ease);
+}
+.svg-tool-button:hover {
+    background: rgba(76, 159, 255, 0.10) !important;
+    box-shadow: inset 0 0 0 1px rgba(76, 159, 255, 0.28);
+    transform: translateY(-1px);
+}
+.svg-tool-button:active { transform: translateY(0); }
+
+/* ---- PREVENT BROWSER CONTEXT MENU during drag ---- */
+.svg-tool-button { -webkit-user-select: none; -ms-user-select: none; user-select: none; }
+
+/* ============================================================
+   CDK default drag-preview / placeholder styling
+   (used by the unified [appPaletteDraggable] directive across ALL palette items)
+   ============================================================ */
+
+/* The ghost following the cursor — a clone of the source element. */
+.cdk-drag-preview {
+    opacity: 0.95 !important;
+    border-radius: 8px;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.55), 0 0 0 2px rgba(76, 159, 255, 0.45) !important;
+    background: rgba(11, 22, 38, 0.92) !important;
+    transition: transform 80ms ease;
+    pointer-events: none;
+    z-index: 100000 !important;
+}
+
+/* Source slot while dragging — visible (slot stays filled) but dimmed so user knows it's the source. */
+.cdk-drag-placeholder {
+    opacity: 0.8 !important;
+    background: rgba(76, 159, 255, 0.08) !important;
+    box-shadow: inset 0 0 0 1px rgba(76, 159, 255, 0.30) !important;
+    border-radius: 6px;
+    transition: opacity 120ms ease;
+}
+
+/* While dragging anywhere on the page, lower drag-related animation duration */
+.cdk-drag-animating { transition: transform 180ms cubic-bezier(0, 0, 0.2, 1); }
+
+/* ============================================================
+   CDK drag-preview escape: NO containing-block CSS on palette ancestors.
+   backdrop-filter/filter/transform on an ancestor would clip the position:fixed
+   preview to that element (ghost vanishes once it leaves the palette).
+   ============================================================ */
+.svg-sidenav, .svg-workarea-leftbar-p, .mat-expansion-panel.svg-workarea-leftbar-p,
+#__tools_left, .leftbar-panel, .view-panel, #svg_editor_container {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  filter: none !important;
+  transform: none !important;
+}
+/* preview must sit above the svg-editor canvas (which uses z up to 99999) */
+.cdk-drag-preview { z-index: 1000000 !important; }
+
+/* ============================================================
+   HTML5 native drag image (used by [appPaletteDraggable] for ALL palette items).
+   Rendered off-screen then handed to setDragImage — the browser composites it
+   so it's NEVER clipped by any CSS containing block, visible across the canvas.
+   ============================================================ */
+.ds-html5-ghost {
+    position: fixed;
+    top: -1000px;            /* off-screen; only used as the drag image source */
+    left: -1000px;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-size: 28px 28px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: rgba(11, 22, 38, 0.95);
+    border: 1px solid rgba(76, 159, 255, 0.6);
+    border-radius: 10px;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.55);
+    pointer-events: none;
+    z-index: -1;
+    filter: brightness(1.4);
+}
+.ds-html5-ghost--font .icon-tool {
+    display: inline-flex;
+    width: 28px; height: 28px;
+    align-items: center; justify-content: center;
+}
+
+/* =============================================================================
+   Tooltip system — global
+   - .ds-tooltip-panel / .ds-symbol-tooltip-panel: CDK overlay wrappers used by
+     [appTooltip] and [appSymbolTooltip]. Themed via --ds-tooltip-* tokens.
+   - .mat-mdc-tooltip / .mdc-tooltip__surface: restyle Material's built-in
+     tooltip so existing matTooltip call-sites (~34) inherit the same look
+     without touching each template.
+   ============================================================================= */
+:root,
+.dark-theme {
+    --ds-tooltip-bg:     rgba(15, 24, 42, 0.96);
+    --ds-tooltip-fg:     #edf4ff;
+    --ds-tooltip-border: rgba(76, 159, 255, 0.22);
+}
+
+/* CDK overlay panels host the bubble component — no border/background here;
+   the bubble paints its own surface so transforms don't break the backdrop. */
+.ds-tooltip-panel,
+.ds-symbol-tooltip-panel {
+    pointer-events: none;
+}
+.ds-symbol-tooltip-panel.cdk-overlay-pane {
+    pointer-events: auto;  /* allow Alt-pinned card to receive hover */
+}
+
+/* Restyle Material's tooltip globally so the 34 existing matTooltip calls
+   match the new design language without per-template edits. */
+.mdc-tooltip .mdc-tooltip__surface,
+.mat-mdc-tooltip .mdc-tooltip__surface {
+    background: var(--ds-tooltip-bg) !important;
+    color: var(--ds-tooltip-fg) !important;
+    border: 1px solid var(--ds-tooltip-border);
+    border-radius: 8px !important;
+    padding: 6px 10px !important;
+    font-size: 12px !important;
+    font-weight: 500 !important;
+    letter-spacing: 0.01em;
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(8px) saturate(120%);
+    -webkit-backdrop-filter: blur(8px) saturate(120%);
+    max-width: 280px;
+}
+
+/* =============================================================================
+   Theme switch — smooth color transition.
+   Applied only during the actual swap so micro-animations (hover/focus) stay
+   snappy after. ThemeService adds .theme-transitioning on <html> for ~260ms.
+   ============================================================================= */
+html.theme-transitioning,
+html.theme-transitioning body,
+html.theme-transitioning *,
+html.theme-transitioning *::before,
+html.theme-transitioning *::after {
+    transition: background-color 200ms var(--ds-ease, ease),
+                color 200ms var(--ds-ease, ease),
+                border-color 200ms var(--ds-ease, ease),
+                fill 200ms var(--ds-ease, ease),
+                stroke 200ms var(--ds-ease, ease),
+                box-shadow 200ms var(--ds-ease, ease) !important;
+}
+
+/* Token-driven scrollbar — both webkit + firefox. */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: var(--ds-scrollbar-thumb) var(--ds-scrollbar-track);
+}
+*::-webkit-scrollbar { width: 10px; height: 10px; }
+*::-webkit-scrollbar-track { background: var(--ds-scrollbar-track); }
+*::-webkit-scrollbar-thumb {
+    background: var(--ds-scrollbar-thumb);
+    border-radius: 8px;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+}
+*::-webkit-scrollbar-thumb:hover { background: var(--ds-scrollbar-thumb-hover); background-clip: padding-box; border: 2px solid transparent; }
+
+/* Visible focus ring for keyboard users — token-driven. */
+:focus-visible {
+    outline: none;
+    box-shadow: var(--ds-focus-ring);
+    border-radius: var(--ds-radius-xs);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html.theme-transitioning,
+    html.theme-transitioning * { transition: none !important; }
+}
+
+/* =============================================================================
+   svg-editor grid — token-driven theming.
+   The lib renders #canvasGrid as an SVG group with <line>s for the grid lines.
+   We override stroke + opacity so the grid follows the active theme without
+   touching the lib. The grid step itself is owned by svgCanvas.curConfig.
+   ============================================================================= */
+#canvasGrid line {
+    stroke: var(--ds-canvas-grid) !important;
+    stroke-width: 1 !important;
+    shape-rendering: crispEdges;
+}
+#canvasGrid line[stroke="#000"], #canvasGrid line[stroke="#000000"] {
+    /* Lib hardcodes some major-line strokes — re-tint. */
+    stroke: var(--ds-canvas-grid) !important;
+    opacity: 1;
+}
+
+/* =============================================================================
+   Dev nav FAB (ngx-fab-button) — Home / Lab / Editor jump menu.
+   Default size is 56px and the menu expands UPWARD over the left sidebar
+   palette. Shrink + push to bottom-right so it doesn't obscure shapes.
+   ============================================================================= */
+/* Dev nav FAB inside the editor — compact, modern, doesn't clash with sidebar
+   palette or the grid toolbar. Bottom-left of canvas, just past the sidebar. */
+/* Modern dev-nav button — small icon trigger + Material dropdown menu.
+   Replaces the old ngx-fab-button stack (3 large pills) with the standard
+   "apps" launcher pattern used in Material/Google products. */
+.dev-nav-btn.mat-mdc-icon-button {
+    position: fixed !important;
+    top: 58px;
+    right: 18px;
+    width: 34px;
+    height: 34px;
+    line-height: 34px;
+    padding: 0;
+    border-radius: 999px;
+    background: linear-gradient(135deg, var(--ds-brand), var(--ds-brand-2)) !important;
+    color: var(--ds-on-brand) !important;
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.32),
+                0 0 0 1px rgba(255, 255, 255, 0.10) inset !important;
+    z-index: 28;
+    transition: transform var(--ds-dur-fast) var(--ds-ease),
+                box-shadow var(--ds-dur-base) var(--ds-ease);
+}
+.dev-nav-btn.mat-mdc-icon-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 22px rgba(0, 0, 0, 0.42),
+                0 0 0 1px rgba(255, 255, 255, 0.14) inset !important;
+}
+.dev-nav-btn .mat-icon {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+    line-height: 18px;
+    color: var(--ds-on-brand);
+}
+/* Dropdown menu — token-driven surface, compact items with icon + label.
+   The global .mat-mdc-menu-panel rule already themes the surface; just tweak
+   spacing + min width here. */
+.dev-nav-menu.mat-mdc-menu-panel {
+    min-width: 168px !important;
+    border-radius: var(--ds-radius-sm) !important;
+    margin-top: 6px;
+}
+.dev-nav-menu .mat-mdc-menu-item {
+    min-height: 38px !important;
+    height: 38px !important;
+    padding: 0 12px !important;
+    font: 600 12.5px var(--ds-font) !important;
+    letter-spacing: .01em;
+}
+.dev-nav-menu .mat-mdc-menu-item .mat-icon {
+    margin-right: 10px !important;
+    font-size: 18px !important;
+    width: 18px !important;
+    height: 18px !important;
+    color: var(--ds-brand) !important;
+}
+/* Belt-and-braces — hide the old ngx-fab-button rendering if any leaks through
+   (e.g. while users are mid-deploy with both versions in cache). */
+.work-editor > .fab-button { display: none !important; }
+.fab-button ngx-fab-button > button,
+.fab-button ngx-fab-item-button > button,
+.fab-button .ngx-fab-button button {
+    width: 36px !important;
+    height: 36px !important;
+    line-height: 36px !important;
+    min-width: 36px !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35) !important;
+}
+.fab-button mat-icon {
+    font-size: 18px !important;
+    width: 18px !important;
+    height: 18px !important;
+    line-height: 18px !important;
+}
+/* Hide the expansion labels on hover when narrow viewport — keep the bubbles only. */
+.fab-button ngx-fab-item-button .ngx-fab-content {
+    font-size: 11px !important;
+    padding: 4px 8px !important;
+    border-radius: 6px !important;
+}
+
+/* =============================================================================
+   Header right cluster — give the theme toggle + Help button enough breathing
+   room on narrower viewports so the "BrandX Help" label doesn't get clipped.
+   ============================================================================= */
+.header-right {
+    gap: 8px !important;
+    padding: 0 24px 0 12px !important;     /* breathing room from the right edge */
+    right: 0 !important;
+    overflow: visible !important;
+}
+.header-right .header-help {
+    margin-right: 8px !important;          /* extra space so the Help button isn't hugging the edge */
+}
+.header-right .header-help .main-btn {
+    padding: 0 10px !important;            /* a touch more horizontal room around the icon+label */
+}
+.header-right .header-theme-toggle.mat-mdc-icon-button {
+    flex: 0 0 36px;
+}
+.header-right .header-theme-toggle .mat-icon {
+    color: var(--ds-text);
+    opacity: 0.95;
+}

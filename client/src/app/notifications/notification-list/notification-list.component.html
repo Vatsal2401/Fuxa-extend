@@ -1,7 +1,4 @@
-<div class="header-panel">
-    <mat-icon>notifications_none</mat-icon>
-    {{'notifications.list-title' | translate}}
-</div>
+<ds-page-header [title]="'notifications.list-title' | translate"></ds-page-header>
 <div class="work-panel">
     <div class="container">
         <mat-table #table [dataSource]="dataSource" matSort class="mat-table">

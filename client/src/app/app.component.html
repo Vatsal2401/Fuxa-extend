@@ -10,10 +10,27 @@
     <app-header class="header" [hidden]="isHidden()"></app-header>
     <div [ngClass]="getClass()">
         <router-outlet></router-outlet>
-        <ngx-fab-button *ngIf="showDevNavigation()" #fabmenu icon="menu" iconOpen="menu" class="fab-button" color="rgba(68,138,255, 1)">
-            <ngx-fab-item-button color="rgba(68,138,255, 1)" content="{{'app.editor' | translate}}" (click)="onGoTo('editor')" (touchend)="onGoTo('editor')"></ngx-fab-item-button>
-            <ngx-fab-item-button color="rgba(68,138,255, 1)" content="{{'app.lab' | translate}}" (click)="onGoTo('lab')" (touchend)="onGoTo('lab')"></ngx-fab-item-button>
-            <ngx-fab-item-button color="rgba(68,138,255, 1)" content="{{'app.home' | translate}}" (click)="onGoTo('home')" (touchend)="onGoTo('home')"></ngx-fab-item-button>
-        </ngx-fab-button>
+        <button *ngIf="showDevNavigation()"
+                mat-icon-button
+                class="dev-nav-btn"
+                [matMenuTriggerFor]="devNavMenu"
+                [appTooltip]="'app.navigation' | translate"
+                appTooltipPlacement="below">
+            <mat-icon>apps</mat-icon>
+        </button>
+        <mat-menu #devNavMenu="matMenu" class="dev-nav-menu" xPosition="before" yPosition="below">
+            <button mat-menu-item (click)="onGoTo('home')">
+                <mat-icon>home</mat-icon>
+                <span>{{'app.home' | translate}}</span>
+            </button>
+            <button mat-menu-item (click)="onGoTo('editor')">
+                <mat-icon>edit</mat-icon>
+                <span>{{'app.editor' | translate}}</span>
+            </button>
+            <button mat-menu-item (click)="onGoTo('lab')">
+                <mat-icon>science</mat-icon>
+                <span>{{'app.lab' | translate}}</span>
+            </button>
+        </mat-menu>
     </div>
 </div>

@@ -1,6 +1,6 @@
 .editor-sidenav {
     position: fixed;
-    margin-top: 36px;
+    margin-top: 44px;
     height: calc(100% - 74px);
     padding: 7px;
     width: 350px;
@@ -8,7 +8,7 @@
 
 .sidepanel-selector {
     position: fixed;
-    margin-top: 36px;
+    margin-top: 44px;
     height: calc(100% - 74px);
     padding: 7px;
     width: 370px;
@@ -21,8 +21,7 @@
 }
 
 #svg_editor_container {
-    background: #aaa;
-    height: 100%;
+    background: var(--ds-border);    height: 100%;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -82,7 +81,7 @@
  } */
 
  .svg-workarea-flybar-h:enabled .svg-workarea-flybar-h::selection{
-     color: rgba(255,255,255,1);
+     color: var(--ds-text-invert);
  }
 
 .svg-workarea-fly-p {
@@ -146,7 +145,7 @@
 }
 
 .svg-preview {
-    background-color: #3058af36;
+    background-color: var(--ds-active);
     height: 0px;
     width: 0px;
     z-index: 1;
@@ -183,7 +182,7 @@
     z-index: 9999;
     position: absolute;
     right: 15px;
-    top: 55px;
+    top: 71px;
     /* overflow-y: auto; */
     max-height: calc(100% - 75px);
     background-color: var(--toolboxBackground);
@@ -209,15 +208,15 @@
 }
 
 .svg-tool-button:hover {
-    background: rgba(0, 0, 0, 0.1);
+    background: var(--ds-hover);
 }
 
 .svg-tool-active, .svg-tool-active:active, .svg-tool-active:hover {
-    background-color: rgba(48,89,175,1);
+    background-color: var(--ds-brand);
 }
 
 .leave-header-area {
-    margin-top: 36px;
+    margin-top: 44px;
 }
 
 .svg-sidenav {
@@ -286,8 +285,7 @@
 
 .main-btn-sep {
     width: 1px;
-    background: #888;
-    border-left: 1px outset #888;
+    background: var(--ds-border);    border-left: 1px solid var(--ds-border);
     margin: 5px 3px;
     padding: 0;
     height: 24px;
@@ -466,7 +464,7 @@ li {
     cursor: pointer;
     width: 13px;
     height: 13px;
-    border: 1px solid rgba(71, 71, 71, 1);
+    border: 1px solid var(--ds-border);
 }
 
 .color-stroke {
@@ -476,7 +474,7 @@ li {
     cursor: pointer;
     width: 13px;
     height: 13px;
-    border: 1px solid rgba(71, 71, 71, 1);
+    border: 1px solid var(--ds-border);
 }
 
 .style-stroke {
@@ -704,7 +702,7 @@ select#start_marker option[value="D"] {
     background-size: auto;
     height: 30px;
     width: 30px;
-    color: rgba(255, 255, 255, 1);
+    color: var(--ds-text-invert);
     background-position: center; /* Center the image */
     background-repeat: no-repeat; /* Do not repeat the image */
 }
@@ -756,4 +754,258 @@ select#start_marker option[value="D"] {
 }
 .icon-iframe {
     background: url("/assets/images/iframe.svg") no-repeat center center;
+}
+/* ============================================================
+   Symbol library search/filter bar (uses FUXA theme vars + design-system tokens)
+   ============================================================ */
+.symbol-search-bar {
+    position: sticky;
+    top: 0;
+    z-index: 6;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 10px;
+    background: var(--toolboxBackground, var(--ds-panel, #0f1a2e));
+    border-bottom: 1px solid var(--toolboxBorder, var(--ds-border, rgba(148, 184, 255, 0.16)));
+}
+.symbol-search-bar input {
+    flex: 1 1 auto;
+    min-width: 0;
+    height: 28px;
+    background: var(--formInputBackground, rgba(148, 184, 255, 0.06));
+    color: var(--formInputColor, var(--ds-text, #edf4ff));
+    border: 1px solid var(--formBorder, var(--ds-border, rgba(148, 184, 255, 0.16)));
+    border-radius: 8px;
+    padding: 0 8px;
+    font-size: 13px;
+    outline: none;
+    transition: border-color 150ms ease, box-shadow 150ms ease;
+}
+.symbol-search-bar input::placeholder { color: var(--ds-text-muted, #9db0cb); opacity: 0.85; }
+.symbol-search-bar input:focus {
+    border-color: var(--formInputBorderFocus, var(--ds-brand, #4c9fff));
+    box-shadow: 0 0 0 2px rgba(76, 159, 255, 0.25);
+}
+.symbol-search-icon {
+    font-size: 18px; width: 18px; height: 18px;
+    color: var(--ds-text-muted, #9db0cb);
+    flex: 0 0 auto;
+}
+.symbol-search-clear {
+    font-size: 18px; width: 18px; height: 18px;
+    cursor: pointer;
+    color: var(--ds-text-muted, #9db0cb);
+    flex: 0 0 auto;
+    transition: color 150ms ease;
+}
+.symbol-search-clear:hover { color: var(--ds-text, #edf4ff); }
+.symbol-search-count {
+    font-size: 11px;
+    color: var(--ds-brand, #4c9fff);
+    background: rgba(76, 159, 255, 0.14);
+    border-radius: 999px;
+    padding: 1px 8px;
+    white-space: nowrap;
+    flex: 0 0 auto;
+}
+.symbol-search-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 34px 12px;
+    text-align: center;
+    color: var(--ds-text-muted, #9db0cb);
+    font-size: 13px;
+}
+.symbol-search-empty mat-icon { font-size: 34px; width: 34px; height: 34px; opacity: 0.55; }
+
+/* =============================================================================
+   SIDEBAR REDESIGN v2 — modern nav-style panels with brand-gradient highlight
+   Inspired by Linear / Stripe / contemporary dashboard nav patterns:
+   - the OUTER drawer becomes a glass card with rounded corners
+   - section headers are 40px nav rows with rounded pill containers
+   - the EXPANDED section gets a full brand-gradient bg + soft glow,
+     visually the same treatment a "selected" nav item would receive
+   - search field is a pill with focus glow
+   - sections separated by breathing room, not heavy dividers
+   ============================================================================= */
+
+/* ---------- outer drawer surface ---------- */
+.svg-sidenav {
+    background: linear-gradient(180deg, var(--ds-surface-2), var(--ds-panel)) !important;
+    border-right: 1px solid var(--ds-border) !important;
+    padding: 8px 6px !important;
+    box-sizing: border-box;
+}
+
+/* ---------- section panel (mat-expansion-panel) ---------- */
+.svg-workarea-leftbar-p {
+    background: transparent !important;
+    box-shadow: none !important;
+    border: none !important;
+    border-radius: 0 !important;
+    margin: 2px 0 !important;
+}
+
+/* ---------- section header — base state ---------- */
+.svg-workarea-leftbar-h {
+    max-height: 40px !important;
+    height: 40px !important;
+    padding: 0 12px 0 10px !important;
+    border: none !important;
+    border-radius: 10px !important;
+    background: transparent !important;
+    color: var(--ds-text-muted) !important;
+    box-shadow: none !important;
+    transition: background var(--ds-dur-base, 220ms) var(--ds-ease, ease),
+                color var(--ds-dur-base, 220ms) var(--ds-ease, ease),
+                box-shadow var(--ds-dur-base, 220ms) var(--ds-ease, ease) !important;
+}
+.svg-workarea-leftbar-h .mat-content {
+    align-items: center;
+}
+
+/* ---------- hover (not expanded) ---------- */
+.svg-workarea-leftbar-h:hover:not(.mat-expanded) {
+    background: rgba(var(--ds-brand-rgb), 0.08) !important;
+    color: var(--ds-text) !important;
+}
+
+/* ---------- EXPANDED state — brand gradient + glow (the "Notifications" look) ---------- */
+.mat-expanded.svg-workarea-leftbar-h,
+.svg-workarea-leftbar-p.mat-expanded > .svg-workarea-leftbar-h,
+.mat-expansion-panel.mat-expanded > .svg-workarea-leftbar-h {
+    background: linear-gradient(135deg, var(--ds-brand), var(--ds-brand-2)) !important;
+    color: var(--ds-on-brand) !important;
+    box-shadow: 0 6px 18px rgba(var(--ds-brand-rgb), 0.38),
+                0 0 0 1px rgba(255, 255, 255, 0.10) inset !important;
+}
+.mat-expanded.svg-workarea-leftbar-h span,
+.svg-workarea-leftbar-p.mat-expanded > .svg-workarea-leftbar-h span,
+.mat-expansion-panel.mat-expanded > .svg-workarea-leftbar-h span {
+    color: var(--ds-on-brand) !important;
+}
+.mat-expanded.svg-workarea-leftbar-h mat-icon,
+.svg-workarea-leftbar-p.mat-expanded > .svg-workarea-leftbar-h mat-icon,
+.mat-expansion-panel.mat-expanded > .svg-workarea-leftbar-h mat-icon {
+    color: var(--ds-on-brand) !important;
+    opacity: 1 !important;
+}
+
+/* Title typography */
+.svg-workarea-leftbar-h span {
+    padding-top: 0 !important;
+    padding-left: 8px !important;
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.04em !important;
+    line-height: 1 !important;
+    text-transform: uppercase;
+    color: inherit;
+    transition: color var(--ds-dur-fast, 120ms) var(--ds-ease, ease);
+}
+
+/* Chevron icon */
+.svg-workarea-leftbar-h .mat-panel-title > mat-icon:first-child,
+.svg-workarea-leftbar-h .mat-mdc-panel-title > mat-icon:first-child {
+    font-size: 16px !important;
+    width: 16px !important;
+    height: 16px !important;
+    line-height: 16px !important;
+    margin-right: 0 !important;
+    opacity: 0.7;
+    transition: opacity var(--ds-dur-fast, 120ms) var(--ds-ease, ease);
+}
+.svg-workarea-leftbar-h:hover .mat-panel-title > mat-icon:first-child { opacity: 1; }
+
+/* ---------- inline action buttons (+, upload, dots) ---------- */
+.leftbar-edit-btn {
+    width: 24px !important;
+    height: 24px !important;
+    font-size: 16px !important;
+    line-height: 24px !important;
+    border-radius: 7px !important;
+    padding: 2px !important;
+    margin-left: 4px !important;
+    color: var(--ds-text-muted) !important;
+    background: transparent !important;
+    transition: background var(--ds-dur-fast, 120ms) var(--ds-ease, ease),
+                color var(--ds-dur-fast, 120ms) var(--ds-ease, ease),
+                opacity var(--ds-dur-fast, 120ms) var(--ds-ease, ease);
+    opacity: 0;
+}
+.svg-workarea-leftbar-h:hover .leftbar-edit-btn,
+.svg-workarea-leftbar-h.mat-expanded .leftbar-edit-btn,
+.svg-workarea-leftbar-h .leftbar-edit-btn:focus-visible { opacity: 1; }
+
+/* Expanded header → action buttons get translucent on-brand surface */
+.mat-expanded.svg-workarea-leftbar-h .leftbar-edit-btn,
+.svg-workarea-leftbar-p.mat-expanded > .svg-workarea-leftbar-h .leftbar-edit-btn {
+    color: rgba(255, 255, 255, 0.85) !important;
+    background: rgba(255, 255, 255, 0.10) !important;
+}
+.mat-expanded.svg-workarea-leftbar-h .leftbar-edit-btn:hover,
+.svg-workarea-leftbar-p.mat-expanded > .svg-workarea-leftbar-h .leftbar-edit-btn:hover {
+    background: rgba(255, 255, 255, 0.22) !important;
+    color: #fff !important;
+}
+.leftbar-edit-btn:hover {
+    background: rgba(var(--ds-brand-rgb), 0.16) !important;
+    color: var(--ds-brand) !important;
+}
+
+/* The Upload SVG pill stays visible (it's the primary action) */
+#fuxa-upload-shape-btn { opacity: 1 !important; }
+
+/* ---------- panel body — slight inset, breathing room ---------- */
+::ng-deep .svg-workarea-leftbar-p .mat-expansion-panel-body {
+    padding: 8px 6px 10px !important;
+}
+
+/* ---------- selected view item — soft brand tint + accent stripe ---------- */
+::ng-deep .leftbar-item {
+    border-radius: 10px;
+    margin: 2px 4px;
+    padding: 6px 10px !important;
+    position: relative;
+    transition: background var(--ds-dur-fast, 120ms) var(--ds-ease, ease),
+                color var(--ds-dur-fast, 120ms) var(--ds-ease, ease);
+}
+::ng-deep .leftbar-item:hover:not(.leftbar-item-active) {
+    background: rgba(var(--ds-brand-rgb), 0.10) !important;
+    color: var(--ds-text) !important;
+}
+::ng-deep .leftbar-item-active {
+    background: linear-gradient(135deg,
+        rgba(var(--ds-brand-rgb), 0.32),
+        rgba(var(--ds-brand-rgb), 0.18)) !important;
+    color: var(--ds-text) !important;
+    box-shadow: 0 0 0 1px rgba(var(--ds-brand-rgb), 0.32) inset !important;
+}
+::ng-deep .leftbar-item-active::before {
+    content: '';
+    position: absolute;
+    left: -1px;
+    top: 6px;
+    bottom: 6px;
+    width: 3px;
+    background: linear-gradient(180deg, var(--ds-brand), var(--ds-brand-2));
+    border-radius: 0 3px 3px 0;
+    box-shadow: 0 0 8px rgba(var(--ds-brand-rgb), 0.6);
+}
+
+/* ---------- search bar refinement — pill with focus glow ---------- */
+.symbol-search-bar {
+    margin: 0 4px 8px !important;
+    border-radius: 10px !important;
+    background: rgba(var(--ds-brand-rgb), 0.04) !important;
+    border: 1px solid var(--ds-border) !important;
+    transition: border-color var(--ds-dur-fast, 120ms) var(--ds-ease, ease),
+                box-shadow var(--ds-dur-fast, 120ms) var(--ds-ease, ease);
+}
+.symbol-search-bar:focus-within {
+    border-color: rgba(var(--ds-brand-rgb), 0.55) !important;
+    box-shadow: 0 0 0 3px rgba(var(--ds-brand-rgb), 0.18) !important;
 }

@@ -18,17 +18,17 @@
     "header.edit-users": "유저 설정",
     "header.edit-alarms": "알림 설정",
     "header.edit-texts": "텍스트 설정",
-    "header.help": "FUXA 도움말",
+    "header.help": "BrandX 도움말",
     "header.help-tutorial": "튜토리얼",
     "header.help-info": "정보",
     "header.info-version": "버전 ",
     "header.theme": "밝은 테마/어두운 테마",
 
-    "sidenav.title": "FUXA",
+    "sidenav.title": "BrandX",
 
-    "tutorial.title": "FUXA 튜토리얼",
+    "tutorial.title": "BrandX 튜토리얼",
 
-    "dlg.info-title": "FUXA",
+    "dlg.info-title": "BrandX",
 
     "dlg.layout-title": "레이아웃 설정",
     "dlg.layout-general": "일반 설정",
@@ -459,7 +459,7 @@
     "devices.export": "장치 내보내기",
     "devices.import": "장치 가져오기",
     "device.property-client": "장치 속성",
-    "device.property-server": "FUXA 서버 속성",
+    "device.property-server": "BrandX 서버 속성",
     "device.property-name": "이름",
     "device.property-type": "타입",
     "device.property-polling": "폴링",

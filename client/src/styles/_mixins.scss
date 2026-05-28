@@ -1,0 +1,63 @@
+/* =============================================================================
+   FUXA Design System — Breakpoints, responsive mixins & reusable patterns
+   ============================================================================= */
+
+/* Breakpoints (min-width, mobile-first) */
+$bp-sm: 600px;   // small tablet / large phone
+$bp-md: 905px;   // tablet
+$bp-lg: 1240px;  // desktop
+$bp-xl: 1600px;  // large desktop
+
+@mixin respond-to($bp) {
+  @if $bp == sm { @media (min-width: $bp-sm) { @content; } }
+  @else if $bp == md { @media (min-width: $bp-md) { @content; } }
+  @else if $bp == lg { @media (min-width: $bp-lg) { @content; } }
+  @else if $bp == xl { @media (min-width: $bp-xl) { @content; } }
+}
+
+/* Use below a breakpoint (max-width) — handy for mobile-only rules */
+@mixin below($bp) {
+  @if $bp == sm { @media (max-width: #{$bp-sm - 1px}) { @content; } }
+  @else if $bp == md { @media (max-width: #{$bp-md - 1px}) { @content; } }
+  @else if $bp == lg { @media (max-width: #{$bp-lg - 1px}) { @content; } }
+}
+
+/* Glass surface (frosted card) */
+@mixin glass($alpha-bg: var(--ds-surface)) {
+  background: $alpha-bg;
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid var(--ds-border);
+}
+
+/* Standard card */
+@mixin card {
+  @include glass;
+  border-radius: var(--ds-radius-lg);
+  box-shadow: var(--ds-shadow-lg);
+  color: var(--ds-text);
+}
+
+/* Accessible focus ring */
+@mixin focus-ring {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--ds-bg), 0 0 0 4px rgba(var(--ds-brand-rgb), .55);
+}
+
+/* Truncate text */
+@mixin truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Subtle scrollbar */
+@mixin themed-scrollbar {
+  &::-webkit-scrollbar { width: 10px; height: 10px; }
+  &::-webkit-scrollbar-track { background: transparent; }
+  &::-webkit-scrollbar-thumb {
+    background: rgba(var(--ds-brand-rgb), .35);
+    border-radius: var(--ds-radius-pill);
+  }
+  &::-webkit-scrollbar-thumb:hover { background: rgba(var(--ds-brand-rgb), .55); }
+}

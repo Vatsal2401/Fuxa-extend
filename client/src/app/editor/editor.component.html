@@ -42,12 +42,28 @@
         </div>
     </div>
 </mat-drawer>
-<div id="svg_editor_container">
+<div id="svg_editor_container" appSmartGuides>
+    <app-grid-toolbar></app-grid-toolbar>
     <mat-drawer-container class="svg-workarea-container">
         <!-- LEFT BAR -->
         <mat-drawer mode="side" opened="true" class="svg-sidenav leave-header-area" disableClose>
+            <!-- Symbol library search/filter -->
+            <div class="symbol-search-bar">
+                <mat-icon class="symbol-search-icon">search</mat-icon>
+                <input id="symbol-search-input" type="text" autocomplete="off" spellcheck="false"
+                       [formControl]="symbolSearch"
+                       placeholder="{{'editor.symbol-search' | translate}}" />
+                <span class="symbol-search-count" *ngIf="searching">{{ searchResultCount }}</span>
+                <mat-icon class="symbol-search-clear" *ngIf="symbolSearch.value"
+                          (click)="clearSymbolSearch()" title="{{'general.clear' | translate}}">close</mat-icon>
+            </div>
+            <!-- Empty state -->
+            <div class="symbol-search-empty" *ngIf="searching && searchResultCount === 0">
+                <mat-icon>search_off</mat-icon>
+                <span>{{'editor.symbol-search-empty' | translate}}</span>
+            </div>
             <mat-accordion multi="true">
-                <mat-expansion-panel class="svg-workarea-leftbar-p" (opened)="panelsState.panelView=true;savePanelState()" (closed)="panelsState.panelView=false;savePanelState()"
+                <mat-expansion-panel class="svg-workarea-leftbar-p" (opened)="panelsState.panelView=true;savePanelState()" *ngIf="!searching" (closed)="panelsState.panelView=false;savePanelState()"
                     hideToggle="true" [expanded]="panelsState.panelView">
                     <mat-expansion-panel-header class="svg-workarea-leftbar-h">
                         <mat-panel-title>
@@ -74,7 +90,7 @@
                     </div>
                 </mat-expansion-panel>
                 <div *ngIf="editorMode === editorModeType.SVG">
-                    <mat-expansion-panel class="svg-workarea-leftbar-p" (opened)="panelsState.panelGeneral=true;savePanelState()"
+                    <mat-expansion-panel class="svg-workarea-leftbar-p" (opened)="panelsState.panelGeneral=true;savePanelState()" *ngIf="!searching"
                         (closed)="panelsState.panelGeneral=false;savePanelState()" hideToggle="true" [expanded]="panelsState.panelGeneral">
                         <mat-expansion-panel-header class="svg-workarea-leftbar-h">
                             <mat-panel-title>
@@ -85,31 +101,31 @@
                         </mat-expansion-panel-header>
 
                         <div id="__tools_left" class="leftbar-panel h200">
-                            <div class="svg-tool-button" [ngClass]="{'svg-tool-active': isModeActive('select')}" matTooltip="{{'editor.tools-select' | translate}}" (click)="setMode('select')">
+                            <div class="svg-tool-button" [ngClass]="{'svg-tool-active': isModeActive('select')}" [appSymbolTooltip]="{ name: ('editor.tools-select' | translate), category: ('editor.general' | translate), materialIcon: 'open_with' }" (click)="setMode('select')" [appPaletteDraggable]="'select'">
                                 <span class="icon-select"></span>
                             </div>
-                            <div class="svg-tool-button" [ngClass]="{'svg-tool-active': isModeActive('fhpath')}" matTooltip="{{'editor.tools-pencil' | translate}}" (click)="setMode('fhpath')">
+                            <div class="svg-tool-button" [ngClass]="{'svg-tool-active': isModeActive('fhpath')}" [appSymbolTooltip]="{ name: ('editor.tools-pencil' | translate), category: ('editor.general' | translate), materialIcon: 'edit' }" (click)="setMode('fhpath')" [appPaletteDraggable]="'fhpath'">
                                 <span class="icon-pencil"></span>
                             </div>
-                            <div class="svg-tool-button" [ngClass]="{'svg-tool-active': isModeActive('line')}" matTooltip="{{'editor.tools-line' | translate}}" (click)="setMode('line')">
+                            <div class="svg-tool-button" [ngClass]="{'svg-tool-active': isModeActive('line')}" [appSymbolTooltip]="{ name: ('editor.tools-line' | translate), category: ('editor.general' | translate), materialIcon: 'horizontal_rule' }" (click)="setMode('line')" [appPaletteDraggable]="'line'">
                                 <span class="icon-line"></span>
                             </div>
-                            <div class="svg-tool-button" [ngClass]="{'svg-tool-active': isModeActive('rect')}" matTooltip="{{'editor.tools-rectangle' | translate}}" (click)="setMode('rect')">
+                            <div class="svg-tool-button" [ngClass]="{'svg-tool-active': isModeActive('rect')}" [appSymbolTooltip]="{ name: ('editor.tools-rectangle' | translate), category: ('editor.general' | translate), materialIcon: 'crop_din' }" (click)="setMode('rect')" [appPaletteDraggable]="'rect'">
                                 <span class="icon-rect"></span>
                             </div>
-                            <div class="svg-tool-button" [ngClass]="{'svg-tool-active': isModeActive('circle')}" matTooltip="{{'editor.tools-circle' | translate}}" (click)="setMode('circle')">
+                            <div class="svg-tool-button" [ngClass]="{'svg-tool-active': isModeActive('circle')}" [appSymbolTooltip]="{ name: ('editor.tools-circle' | translate), category: ('editor.general' | translate), materialIcon: 'radio_button_unchecked' }" (click)="setMode('circle')" [appPaletteDraggable]="'circle'">
                                 <span class="icon-circle"></span>
                             </div>
-                            <div class="svg-tool-button" [ngClass]="{'svg-tool-active': isModeActive('ellipse')}" matTooltip="{{'editor.tools-ellipse' | translate}}" (click)="setMode('ellipse')">
+                            <div class="svg-tool-button" [ngClass]="{'svg-tool-active': isModeActive('ellipse')}" [appSymbolTooltip]="{ name: ('editor.tools-ellipse' | translate), category: ('editor.general' | translate), materialIcon: 'panorama_fish_eye' }" (click)="setMode('ellipse')" [appPaletteDraggable]="'ellipse'">
                                 <span class="icon-ellipse"></span>
                             </div>
-                            <div class="svg-tool-button" [ngClass]="{'svg-tool-active': isModeActive('path')}" matTooltip="{{'editor.tools-path' | translate}}" (click)="setMode('path')">
+                            <div class="svg-tool-button" [ngClass]="{'svg-tool-active': isModeActive('path')}" [appSymbolTooltip]="{ name: ('editor.tools-path' | translate), category: ('editor.general' | translate), materialIcon: 'gesture' }" (click)="setMode('path')" [appPaletteDraggable]="'path'">
                                 <span class="icon-path"></span>
                             </div>
-                            <div class="svg-tool-button" [ngClass]="{'svg-tool-active': isModeActive('text')}" matTooltip="{{'editor.tools-text' | translate}}" (click)="setMode('text')">
+                            <div class="svg-tool-button" [ngClass]="{'svg-tool-active': isModeActive('text')}" [appSymbolTooltip]="{ name: ('editor.tools-text' | translate), category: ('editor.general' | translate), materialIcon: 'text_fields' }" (click)="setMode('text')" [appPaletteDraggable]="'text'">
                                 <span class="icon-text"></span>
                             </div>
-                            <div class="svg-tool-button" [ngClass]="{'svg-tool-active': (isModeActive('image') || isModeActive('svg-image'))}" matTooltip="{{'editor.tools-image' | translate}}"
+                            <div class="svg-tool-button" [ngClass]="{'svg-tool-active': (isModeActive('image') || isModeActive('svg-image'))}" [appSymbolTooltip]="{ name: ('editor.tools-image' | translate), category: ('editor.general' | translate), materialIcon: 'image' }"
                                 (click)="imagefile.value = '';imagefile.click();">
                                 <span class="icon-image"></span>
                                 <input #imagefile type="file" style="display: none;" (change)="onSetImage($event)" accept="image/png|jpg|svg" />
@@ -120,7 +136,7 @@
                         </div>
                     </mat-expansion-panel>
                     <!-- CONTROLS  -->
-                    <mat-expansion-panel class="svg-workarea-leftbar-p" (opened)="panelsState.panelD=true;savePanelState()" (closed)="panelsState.panelD=false;savePanelState()"
+                    <mat-expansion-panel class="svg-workarea-leftbar-p" (opened)="panelsState.panelD=true;savePanelState()" *ngIf="!searching" (closed)="panelsState.panelD=false;savePanelState()"
                         hideToggle="true" [expanded]="panelsState.panelD">
                         <mat-expansion-panel-header class="svg-workarea-leftbar-h">
                             <mat-panel-title>
@@ -130,87 +146,87 @@
                             </mat-panel-title>
                         </mat-expansion-panel-header>
                         <div id="__tools_left" class="leftbar-panel h200">
-                            <div class="svg-tool-button" matTooltip="{{'editor.controls-input' | translate}}" [ngClass]="{'svg-tool-active': isModeActive('html_input')}"
-                                (click)="setMode('html_input')">
+                            <div class="svg-tool-button" [appSymbolTooltip]="{ name: ('editor.controls-input' | translate), category: ('editor.controls' | translate), iconUrl: 'assets/images/editvalue.svg' }" [ngClass]="{'svg-tool-active': isModeActive('html_input')}"
+                                (click)="setMode('html_input')" [appPaletteDraggable]="'html_input'">
                                 <span class="icon-tool icon-editvalue"></span>
                             </div>
-                            <div class="svg-tool-button" matTooltip="{{'editor.controls-output' | translate}}" [ngClass]="{'svg-tool-active': isModeActive('value')}"
-                                (click)="setMode('value')">
+                            <div class="svg-tool-button" [appSymbolTooltip]="{ name: ('editor.controls-output' | translate), category: ('editor.controls' | translate), iconUrl: 'assets/images/value.svg' }" [ngClass]="{'svg-tool-active': isModeActive('value')}"
+                                (click)="setMode('value')" [appPaletteDraggable]="'value'">
                                 <span class="icon-tool icon-value"></span>
                             </div>
-                            <div class="svg-tool-button" matTooltip="{{'editor.controls-button' | translate}}" [ngClass]="{'svg-tool-active': isModeActive('html_button')}"
-                                (click)="setMode('html_button')">
+                            <div class="svg-tool-button" [appSymbolTooltip]="{ name: ('editor.controls-button' | translate), category: ('editor.controls' | translate), iconUrl: 'assets/images/button.svg' }" [ngClass]="{'svg-tool-active': isModeActive('html_button')}"
+                                (click)="setMode('html_button')" [appPaletteDraggable]="'html_button'">
                                 <span class="icon-tool icon-button"></span>
                             </div>
-                            <div class="svg-tool-button" matTooltip="{{'editor.controls-select' | translate}}" [ngClass]="{'svg-tool-active': isModeActive('html_select')}"
-                                (click)="setMode('html_select')">
+                            <div class="svg-tool-button" [appSymbolTooltip]="{ name: ('editor.controls-select' | translate), category: ('editor.controls' | translate), iconUrl: 'assets/images/selectvalue.svg' }" [ngClass]="{'svg-tool-active': isModeActive('html_select')}"
+                                (click)="setMode('html_select')" [appPaletteDraggable]="'html_select'">
                                 <span class="icon-tool icon-selectvalue"></span>
                             </div>
-                            <div class="svg-tool-button" matTooltip="{{'editor.controls-progress' | translate}}" [ngClass]="{'svg-tool-active': isModeActive('gauge_progress')}"
-                                (click)="setMode('gauge_progress')">
+                            <div class="svg-tool-button" [appSymbolTooltip]="{ name: ('editor.controls-progress' | translate), category: ('editor.controls' | translate), iconUrl: 'assets/images/progress-v.svg' }" [ngClass]="{'svg-tool-active': isModeActive('gauge_progress')}"
+                                (click)="setMode('gauge_progress')" [appPaletteDraggable]="'gauge_progress'">
                                 <span class="icon-tool icon-progress-v"></span>
                             </div>
-                            <div class="svg-tool-button" matTooltip="{{'editor.controls-semaphore' | translate}}" [ngClass]="{'svg-tool-active': isModeActive('gauge_semaphore')}"
-                                (click)="setMode('gauge_semaphore')">
+                            <div class="svg-tool-button" [appSymbolTooltip]="{ name: ('editor.controls-semaphore' | translate), category: ('editor.controls' | translate), iconUrl: 'assets/images/semaphore.svg' }" [ngClass]="{'svg-tool-active': isModeActive('gauge_semaphore')}"
+                                (click)="setMode('gauge_semaphore')" [appPaletteDraggable]="'gauge_semaphore'">
                                 <span class="icon-tool icon-semaphore"></span>
                             </div>
-                            <div class="svg-tool-button" matTooltip="{{'editor.controls-chart' | translate}}" [ngClass]="{'svg-tool-active': isModeActive('html_chart')}"
-                                (click)="setMode('html_chart')">
+                            <div class="svg-tool-button" [appSymbolTooltip]="{ name: ('editor.controls-chart' | translate), category: ('editor.controls' | translate), iconUrl: 'assets/images/chart.svg' }" [ngClass]="{'svg-tool-active': isModeActive('html_chart')}"
+                                (click)="setMode('html_chart')" [appPaletteDraggable]="'html_chart'">
                                 <span class="icon-tool icon-chart"></span>
                             </div>
-                            <div class="svg-tool-button" matTooltip="{{'editor.controls-bag' | translate}}" [ngClass]="{'svg-tool-active': isModeActive('html_bag')}"
-                                (click)="setMode('html_bag')">
+                            <div class="svg-tool-button" [appSymbolTooltip]="{ name: ('editor.controls-bag' | translate), category: ('editor.controls' | translate), iconUrl: 'assets/images/bag.svg' }" [ngClass]="{'svg-tool-active': isModeActive('html_bag')}"
+                                (click)="setMode('html_bag')" [appPaletteDraggable]="'html_bag'">
                                 <span class="icon-tool icon-bag"></span>
                             </div>
-                            <div class="svg-tool-button" matTooltip="{{'editor.controls-pipe' | translate}}" [ngClass]="{'svg-tool-active': isModeActive('pipe')}"
-                                (click)="setMode('pipe')">
+                            <div class="svg-tool-button" [appSymbolTooltip]="{ name: ('editor.controls-pipe' | translate), category: ('editor.controls' | translate), iconUrl: 'assets/images/pipe.svg' }" [ngClass]="{'svg-tool-active': isModeActive('pipe')}"
+                                (click)="setMode('pipe')" [appPaletteDraggable]="'pipe'">
                                 <span class="icon-tool icon-pipe"></span>
                             </div>
-                            <div class="svg-tool-button" matTooltip="{{'editor.controls-slider' | translate}}" [ngClass]="{'svg-tool-active': isModeActive('html_slider')}"
-                                (click)="setMode('html_slider')">
+                            <div class="svg-tool-button" [appSymbolTooltip]="{ name: ('editor.controls-slider' | translate), category: ('editor.controls' | translate), iconUrl: 'assets/images/slider.svg' }" [ngClass]="{'svg-tool-active': isModeActive('html_slider')}"
+                                (click)="setMode('html_slider')" [appPaletteDraggable]="'html_slider'">
                                 <span class="icon-tool icon-slider"></span>
                             </div>
-                            <div class="svg-tool-button" matTooltip="{{'editor.controls-switch' | translate}}" [ngClass]="{'svg-tool-active': isModeActive('html_switch')}"
-                                (click)="setMode('html_switch')">
+                            <div class="svg-tool-button" [appSymbolTooltip]="{ name: ('editor.controls-switch' | translate), category: ('editor.controls' | translate), iconUrl: 'assets/images/switch.svg' }" [ngClass]="{'svg-tool-active': isModeActive('html_switch')}"
+                                (click)="setMode('html_switch')" [appPaletteDraggable]="'html_switch'">
                                 <span class="icon-tool icon-switch"></span>
                             </div>
-                            <div class="svg-tool-button" matTooltip="{{'editor.controls-graphbar' | translate}}" [ngClass]="{'svg-tool-active': isModeActive('html_graph-bar')}"
+                            <div class="svg-tool-button" [appSymbolTooltip]="{ name: ('editor.controls-graphbar' | translate), category: ('editor.controls' | translate), iconUrl: 'assets/images/graphbar.svg' }" [ngClass]="{'svg-tool-active': isModeActive('html_graph-bar')}"
                                 (click)="setMode('html_graph-bar')">
                                 <span class="icon-tool icon-graphbar"></span>
                             </div>
-                            <div class="svg-tool-button" matTooltip="{{'editor.controls-table' | translate}}" [ngClass]="{'svg-tool-active': isModeActive('own_ctrl-table')}"
+                            <div class="svg-tool-button" [appSymbolTooltip]="{ name: ('editor.controls-table' | translate), category: ('editor.controls' | translate), iconUrl: 'assets/images/table.svg' }" [ngClass]="{'svg-tool-active': isModeActive('own_ctrl-table')}"
                                 (click)="setMode('own_ctrl-table')">
                                 <span class="icon-tool icon-table"></span>
                             </div>
-                            <div class="svg-tool-button" matTooltip="{{'editor.controls-iframe' | translate}}" [ngClass]="{'svg-tool-active': isModeActive('own_ctrl-iframe')}"
+                            <div class="svg-tool-button" [appSymbolTooltip]="{ name: ('editor.controls-iframe' | translate), category: ('editor.controls' | translate), iconUrl: 'assets/images/iframe.svg' }" [ngClass]="{'svg-tool-active': isModeActive('own_ctrl-iframe')}"
                                 (click)="setMode('own_ctrl-iframe')">
                                 <span class="icon-tool icon-iframe"></span>
                             </div>
-                            <div class="svg-tool-button" matTooltip="{{'editor.controls-graphpie' | translate}}" [ngClass]="{'svg-tool-active': isModeActive('html_graph-pie')}"
+                            <div class="svg-tool-button" [appSymbolTooltip]="{ name: ('editor.controls-graphpie' | translate), category: ('editor.controls' | translate), materialIcon: 'pie_chart' }" [ngClass]="{'svg-tool-active': isModeActive('html_graph-pie')}"
                                 (click)="setMode('html_graph-pie')">
                                 <span class="material-icon-tool material-icons">pie_chart</span>
                             </div>
-                            <div class="svg-tool-button" matTooltip="{{'editor.controls-image' | translate}}" [ngClass]="{'svg-tool-active': isModeActive('own_ctrl-image')}"
+                            <div class="svg-tool-button" [appSymbolTooltip]="{ name: ('editor.controls-image' | translate), category: ('editor.controls' | translate), materialIcon: 'photo_size_select_actual' }" [ngClass]="{'svg-tool-active': isModeActive('own_ctrl-image')}"
                                 (click)="imageLink.value = '';imageLink.click()">
                                 <span class="material-icon-tool material-icons">photo_size_select_actual</span>
                                 <input #imageLink type="file" style="display: none;" (change)="onSetImageAsLink($event)" accept="image/png|jpg|svg" />
                             </div>
-                            <div class="svg-tool-button" matTooltip="{{'editor.controls-panel' | translate}}" [ngClass]="{'svg-tool-active': isModeActive('own_ctrl-panel')}"
+                            <div class="svg-tool-button" [appSymbolTooltip]="{ name: ('editor.controls-panel' | translate), category: ('editor.controls' | translate), materialIcon: 'web_asset' }" [ngClass]="{'svg-tool-active': isModeActive('own_ctrl-panel')}"
                                 (click)="setMode('own_ctrl-panel')">
                                 <span class="material-icon-tool material-icons" style="font-size: 25px;">web_asset</span>
                             </div>
-                            <div class="svg-tool-button" matTooltip="{{'editor.controls-video' | translate}}" [ngClass]="{'svg-tool-active': isModeActive('own_ctrl-video')}"
+                            <div class="svg-tool-button" [appSymbolTooltip]="{ name: ('editor.controls-video' | translate), category: ('editor.controls' | translate), materialIcon: 'ondemand_video' }" [ngClass]="{'svg-tool-active': isModeActive('own_ctrl-video')}"
                                 (click)="setMode('own_ctrl-video')">
                                 <span class="material-icon-tool material-icons" style="font-size: 23px;">ondemand_video</span>
                             </div>
-                            <div class="svg-tool-button" matTooltip="{{'editor.controls-scheduler' | translate}}" [ngClass]="{'svg-tool-active': isModeActive('own_ctrl-scheduler')}"
+                            <div class="svg-tool-button" [appSymbolTooltip]="{ name: ('editor.controls-scheduler' | translate), category: ('editor.controls' | translate), materialIcon: 'schedule' }" [ngClass]="{'svg-tool-active': isModeActive('own_ctrl-scheduler')}"
                                 (click)="setMode('own_ctrl-scheduler')">
                                 <span class="material-icon-tool material-icons" style="font-size: 23px;">schedule</span>
                             </div>
                         </div>
                     </mat-expansion-panel>
-                    <!-- SHAPES -->
-                    <mat-expansion-panel *ngFor="let shGrp of shapesGrps" class="svg-workarea-leftbar-p" (opened)="panelsState[shGrp.name]=true;savePanelState()"
+                    <!-- SHAPES (filtered live by the symbol search) -->
+                    <mat-expansion-panel *ngFor="let shGrp of filteredShapesGrps" class="svg-workarea-leftbar-p" (opened)="panelsState[shGrp.name]=true;savePanelState()"
                         (closed)="panelsState[shGrp.name]=false;savePanelState()" hideToggle="true" [expanded]="panelsState[shGrp.name]">
                         <mat-expansion-panel-header class="svg-workarea-leftbar-h">
                             <mat-panel-title>
@@ -221,13 +237,15 @@
                         </mat-expansion-panel-header>
                         <div id="__tools_left" class="leftbar-panel h200">
                             <div *ngFor="let shape of shGrp.shapes" style="margin-left: 3px;margin-right: 3px;" class="svg-tool-button"
+                                [appPaletteDraggable]="shape.name"
+                                [appSymbolTooltip]="symbolTooltipModel(shape, shGrp.name)"
                                 [ngClass]="{'svg-tool-active': isModeActive(shape.name)}" (click)="setMode(shape.name)">
                                 <span class="icon-tool" [style.backgroundImage]="'url(' + shape.ico + ')'"> </span>
                             </div>
                         </div>
                     </mat-expansion-panel>
                     <!-- WIDGETS -->
-                    <mat-expansion-panel class="svg-workarea-leftbar-p" (opened)="panelsState.panelWidgets=true;savePanelState()" (closed)="panelsState.panelWidgets=false;savePanelState()"
+                    <mat-expansion-panel class="svg-workarea-leftbar-p" (opened)="panelsState.panelWidgets=true;savePanelState()" *ngIf="!searching" (closed)="panelsState.panelWidgets=false;savePanelState()"
                         hideToggle="true" [expanded]="panelsState.panelWidgets">
                         <mat-expansion-panel-header class="svg-workarea-leftbar-h">
                             <mat-panel-title>
@@ -841,7 +859,7 @@
                     </div>
                 </div>
             </div>
-            <div style="width:100%; height:100%">
+            <div style="width:100%; height:100%" *ngIf="editorMode === editorModeType.CARDS">
                 <ng-container *ngIf="editorMode === editorModeType.CARDS">
                     <div class="tools_panel" style="display: inline-flex; width: 100%; height: 37px;">
                         <div class="main-btn-sep" style="display: inline-block;"></div>

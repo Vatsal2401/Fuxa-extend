@@ -1,24 +1,56 @@
 :host {
+    /* Original FUXA layout: app-header takes NO layout space. Its brand & help
+       clusters are fixed-positioned overlays at the top of the viewport, sitting
+       on top of the editor canvas (which extends underneath). This is how the
+       external svg-editor lib expects the layout to work. */
+    display: contents;
+
     .header-panel {
         z-index: 99 !important;
         position: fixed;
-        top: 0px;
-        left: 0px;
-        background-color: var(--headerBackground);
-        color: var(--headerColor);
-        height: 36px;
-        width: 200px;
+        top: 0;
+        left: 0;
+        background-color: var(--headerBackground, #0b1626);
+        color: var(--headerColor, #edf4ff);
+        height: 44px;
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        padding: 0 8px;
     }
 
     .header-right {
         z-index: 99 !important;
         position: fixed;
-        top: 0px;
-        right: 0px;
+        top: 0;
+        right: 0;
+        background-color: var(--headerBackground, #0b1626);
+        color: var(--headerColor, #edf4ff);
+        height: 44px;
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        padding: 0 8px;
+    }
+
+    .header-panel {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        height: 44px;
+        padding: 0 8px;
         background-color: var(--headerBackground);
         color: var(--headerColor);
-        height: 36px;
-        width: 120px;
+    }
+
+    .header-right {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        height: 44px;
+        padding: 0 8px;
+        background-color: var(--headerBackground);
+        color: var(--headerColor);
     }
 
     .header-help {
@@ -68,5 +100,41 @@
         font-size: 11px;
         height: 30px !important;
         line-height: unset !important;
+    }
+}
+
+
+/* =============================================================================
+   Theme toggle button (sun/moon) — sits between Edit Project and Help menu.
+   Token-driven so it follows the active theme automatically.
+   ============================================================================= */
+.header-theme-toggle.mat-mdc-icon-button {
+    width: 36px;
+    height: 36px;
+    line-height: 36px;
+    padding: 0;
+    margin-right: 4px;
+    border-radius: 8px;
+    color: var(--ds-text);
+    background: transparent;
+    transition: background var(--ds-dur-fast, 120ms) var(--ds-ease, ease),
+                color var(--ds-dur-fast, 120ms) var(--ds-ease, ease);
+
+    .mat-icon {
+        font-size: 20px;
+        width: 20px;
+        height: 20px;
+        line-height: 20px;
+        transition: transform var(--ds-dur-base, 220ms) var(--ds-ease, ease);
+    }
+
+    &:hover {
+        background: var(--ds-hover);
+        color: var(--ds-brand);
+        .mat-icon { transform: rotate(18deg) scale(1.05); }
+    }
+    &:focus-visible {
+        outline: none;
+        box-shadow: var(--ds-focus-ring);
     }
 }

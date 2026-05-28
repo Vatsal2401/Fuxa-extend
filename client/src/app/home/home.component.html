@@ -143,7 +143,57 @@
 			 [style.top.px]="showNavigation ? (layoutHeader.height || defaultHeaderHeight) : 0"
 			 #container
 			 (click)="checkToCloseSideNav()">
-			<ng-container *ngIf="!showHomeLink && homeView">
+			<!-- Welcome screen — shown only when no homeView is configured. -->
+			<div *ngIf="!showHomeLink && !iframes?.length" class="brandx-welcome">
+				<div class="bw-hero">
+					<div class="bw-mark"><mat-icon>hub</mat-icon></div>
+					<h1 class="bw-title">Welcome to <span class="bw-brand">BrandX</span></h1>
+					<p class="bw-tagline">Build industrial dashboards, SCADA / HMI screens and live operator displays — visually.</p>
+				</div>
+				<div class="bw-actions">
+					<button class="bw-card bw-card--primary" type="button" (click)="onGoToLink('editor')">
+						<mat-icon class="bw-card__icon">edit</mat-icon>
+						<div class="bw-card__body">
+							<div class="bw-card__title">Open the Editor</div>
+							<div class="bw-card__desc">Design views, place gauges and wire devices.</div>
+						</div>
+						<mat-icon class="bw-card__chev">arrow_forward</mat-icon>
+					</button>
+					<button class="bw-card" type="button" (click)="onGoToLink('device')">
+						<mat-icon class="bw-card__icon">cable</mat-icon>
+						<div class="bw-card__body">
+							<div class="bw-card__title">Connections</div>
+							<div class="bw-card__desc">Add a PLC, OPC-UA, Modbus or Node-RED feed.</div>
+						</div>
+						<mat-icon class="bw-card__chev">arrow_forward</mat-icon>
+					</button>
+					<button class="bw-card" type="button" (click)="onGoToLink('alarms')">
+						<mat-icon class="bw-card__icon">notifications_active</mat-icon>
+						<div class="bw-card__body">
+							<div class="bw-card__title">Alarms and Events</div>
+							<div class="bw-card__desc">Configure thresholds and notification flows.</div>
+						</div>
+						<mat-icon class="bw-card__chev">arrow_forward</mat-icon>
+					</button>
+					<button class="bw-card" type="button" (click)="onGoToLink('plugins')">
+						<mat-icon class="bw-card__icon">extension</mat-icon>
+						<div class="bw-card__body">
+							<div class="bw-card__title">Plugins</div>
+							<div class="bw-card__desc">Install drivers, chart libraries and addons.</div>
+						</div>
+						<mat-icon class="bw-card__chev">arrow_forward</mat-icon>
+					</button>
+				</div>
+				<div class="bw-tip">
+					<mat-icon>flash_on</mat-icon>
+					<span><b>Tip:</b> set a default view in <i>Edit Project &rarr; Layout</i> so this page becomes your live dashboard.</span>
+				</div>
+				<div class="bw-footer">Powered by <b>FUXA</b> &middot; <span><b>frango</b>team</span></div>
+			</div>
+			<!-- Auto-loaded home view rendering disabled in favour of the BrandX
+			     welcome screen above. If a real operator dashboard is needed on
+			     /home in the future, re-enable by removing the `false &&` below. -->
+			<ng-container *ngIf="false && !showHomeLink && homeView && hmi?.layout?.start">
 				<ng-container [ngSwitch]="homeView.type">
 					<ng-container *ngSwitchCase="cardViewType">
 						<app-cards-view #cardsview [edit]="false" [options]="gridOptions"

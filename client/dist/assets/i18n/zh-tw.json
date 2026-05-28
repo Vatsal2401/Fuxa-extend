@@ -20,7 +20,7 @@
     "header.edit-users": "使用者設定",
     "header.edit-alarms": "警報設定",
     "header.edit-texts": "文字設定",
-    "header.help": "FUXA 說明",
+    "header.help": "BrandX 說明",
     "header.help-tutorial": "教學",
     "header.help-info": "關於",
     "header.change-thema": "切換主題(beta)",
@@ -29,11 +29,11 @@
 
     "project.name": "專案名稱",
 
-    "sidenav.title": "FUXA",
+    "sidenav.title": "BrandX",
 
-    "tutorial.title": "FUXA 教學",
+    "tutorial.title": "BrandX 教學",
 
-    "dlg.info-title": "FUXA",
+    "dlg.info-title": "BrandX",
 
     "dlg.layout-title": "版面設定",
     "dlg.layout-general": "一般",
@@ -879,7 +879,7 @@
     "device.tags-template-name-title": "標籤範本名稱",
     "devices.import-template": "匯入連線範本",
     "device.property-client": "裝置屬性",
-    "device.property-server": "FUXA 伺服器屬性",
+    "device.property-server": "BrandX 伺服器屬性",
     "device.property-name": "名稱",
     "device.property-type": "類型",
     "device.property-polling": "輪詢",

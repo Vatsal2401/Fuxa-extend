@@ -41,67 +41,87 @@
         box-sizing: border-box;
     }
 
+    /* ============================================================
+       Intro hint panel — token-driven info banner with brand accent
+       ============================================================ */
     .intro-panel {
-        margin-bottom: 14px;
-        padding: 10px 18px;
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        border-left: 3px solid #3f9cff;
-        border-radius: 4px;
-        background: #313435;
-        color: rgba(255, 255, 255, 0.8);
+        margin-bottom: 16px;
+        padding: 12px 18px;
+        border: 1px solid var(--ds-border);
+        border-left: 3px solid var(--ds-brand);
+        border-radius: var(--ds-radius-sm);
+        background: var(--ds-surface);
+        color: var(--ds-text);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
     }
 
     .intro-title {
-        font-size: 14px;
+        font-size: var(--ds-fs-sm);
         line-height: 1.5;
+        color: var(--ds-text-muted);
     }
 
+    /* ============================================================
+       Grid + card layout
+       ============================================================ */
     .cards-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 10px;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 14px;
         align-items: stretch;
     }
 
     .plugin-card {
         display: flex;
         flex-direction: column;
-        min-height: 172px;
-        padding: 10px;
-        border-radius: 6px;
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        background: #313435;
-        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03), 0 10px 26px rgba(0, 0, 0, 0.16);
-        color: rgba(255, 255, 255, 0.92);
+        min-height: 180px;
+        padding: 14px;
+        border-radius: var(--ds-radius-md);
+        border: 1px solid var(--ds-border);
+        background: var(--ds-panel);
+        box-shadow: var(--ds-shadow-sm);
+        color: var(--ds-text);
+        transition: transform var(--ds-dur-fast) var(--ds-ease),
+                    box-shadow var(--ds-dur-base) var(--ds-ease),
+                    border-color var(--ds-dur-base) var(--ds-ease);
+
+        &:hover {
+            transform: translateY(-1px);
+            box-shadow: var(--ds-shadow-md);
+            border-color: rgba(var(--ds-brand-rgb), .35);
+        }
+
+        &.is-installed {
+            border-color: color-mix(in srgb, var(--ds-success) 45%, transparent);
+        }
+
+        &.is-static { opacity: 0.92; }
     }
 
-    .plugin-card.is-installed {
-        border-color: rgba(91, 202, 115, 0.4);
-    }
-
-    .plugin-card.is-static {
-        opacity: 0.9;
-    }
-
+    /* ============================================================
+       Card head — icon + type/name + status badge
+       ============================================================ */
     .card-top {
         display: flex;
         align-items: flex-start;
-        gap: 10px;
+        gap: 12px;
     }
 
     .card-icon {
-        width: 38px;
-        height: 38px;
-        border-radius: 10px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background-color: rgba(255, 255, 255, 0.08);
-        color: #7ec4ff;
-        flex: 0 0 38px;
+        width: 40px;
+        height: 40px;
+        border-radius: var(--ds-radius-sm);
+        display: grid;
+        place-items: center;
+        background-color: rgba(var(--ds-brand-rgb), .10);
+        color: var(--ds-brand);
+        flex: 0 0 40px;
 
         mat-icon {
-            transform: scale(0.95);
+            font-size: 22px;
+            width: 22px;
+            height: 22px;
         }
     }
 
@@ -111,46 +131,56 @@
     }
 
     .card-type {
-        font-size: 11px;
+        font-size: var(--ds-fs-xs);
         text-transform: uppercase;
-        letter-spacing: 0.08em;
-        color: rgba(255, 255, 255, 0.55);
-        margin-bottom: 4px;
+        letter-spacing: 0.10em;
+        color: var(--ds-text-muted);
+        font-weight: var(--ds-fw-semibold);
+        margin-bottom: 3px;
     }
 
     .card-name {
-        font-size: 16px;
-        font-weight: 600;
+        font-size: var(--ds-fs-md);
+        font-weight: var(--ds-fw-semibold);
         line-height: 1.25;
         word-break: break-word;
+        color: var(--ds-text);
     }
 
     .state-badge {
         width: 30px;
         height: 30px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        border-radius: var(--ds-radius-pill);
+        display: grid;
+        place-items: center;
         flex: 0 0 30px;
-        background-color: rgba(255, 255, 255, 0.08);
+        background-color: var(--ds-hover);
+
+        mat-icon {
+            font-size: 18px;
+            width: 18px;
+            height: 18px;
+        }
+
+        &.ready {
+            color: var(--ds-success);
+            background-color: color-mix(in srgb, var(--ds-success) 16%, transparent);
+        }
+
+        &.available {
+            color: var(--ds-warning);
+            background-color: color-mix(in srgb, var(--ds-warning) 16%, transparent);
+        }
     }
 
-    .state-badge.ready {
-        color: #5bca73;
-        background-color: rgba(91, 202, 115, 0.14);
-    }
-
-    .state-badge.available {
-        color: #f7bf53;
-        background-color: rgba(247, 191, 83, 0.14);
-    }
-
+    /* ============================================================
+       Subtitle + version chips + status line
+       ============================================================ */
     .card-group {
-        margin-top: 8px;
-        margin-bottom: 8px;
-        color: rgba(255, 255, 255, 0.74);
-        font-size: 12px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        color: var(--ds-text-muted);
+        font-size: var(--ds-fs-xs);
         min-height: 16px;
     }
 
@@ -158,44 +188,51 @@
         display: grid;
         grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 8px;
-        margin-bottom: 8px;
+        margin-bottom: 10px;
     }
 
     .version-box {
-        padding: 4px 8px;
-        border-radius: 8px;
-        background-color: rgba(0, 0, 0, 0.14);
-        border: 1px solid rgba(255, 255, 255, 0.05);
+        padding: 6px 10px;
+        border-radius: var(--ds-radius-xs);
+        background-color: var(--ds-hover);
+        border: 1px solid var(--ds-border);
     }
 
     .current-box {
-        border-color: rgba(63, 156, 255, 0.22);
+        border-color: rgba(var(--ds-brand-rgb), .28);
     }
 
     .version-label {
         display: block;
         margin-bottom: 2px;
-        font-size: 11px;
+        font-size: 10.5px;
         text-transform: uppercase;
-        letter-spacing: 0.06em;
-        color: rgba(255, 255, 255, 0.5);
+        letter-spacing: 0.08em;
+        color: var(--ds-text-muted);
+        font-weight: var(--ds-fw-semibold);
     }
 
     .version-value {
         display: block;
-        font-size: 12px;
-        font-weight: 600;
+        font-size: var(--ds-fs-xs);
+        font-weight: var(--ds-fw-semibold);
+        color: var(--ds-text);
         word-break: break-word;
     }
 
     .card-status {
         min-height: 14px;
         margin-bottom: 8px;
-        color: rgba(255, 255, 255, 0.72);
-        font-size: 11px;
+        color: var(--ds-text-muted);
+        font-size: var(--ds-fs-xs);
         word-break: break-word;
     }
 
+    /* ============================================================
+       Action row — Install (primary brand-gradient) + Remove (stroked).
+       Disabled state is handled by the global rule in design-system.scss
+       (muted bg + visible text). No per-card override needed.
+       ============================================================ */
     .card-actions {
         margin-top: auto;
         display: flex;
@@ -216,68 +253,47 @@
 
         mat-icon {
             margin-right: 6px;
-        }
-
-        &[disabled] {
-            color: rgba(255, 255, 255, 0.32) !important;
-            border-color: rgba(255, 255, 255, 0.12) !important;
-            background-color: rgba(255, 255, 255, 0.03) !important;
-            box-shadow: none;
-            cursor: default;
-
-            mat-icon,
-            span {
-                color: rgba(255, 255, 255, 0.32) !important;
-            }
+            font-size: 16px;
+            width: 16px;
+            height: 16px;
+            vertical-align: middle;
         }
     }
 
-    .remove-button {
-        color: rgba(255, 255, 255, 0.82);
+    .remove-button:not([disabled]):not(.mat-mdc-button-disabled) {
+        color: var(--ds-text);
+        border-color: var(--ds-border);
+
+        &:hover {
+            background: color-mix(in srgb, var(--ds-danger) 12%, transparent);
+            color: var(--ds-danger);
+            border-color: color-mix(in srgb, var(--ds-danger) 40%, transparent);
+        }
     }
 
+    /* ============================================================
+       Empty state
+       ============================================================ */
     .empty-state {
         min-height: 240px;
-        border: 1px dashed rgba(255, 255, 255, 0.12);
-        border-radius: 14px;
+        border: 1px dashed var(--ds-border);
+        border-radius: var(--ds-radius-md);
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
         gap: 10px;
-        color: rgba(255, 255, 255, 0.52);
+        color: var(--ds-text-muted);
 
-        mat-icon {
-            transform: scale(1.3);
-        }
+        mat-icon { transform: scale(1.3); }
     }
 
     @media (max-width: 768px) {
-        .container {
-            padding: 12px;
-        }
-
-        .cards-grid {
-            grid-template-columns: 1fr;
-            gap: 12px;
-        }
-
-        .plugin-card {
-            min-height: 0;
-            padding: 10px;
-        }
-
-        .card-versions {
-            grid-template-columns: 1fr;
-        }
-
-        .card-actions {
-            flex-wrap: wrap;
-        }
-
-        .action-spinner {
-            width: 100%;
-            justify-content: flex-start;
-        }
+        .container { padding: 12px; }
+        .cards-grid { grid-template-columns: 1fr; gap: 12px; }
+        .plugin-card { min-height: 0; padding: 12px; }
+        .card-versions { grid-template-columns: 1fr; }
+        .card-actions { flex-wrap: wrap; }
+        .action-spinner { width: 100%; justify-content: flex-start; }
     }
 }

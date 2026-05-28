@@ -32,10 +32,13 @@ export class HeaderComponent implements AfterViewInit, OnDestroy {
     @ViewChild('fileImportInput', {static: false}) fileImportInput: any;
 
     darkTheme = true;
+    /** Bound to the sun/moon icon in the toolbar — kept in sync with ThemeService. */
+    isDark = true;
     editorMode = false;
     saveFromEditor = false;
     private subscriptionShowHelp: Subscription;
     private subscriptionLoad: Subscription;
+    private themeSub?: Subscription;
 
     constructor(private router: Router,
                 public dialog: MatDialog,
@@ -69,7 +72,14 @@ export class HeaderComponent implements AfterViewInit, OnDestroy {
         //         this.editorMode = false;
         //     }
         // });
-        this.themeService.setTheme(this.projectService.getLayoutTheme());
+        // Don't force the project's theme on cold-boot — let the pre-boot script's
+        // localStorage/system-preference choice win. The project's saved theme is
+        // re-applied below once the project actually loads.
+        this.isDark = this.themeService.isDark();
+        this.themeSub = this.themeService.themeChanges.subscribe(t => {
+            this.isDark = (t === 'dark');
+            this.darkTheme = this.isDark;
+        });
     }
 
     ngAfterViewInit() {
@@ -90,9 +100,18 @@ export class HeaderComponent implements AfterViewInit, OnDestroy {
             if (this.subscriptionLoad) {
                 this.subscriptionLoad.unsubscribe();
             }
+            this.themeSub?.unsubscribe();
         } catch (e) {
         }
       }
+
+    /** Sun/moon toggle button — flips theme, persists, syncs project setting. */
+    onToggleTheme() {
+        this.themeService.toggle();
+        this.projectService.setLayoutTheme(this.themeService.getCurrent() === 'dark'
+            ? ThemeService.ThemeType.Dark
+            : ThemeService.ThemeType.Default);
+    }
 
     public onClick(targetElement) {
         this.sidenav.close();
@@ -133,14 +152,9 @@ export class HeaderComponent implements AfterViewInit, OnDestroy {
         this.router.navigate([destination]);//, this.ID]);
     }
 
+    /** @deprecated kept for compatibility — UI now uses onToggleTheme(). */
     onChangeTheme() {
-        this.darkTheme = !this.darkTheme;
-        let theme = ThemeService.ThemeType.Default;
-        if (this.darkTheme) {
-            theme = ThemeService.ThemeType.Dark;
-        }
-        this.themeService.setTheme(theme);
-        this.projectService.setLayoutTheme(theme);
+        this.onToggleTheme();
     }
 
     //#region Project Events

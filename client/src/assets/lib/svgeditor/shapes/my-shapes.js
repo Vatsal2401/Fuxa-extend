@@ -170,6 +170,14 @@
         {
             name: 'shape-circlehalf.svg', ico: 'assets/lib/svgeditor/shapes/img/shape-circlehalf.svg', content: [
                 { id: '', type: 'path', attr: { d: 'M 24 4 A 20 20 0 0 1 24 44' } }]
+        },
+        {
+            name: 'hexagon', ico: 'assets/lib/svgeditor/shapes/img/shape-hexagon.svg', content: [
+                { id: '', type: 'path', attr: { d: 'M 10 2 L 30 2 L 40 20 L 30 38 L 10 38 L 0 20 Z' } }]
+        },
+        {
+            name: 'star5', ico: 'assets/lib/svgeditor/shapes/img/shape-star.svg', content: [
+                { id: '', type: 'path', attr: { d: 'M 20 1 L 25 15 L 39 15 L 28 24 L 32 38 L 20 29 L 8 38 L 12 24 L 1 15 L 15 15 Z' } }]
         }];
 
     // merge shapes groups

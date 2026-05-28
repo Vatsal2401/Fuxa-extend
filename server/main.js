@@ -358,6 +358,16 @@ const allowCrossDomain = function (req, res, next) {
     next();
 };
 app.use(allowCrossDomain);
+// Disable caching of the SPA shell (index.html) — hashed JS/CSS files cache normally.
+// Without this, browsers cling to a stale index.html and load old bundle hashes.
+app.use((req, res, next) => {
+    if (req.path === '/' || req.path === '/index.html' || req.path.endsWith('/index.html')) {
+        res.set('Cache-Control', 'no-cache, no-store, must-revalidate');
+        res.set('Pragma', 'no-cache');
+        res.set('Expires', '0');
+    }
+    next();
+});
 app.use('/', express.static(settings.httpStatic));
 app.use('/home', express.static(settings.httpStatic));
 app.use('/home/:viewName', express.static(settings.httpStatic));
@@ -368,6 +378,11 @@ app.use('/plugins', express.static(settings.httpStatic));
 app.use('/rodevice', express.static(settings.httpStatic));
 app.use('/users', express.static(settings.httpStatic));
 app.use('/view', express.static(settings.httpStatic));
+// operator / settings client routes (enable deep-linking + refresh survival)
+['/userRoles','/alarms','/messages','/notifications','/scripts','/reports','/language',
+ '/logs','/events','/mapsLocations','/flows','/apikeys','/arMarkers'].forEach((r) => {
+    app.use(r, express.static(settings.httpStatic));
+});
 app.use('/' + settings.httpUploadFileStatic, express.static(settings.uploadFileDir));
 app.use('/_images', express.static(settings.imagesFileDir));
 app.use('/_widgets', express.static(settings.widgetsFileDir));

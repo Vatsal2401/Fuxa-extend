@@ -2,7 +2,7 @@
     .container {
         width: 100%;
         height: 100% !important;
-        background-color: #FFFFFF
+        background-color: var(--ds-bg);
     }
 
     .work-void {
@@ -11,13 +11,13 @@
     }
 
     .work-editor {
-        background-color: #FFFFFF;
-        height: calc(100% - (46px));
+        background-color: var(--ds-bg);
+        height: calc(100% - 54px);
         min-width: 800px;
     }
 
     .work-home {
-        background-color: #FFFFFF;
+        background-color: var(--ds-bg);
         height: 100%;
         min-width: 640px;
     }
@@ -36,8 +36,8 @@
         position: absolute;
         bottom: 20px;
         left: 10px;
-        color: rgba(255, 255, 255, 1);
-        background-color: rgba(68, 138, 255, 0);
+        color: var(--ds-on-brand);
+        background-color: transparent;
         /* background-color: rgba(0,0,0,0.9); */
     }
 
@@ -51,8 +51,8 @@
         font-size: 16px;
         padding-left: 25px;
         height: 48px;
-        background-color: #B71C1C;
-        color: #FFFFFF;
+        background-color: var(--ds-danger);
+        color: var(--ds-text-invert);
 
         div {
             display: flex;
