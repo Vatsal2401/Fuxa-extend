@@ -5880,13 +5880,21 @@ ds-page-header + .work-panel table {
    External svg-editor lib hardcodes light greys (#a0a0a0 workarea,
    #d0d0d0/#b0b0b0 rulers/panels). Override them to dark theme.
    ============================================================ */
-#workarea {
-  /* svg-editor lib hardcoded #a0a0a0; original top:36px assumed 15px ruler.
-     Hide the rulers (drawn on a <canvas> at init in the OLD light bg, can't be
-     restyled) and reclaim the strip so #workarea fills the editor area cleanly. */
-  background-color: var(--ds-bg, #08111f) !important;
-  border-color: var(--ds-border, rgba(148, 184, 255, 0.16)) !important;
-  top: 36px !important; /* was already 36 in lib, but ensure no gap from rulers */
+/* Editor canvas area — hardcode dark navy literal so the workarea is dark
+   regardless of theme state (was resolving to light --ds-bg before `.dark-theme`
+   class was applied to body). */
+html body #workarea,
+html body #svg_editor_container,
+html body .svg-workarea-container,
+html body mat-drawer-container.svg-workarea-container,
+html body mat-drawer-content.mat-drawer-content {
+  background: #08111f !important;
+  background-color: #08111f !important;
+  border-color: rgba(148, 184, 255, 0.16) !important;
+}
+
+html body #workarea {
+  top: 36px !important;
 }
 
 #rulers, #rulers > div, #ruler_corner, #ruler_x, #ruler_y {
@@ -6748,4 +6756,4 @@ svg.leaflet-image-layer.leaflet-interactive path {
 .ng-resizable{position:relative}.ng-resizable-handle{position:absolute;font-size:0.1px;display:block;touch-action:none}.ng-resizable-handle.ng-resizable-e{cursor:e-resize;width:7px;right:-5px;height:100%;top:0}.ng-resizable-handle.ng-resizable-w{cursor:w-resize;width:7px;left:-5px;height:100%;top:0}.ng-resizable-handle.ng-resizable-s{cursor:s-resize;height:7px;bottom:-5px;width:100%;left:0}.ng-resizable-handle.ng-resizable-n{cursor:n-resize;height:7px;top:-5px;width:100%;left:0}.ng-resizable-handle.ng-resizable-se{cursor:se-resize;width:12px;height:12px;right:1px;bottom:1px}.ng-resizable-handle.ng-resizable-sw{cursor:sw-resize;width:12px;height:12px;left:1px;bottom:1px}.ng-resizable-handle.ng-resizable-ne{cursor:ne-resize;width:12px;height:12px;right:1px;top:1px}.ng-resizable-handle.ng-resizable-nw{cursor:nw-resize;width:12px;height:12px;left:1px;top:1px}.ng-resizable-diagonal{box-sizing:border-box;width:0;height:0;border-bottom:12px solid #aaa;border-left:12px solid transparent}
 
 
-/*# sourceMappingURL=styles.510739bfd5d41e5a.css.map*/
+/*# sourceMappingURL=styles.e03d8c8e6df0db38.css.map*/
