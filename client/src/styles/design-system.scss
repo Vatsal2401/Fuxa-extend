@@ -68,12 +68,28 @@ button.mat-button, .mat-mdc-button, .mat-flat-button {
   border-radius: var(--ds-radius-md) !important;
   transition: transform var(--ds-dur-fast) var(--ds-ease), background var(--ds-dur-base) var(--ds-ease);
 }
-.mat-raised-button.mat-primary, .mat-mdc-raised-button.mat-primary,
-.action-btn.primary, button[color="primary"] {
+.mat-raised-button.mat-primary:not([disabled]):not(.mat-mdc-button-disabled),
+.mat-mdc-raised-button.mat-primary:not([disabled]):not(.mat-mdc-button-disabled),
+.action-btn.primary:not([disabled]):not(.mat-mdc-button-disabled),
+button[color="primary"]:not([disabled]):not(.mat-mdc-button-disabled) {
   background: linear-gradient(135deg, var(--ds-brand), var(--ds-brand-2)) !important;
   color: var(--ds-on-brand) !important;
   border: none !important;
   box-shadow: var(--ds-glow) !important;
+}
+/* Disabled brand-coloured buttons get a clearly-inactive, readable look. */
+.mat-raised-button.mat-primary[disabled], .mat-mdc-raised-button.mat-primary[disabled],
+.action-btn.primary[disabled], button[color="primary"][disabled],
+.mat-raised-button.mat-primary.mat-mdc-button-disabled,
+.mat-mdc-raised-button.mat-primary.mat-mdc-button-disabled,
+.action-btn.primary.mat-mdc-button-disabled,
+button[color="primary"].mat-mdc-button-disabled {
+  background: var(--ds-hover) !important;
+  color: var(--ds-text-muted) !important;
+  border: 1px solid var(--ds-border) !important;
+  box-shadow: none !important;
+  cursor: not-allowed;
+  opacity: 0.75;
 }
 .main-btn:hover, .mat-mdc-button:hover, .mat-mdc-raised-button:hover { transform: translateY(-1px); }
 .mat-fab, .mat-mdc-fab, button.mat-fab, .fuxa-fab, button[mattooltip="menu"] {
