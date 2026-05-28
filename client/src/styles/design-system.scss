@@ -814,3 +814,51 @@ html.theme-transitioning *::after {
     stroke: var(--ds-canvas-grid) !important;
     opacity: 1;
 }
+
+/* =============================================================================
+   Dev nav FAB (ngx-fab-button) — Home / Lab / Editor jump menu.
+   Default size is 56px and the menu expands UPWARD over the left sidebar
+   palette. Shrink + push to bottom-right so it doesn't obscure shapes.
+   ============================================================================= */
+/* Hide the dev-nav FAB inside the editor — header chrome + grid toolbar own that real estate.
+   The FAB stays visible on home/lab routes via the unchanged ngx-fab-button styling. */
+.work-editor > .fab-button {
+    display: none !important;
+}
+.fab-button ngx-fab-button > button,
+.fab-button ngx-fab-item-button > button,
+.fab-button .ngx-fab-button button {
+    width: 36px !important;
+    height: 36px !important;
+    line-height: 36px !important;
+    min-width: 36px !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35) !important;
+}
+.fab-button mat-icon {
+    font-size: 18px !important;
+    width: 18px !important;
+    height: 18px !important;
+    line-height: 18px !important;
+}
+/* Hide the expansion labels on hover when narrow viewport — keep the bubbles only. */
+.fab-button ngx-fab-item-button .ngx-fab-content {
+    font-size: 11px !important;
+    padding: 4px 8px !important;
+    border-radius: 6px !important;
+}
+
+/* =============================================================================
+   Header right cluster — give the theme toggle + Help button enough breathing
+   room on narrower viewports so the "BrandX Help" label doesn't get clipped.
+   ============================================================================= */
+.header-right {
+    gap: 6px !important;
+    padding-right: 12px !important;
+}
+.header-right .header-theme-toggle.mat-mdc-icon-button {
+    flex: 0 0 36px;
+}
+.header-right .header-theme-toggle .mat-icon {
+    color: var(--ds-text);
+    opacity: 0.95;
+}

@@ -71,17 +71,55 @@
         location.reload();
     }
 
-    // Floating upload button (only on the editor route)
+    // Inject the Upload button INSIDE the left-sidebar "Resources" expansion
+    // panel header so it lives with the rest of the palette controls instead
+    // of floating over the canvas.
+    function findResourcesHeader() {
+        // Find the panel-title span whose text === 'Resources' (case-insensitive,
+        // matches localized strings as long as i18n key resolves to 'Resources').
+        // This is robust to the surrounding mat-icon glyphs ("expand_more") that
+        // would otherwise pollute textContent of the parent header.
+        var titles = document.querySelectorAll('mat-panel-title span, .mat-panel-title span');
+        for (var i = 0; i < titles.length; i++) {
+            var t = (titles[i].textContent || '').trim();
+            if (/^resources$/i.test(t)) {
+                // Walk up to the panel header for layout/positioning consistency.
+                var node = titles[i];
+                while (node && node !== document.body) {
+                    if (node.classList && (node.classList.contains('mat-expansion-panel-header') ||
+                                           node.tagName?.toLowerCase() === 'mat-expansion-panel-header')) {
+                        return node;
+                    }
+                    node = node.parentElement;
+                }
+                return titles[i].parentElement;
+            }
+        }
+        return null;
+    }
+
     function injectButton() {
         if (document.getElementById('fuxa-upload-shape-btn')) { return; }
+        var header = findResourcesHeader();
+        if (!header) { return; }   // panel hasn't rendered yet — try again later
+
         var btn = document.createElement('button');
         btn.id = 'fuxa-upload-shape-btn';
-        btn.textContent = '⬆ Upload SVG shape';
+        btn.type = 'button';
+        btn.innerHTML = '<span style="font-size:13px;line-height:1">⬆</span> Upload SVG';
         btn.title = 'Upload an SVG file from disk into the Shape palette';
-        btn.style.cssText = 'position:fixed;top:54px;right:14px;z-index:99999;' +
-            'background:linear-gradient(135deg,#4c9fff,#1ed5ff);color:#fff;border:none;' +
-            'padding:9px 15px;border-radius:10px;font:600 13px sans-serif;cursor:pointer;' +
-            'box-shadow:0 6px 20px rgba(24,116,255,.45);';
+        btn.style.cssText = [
+            'display:inline-flex;align-items:center;gap:5px',
+            'margin-left:auto;margin-right:6px',
+            'padding:3px 9px',
+            'background:linear-gradient(135deg,var(--ds-brand,#4c9fff),var(--ds-brand-2,#1ed5ff))',
+            'color:var(--ds-on-brand,#fff)',
+            'border:none;border-radius:6px',
+            "font:600 10.5px 'Inter',sans-serif",
+            'letter-spacing:.02em',
+            'cursor:pointer',
+            'box-shadow:0 2px 6px rgba(24,116,255,.32)',
+        ].join(';');
 
         var input = document.createElement('input');
         input.type = 'file';
@@ -100,18 +138,29 @@
             reader.readAsText(f);
             input.value = '';
         });
-        btn.addEventListener('click', function () { input.click(); });
+        btn.addEventListener('click', function (e) {
+            e.stopPropagation();        // don't toggle the expansion panel
+            input.click();
+        });
 
-        document.body.appendChild(btn);
+        header.appendChild(btn);
         document.body.appendChild(input);
+
+        // Belt-and-braces: clean up any old floating instance
+        var floater = document.querySelector('button[id="fuxa-upload-shape-btn-floating"]');
+        if (floater) { floater.parentNode.removeChild(floater); }
     }
 
     function updateVisibility() {
         if (!document.body) { return; }
         var onEditor = location.pathname.indexOf('/editor') >= 0;
-        injectButton();
         var btn = document.getElementById('fuxa-upload-shape-btn');
-        if (btn) { btn.style.display = onEditor ? 'block' : 'none'; }
+        if (onEditor) {
+            if (!btn) { injectButton(); }
+        } else if (btn) {
+            btn.style.display = 'none';
+        }
+        if (btn && onEditor) { btn.style.display = ''; }
     }
 
     updateVisibility();
