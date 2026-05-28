@@ -11,6 +11,7 @@ import { ProjectService, SaveMode } from '../_services/project.service';
 import { Hmi, View, GaugeSettings, SelElement, LayoutSettings, ViewType, ISvgElement, GaugeProperty, DocProfile } from '../_models/hmi';
 import { WindowRef } from '../_helpers/windowref';
 import { EditorDropService } from '../_services/editor-drop.service';
+import { EditorGridService } from '../_services/editor-grid.service';
 import { GaugePropertyComponent, GaugeDialogType, GaugePropertyData } from '../gauges/gauge-property/gauge-property.component';
 
 import { GaugesManager } from '../gauges/gauges.component';
@@ -148,6 +149,7 @@ export class EditorComponent implements OnInit, AfterViewInit, OnDestroy {
     constructor(private projectService: ProjectService,
         private winRef: WindowRef,
         private editorDrop: EditorDropService,
+        private editorGrid: EditorGridService,
         public dialog: MatDialog,
         private changeDetector: ChangeDetectorRef,
         private translateService: TranslateService,
@@ -500,15 +502,43 @@ export class EditorComponent implements OnInit, AfterViewInit, OnDestroy {
         this.applySymbolFilter('');
     }
 
-    /** Press "/" to focus the symbol search (unless already typing in a field). */
+    /** Editor-level keyboard shortcuts. Skipped when the user is in a text field. */
     @HostListener('document:keydown', ['$event'])
     onEditorKeydown(e: KeyboardEvent): void {
-        if (e.key !== '/') { return; }
         const t = e.target as HTMLElement;
         const tag = (t?.tagName || '').toLowerCase();
-        if (tag === 'input' || tag === 'textarea' || t?.isContentEditable) { return; }
-        const input = document.getElementById('symbol-search-input') as HTMLInputElement | null;
-        if (input) { e.preventDefault(); input.focus(); }
+        const inField = tag === 'input' || tag === 'textarea' || t?.isContentEditable;
+
+        // Alt-hold → temporarily disables grid/guide snap (even inside fields,
+        // because the user might be dragging while a property field has focus).
+        if (e.altKey && !e.repeat) { this.editorGrid.setSnapHold(true); }
+
+        if (inField || e.ctrlKey || e.metaKey) { return; }
+
+        // "/" focuses the symbol search box.
+        if (e.key === '/') {
+            const input = document.getElementById('symbol-search-input') as HTMLInputElement | null;
+            if (input) { e.preventDefault(); input.focus(); }
+            return;
+        }
+        // "G" toggles grid visibility.
+        if (e.key === 'g' || e.key === 'G') {
+            e.preventDefault();
+            this.editorGrid.setShowGrid(!this.editorGrid.showGrid$.value);
+            return;
+        }
+        // "S" toggles snap.
+        if (e.key === 's' || e.key === 'S') {
+            e.preventDefault();
+            this.editorGrid.setSnap(!this.editorGrid.snap$.value);
+            return;
+        }
+    }
+
+    /** Release Alt → restore the user's saved snap preference. */
+    @HostListener('document:keyup', ['$event'])
+    onEditorKeyup(e: KeyboardEvent): void {
+        if (e.key === 'Alt' || !e.altKey) { this.editorGrid.setSnapHold(false); }
     }
 
     /**

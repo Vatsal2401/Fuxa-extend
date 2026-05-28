@@ -797,3 +797,20 @@ html.theme-transitioning *::after {
     html.theme-transitioning,
     html.theme-transitioning * { transition: none !important; }
 }
+
+/* =============================================================================
+   svg-editor grid — token-driven theming.
+   The lib renders #canvasGrid as an SVG group with <line>s for the grid lines.
+   We override stroke + opacity so the grid follows the active theme without
+   touching the lib. The grid step itself is owned by svgCanvas.curConfig.
+   ============================================================================= */
+#canvasGrid line {
+    stroke: var(--ds-canvas-grid) !important;
+    stroke-width: 1 !important;
+    shape-rendering: crispEdges;
+}
+#canvasGrid line[stroke="#000"], #canvasGrid line[stroke="#000000"] {
+    /* Lib hardcodes some major-line strokes — re-tint. */
+    stroke: var(--ds-canvas-grid) !important;
+    opacity: 1;
+}

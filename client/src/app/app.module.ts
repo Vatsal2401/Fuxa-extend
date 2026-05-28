@@ -9,6 +9,8 @@ import { SharedUiModule } from './shared/ui/shared-ui.module';
 import { TooltipSystemModule } from './shared/ui/tooltip/tooltip.module';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { PaletteDraggableDirective } from './_directives/palette-draggable.directive';
+import { GridToolbarComponent } from './editor/grid-toolbar/grid-toolbar.component';
+import { SmartGuidesDirective } from './editor/smart-guides/smart-guides.directive';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ColorPickerModule } from 'ngx-color-picker';
 
@@ -258,6 +260,8 @@ export const myCustomTooltipDefaults: MatTooltipDefaultOptions = {
 
 @NgModule({ declarations: [
         PaletteDraggableDirective,
+        GridToolbarComponent,
+        SmartGuidesDirective,
         HomeComponent,
         EditorComponent,
         HeaderComponent,
