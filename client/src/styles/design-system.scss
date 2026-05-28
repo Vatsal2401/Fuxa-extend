@@ -377,6 +377,10 @@ html body #tools_top {
   right: 0 !important;
   background-image: none !important;
   overflow: visible !important;
+  height: 44px !important;            /* match BrandX header height */
+  min-height: 44px !important;
+  display: flex !important;
+  align-items: center !important;
 }
 /* Trim svg-editor's internal margin before the play button */
 html body #tools_top > #editor_panel { padding-left: 8px !important; }
