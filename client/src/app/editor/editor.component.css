@@ -21,8 +21,7 @@
 }
 
 #svg_editor_container {
-    background: #aaa;
-    height: 100%;
+    background: var(--ds-border);    height: 100%;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -82,7 +81,7 @@
  } */
 
  .svg-workarea-flybar-h:enabled .svg-workarea-flybar-h::selection{
-     color: rgba(255,255,255,1);
+     color: var(--ds-text-invert);
  }
 
 .svg-workarea-fly-p {
@@ -146,7 +145,7 @@
 }
 
 .svg-preview {
-    background-color: #3058af36;
+    background-color: var(--ds-active);
     height: 0px;
     width: 0px;
     z-index: 1;
@@ -209,11 +208,11 @@
 }
 
 .svg-tool-button:hover {
-    background: rgba(0, 0, 0, 0.1);
+    background: var(--ds-hover);
 }
 
 .svg-tool-active, .svg-tool-active:active, .svg-tool-active:hover {
-    background-color: rgba(48,89,175,1);
+    background-color: var(--ds-brand);
 }
 
 .leave-header-area {
@@ -286,8 +285,7 @@
 
 .main-btn-sep {
     width: 1px;
-    background: #888;
-    border-left: 1px outset #888;
+    background: var(--ds-border);    border-left: 1px solid var(--ds-border);
     margin: 5px 3px;
     padding: 0;
     height: 24px;
@@ -466,7 +464,7 @@ li {
     cursor: pointer;
     width: 13px;
     height: 13px;
-    border: 1px solid rgba(71, 71, 71, 1);
+    border: 1px solid var(--ds-border);
 }
 
 .color-stroke {
@@ -476,7 +474,7 @@ li {
     cursor: pointer;
     width: 13px;
     height: 13px;
-    border: 1px solid rgba(71, 71, 71, 1);
+    border: 1px solid var(--ds-border);
 }
 
 .style-stroke {
@@ -704,7 +702,7 @@ select#start_marker option[value="D"] {
     background-size: auto;
     height: 30px;
     width: 30px;
-    color: rgba(255, 255, 255, 1);
+    color: var(--ds-text-invert);
     background-position: center; /* Center the image */
     background-repeat: no-repeat; /* Do not repeat the image */
 }
