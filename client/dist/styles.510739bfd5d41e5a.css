@@ -5732,6 +5732,14 @@ html body #tools_top {
   background-image: none !important;
 }
 
+/* The external svg-editor lib sets inline `style="z-index:-1"` on #svg_editor,
+   which puts the WHOLE editor subtree (rulers, workarea, #tools_top) BEHIND
+   sibling elements in the mat-drawer-content. That's why tools_top showed a
+   grey strip — a sibling's default bg was rendering on top. Override it. */
+html body #svg_editor {
+  z-index: auto !important;
+}
+
 html body #tools_top *, html body #tools_top .mat-icon, html body #tools_top .main-btn {
   color: #edf4ff !important;
 }
@@ -6740,4 +6748,4 @@ svg.leaflet-image-layer.leaflet-interactive path {
 .ng-resizable{position:relative}.ng-resizable-handle{position:absolute;font-size:0.1px;display:block;touch-action:none}.ng-resizable-handle.ng-resizable-e{cursor:e-resize;width:7px;right:-5px;height:100%;top:0}.ng-resizable-handle.ng-resizable-w{cursor:w-resize;width:7px;left:-5px;height:100%;top:0}.ng-resizable-handle.ng-resizable-s{cursor:s-resize;height:7px;bottom:-5px;width:100%;left:0}.ng-resizable-handle.ng-resizable-n{cursor:n-resize;height:7px;top:-5px;width:100%;left:0}.ng-resizable-handle.ng-resizable-se{cursor:se-resize;width:12px;height:12px;right:1px;bottom:1px}.ng-resizable-handle.ng-resizable-sw{cursor:sw-resize;width:12px;height:12px;left:1px;bottom:1px}.ng-resizable-handle.ng-resizable-ne{cursor:ne-resize;width:12px;height:12px;right:1px;top:1px}.ng-resizable-handle.ng-resizable-nw{cursor:nw-resize;width:12px;height:12px;left:1px;top:1px}.ng-resizable-diagonal{box-sizing:border-box;width:0;height:0;border-bottom:12px solid #aaa;border-left:12px solid transparent}
 
 
-/*# sourceMappingURL=styles.df343a470b289c7d.css.map*/
+/*# sourceMappingURL=styles.510739bfd5d41e5a.css.map*/

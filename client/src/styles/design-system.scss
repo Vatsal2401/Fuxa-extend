@@ -372,6 +372,12 @@ html body #tools_top {
   border-bottom: 1px solid rgba(148,184,255,.16) !important;
   background-image: none !important;
 }
+
+/* The external svg-editor lib sets inline `style="z-index:-1"` on #svg_editor,
+   which puts the WHOLE editor subtree (rulers, workarea, #tools_top) BEHIND
+   sibling elements in the mat-drawer-content. That's why tools_top showed a
+   grey strip — a sibling's default bg was rendering on top. Override it. */
+html body #svg_editor { z-index: auto !important; }
 html body #tools_top *, html body #tools_top .mat-icon, html body #tools_top .main-btn { color: #edf4ff !important; }
 html body #tools_top .main-btn:hover { background: rgba(76,159,255,.18) !important; }
 
