@@ -1,24 +1,34 @@
 :host {
+    /* Real flex layout: app-header is a normal block at the top with a brand cluster (left)
+       and an actions cluster (right). No fixed positioning, no overlap, no magic numbers. */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 36px;
+    background-color: var(--headerBackground, #0b1626);
+    color: var(--headerColor, #edf4ff);
+    position: relative;
+    z-index: 99;
+
     .header-panel {
-        z-index: 99 !important;
-        position: fixed;
-        top: 0px;
-        left: 0px;
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        height: 36px;
+        padding: 0 8px;
         background-color: var(--headerBackground);
         color: var(--headerColor);
-        height: 36px;
-        width: 200px;
     }
 
     .header-right {
-        z-index: 99 !important;
-        position: fixed;
-        top: 0px;
-        right: 0px;
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        height: 36px;
+        padding: 0 8px;
         background-color: var(--headerBackground);
         color: var(--headerColor);
-        height: 36px;
-        width: 120px;
     }
 
     .header-help {

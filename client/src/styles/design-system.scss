@@ -330,28 +330,10 @@ input.color-picker-input {
    Phase 6e — editor app-header (Save / Edit Project / Help) visibility
    The fixed header-panel was getting covered / icons invisible.
    ============================================================ */
-/* Branded editor app-bar. Uses the SAME solid color as #tools_top so the bar
-   reads as one continuous strip (no visible band/divider between left and right). */
-.header-panel, .header-right {
-  height: 36px !important;
-  background: #0b1626 !important;       /* same color as #tools_top below */
-  color: #edf4ff !important;
-  z-index: 100001 !important;            /* above svg-editor toolbar (z up to 99999) */
-  display: flex !important;
-  align-items: center;
-  gap: 4px;
-  padding: 0 8px !important;
-  border-bottom: 1px solid var(--ds-border) !important;
-  box-shadow: 0 1px 0 rgba(0,0,0,.35);
-}
-.header-panel {
-  width: auto !important;
-  max-width: 360px !important;          /* fits the longer "Edit Project" label */
-  padding-right: 12px !important;
-  /* subtle brand-tinted divider between the FUXA brand cluster and the SVG tools */
-  border-right: 1px solid rgba(76,159,255,.22) !important;
-  box-shadow: 1px 0 0 rgba(255,255,255,.03);
-}
+/* app-header is now a real flex bar (managed by header.component.scss).
+   We just ensure its bottom edge looks like a divider into the SVG tools below. */
+.header-panel, .header-right { background: #0b1626 !important; color: #edf4ff !important; }
+.header { border-bottom: 1px solid var(--ds-border) !important; box-shadow: 0 1px 0 rgba(0,0,0,.35); }
 /* External svg-editor top toolbar — solid dark bar matching the branded header.
    Maximum-specificity selectors so this wins over anything else. */
 html body #tools_top,
@@ -370,12 +352,15 @@ html body [id$="_panel"]:not(.tabset-pane):not(#editor_panel) {
   border-color: rgba(148,184,255,.16) !important;
 }
 html body #tools_top {
-  left: 305px !important;                /* sits right after the brand cluster + divider */
+  /* App-header now sits ABOVE in normal flow; #tools_top can use its natural
+     full-width absolute position with no magic offsets. */
+  left: 0 !important;
+  right: 0 !important;
   border-bottom: 1px solid rgba(148,184,255,.16) !important;
   background-image: none !important;
 }
-/* Trim the svg-editor's internal offset so the play button starts immediately */
-html body #tools_top > #editor_panel { padding-left: 4px !important; margin-left: 0 !important; }
+/* Trim svg-editor's internal margin before the play button */
+html body #tools_top > #editor_panel { padding-left: 8px !important; }
 html body #tools_top > #editor_panel > .main-btn-sep:first-child { display: none !important; }
 /* Neutralise the vintage outset grey separators between toolbar buttons */
 html body #tools_top .main-btn-sep {
