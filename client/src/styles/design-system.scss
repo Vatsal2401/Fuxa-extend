@@ -352,17 +352,14 @@ html body [id$="_panel"]:not(.tabset-pane):not(#editor_panel) {
   border-color: rgba(148,184,255,.16) !important;
 }
 html body #tools_top {
-  /* One-row topbar: #tools_top is fixed at viewport top, occupying the space
-     BETWEEN the brand cluster (left) and the help cluster (right) inside app-header.
-     IMPORTANT: keep its natural block/float layout — children are float:left.
-     Don't set display:flex here or the floats collapse. */
-  position: fixed !important;
+  /* #tools_top is moved into app-header's grid middle slot at runtime
+     (see EditorComponent.ngAfterViewInit). Inside the slot it just fills it. */
+  position: absolute !important;
   top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
   height: 36px !important;
-  left: 320px !important;
-  right: 150px !important;
-  z-index: 100 !important;
-  border-bottom: 1px solid rgba(148,184,255,.16) !important;
+  z-index: auto !important;
   background-image: none !important;
   overflow: hidden !important;
 }

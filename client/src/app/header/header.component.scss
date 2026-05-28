@@ -1,7 +1,13 @@
 :host {
-    /* Real flex layout: app-header is a normal block at the top with a brand cluster (left)
-       and an actions cluster pinned to the right via margin-left:auto. */
-    display: flex;
+    /* Real CSS Grid layout: 3 explicit columns
+       ┌─────────────┬─────────────────────┬─────────────┐
+       │ .header-    │ .header-tools-slot  │ .header-    │
+       │  panel      │ (editor's #tools_top │  right      │
+       │ (brand)     │  is moved here)     │ (help)      │
+       └─────────────┴─────────────────────┴─────────────┘
+       Auto-sized brand | flexible tools | auto-sized help. */
+    display: grid;
+    grid-template-columns: auto 1fr auto;
     align-items: center;
     width: 100%;
     height: 36px;
@@ -10,9 +16,11 @@
     position: relative;
     z-index: 99;
 
-    /* push .header-right to the right edge regardless of other flex siblings (app-tutorial) */
-    .header-right { margin-left: auto; }
-    /* keep app-tutorial out of the flex layout (it pops over on demand) */
+    .header-panel       { grid-column: 1; }
+    .header-tools-slot  { grid-column: 2; position: relative; height: 36px; overflow: hidden; }
+    .header-right       { grid-column: 3; }
+
+    /* keep app-tutorial out of the grid layout (it's a popup, no layout cell needed) */
     app-tutorial { position: absolute; left: 0; top: 0; }
 
     .header-panel {
