@@ -662,3 +662,34 @@ body.ds-dragging-shape .bottom-bar {
 }
 /* preview must sit above the svg-editor canvas (which uses z up to 99999) */
 .cdk-drag-preview { z-index: 1000000 !important; }
+
+/* ============================================================
+   HTML5 native drag image (used by [appPaletteDraggable] for ALL palette items).
+   Rendered off-screen then handed to setDragImage — the browser composites it
+   so it's NEVER clipped by any CSS containing block, visible across the canvas.
+   ============================================================ */
+.ds-html5-ghost {
+    position: fixed;
+    top: -1000px;            /* off-screen; only used as the drag image source */
+    left: -1000px;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-size: 28px 28px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: rgba(11, 22, 38, 0.95);
+    border: 1px solid rgba(76, 159, 255, 0.6);
+    border-radius: 10px;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.55);
+    pointer-events: none;
+    z-index: -1;
+    filter: brightness(1.4);
+}
+.ds-html5-ghost--font .icon-tool {
+    display: inline-flex;
+    width: 28px; height: 28px;
+    align-items: center; justify-content: center;
+}
