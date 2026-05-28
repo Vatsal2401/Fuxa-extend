@@ -5703,14 +5703,27 @@ input.color-picker-input {
 
 .header-panel {
   width: auto !important;
-  max-width: 340px !important;
-  padding-right: 12px !important;
+  max-width: 360px !important; /* fits the longer "Edit Project" label */
+  padding-right: 14px !important;
   border-right: 1px solid var(--ds-border) !important;
 }
 
+/* External svg-editor top toolbar — force dark + light icons (id selector wins over class) */
 #tools_top {
   left: 320px !important;
-} /* tight gap; auto-width header-panel hugs its content */
+  background: var(--ds-panel, #0f1a2e) !important;
+  color: var(--ds-text, #edf4ff) !important;
+  border-bottom: 1px solid var(--ds-border) !important;
+}
+
+#tools_top *, #tools_top .mat-icon, #tools_top .main-btn {
+  color: var(--ds-text, #edf4ff) !important;
+}
+
+#tools_top .main-btn:hover {
+  background: rgba(var(--ds-brand-rgb), 0.18) !important;
+}
+
 /* brand mark */
 .app-brand {
   display: inline-flex;
@@ -5837,6 +5850,36 @@ ds-page-header + .work-panel table {
 .mat-mdc-table, .mat-table, mat-table, table.mat-table {
   --mat-table-background-color: transparent !important;
   background-color: transparent !important;
+}
+
+/* ============================================================
+   External svg-editor lib hardcodes light greys (#a0a0a0 workarea,
+   #d0d0d0/#b0b0b0 rulers/panels). Override them to dark theme.
+   ============================================================ */
+#workarea {
+  background-color: var(--ds-bg, #08111f) !important;
+  border-color: var(--ds-border, rgba(148, 184, 255, 0.16)) !important;
+}
+
+#rulers, #rulers > div, #ruler_corner, #ruler_x, #ruler_y {
+  background: var(--ds-panel, #0f1a2e) !important;
+  color: var(--ds-text-muted, #9db0cb) !important;
+  border-color: var(--ds-border, rgba(148, 184, 255, 0.16)) !important;
+}
+
+#rulers canvas, #ruler_x canvas, #ruler_y canvas {
+  background: transparent !important;
+  filter: invert(0.92) hue-rotate(180deg);
+}
+
+#svg_editor, #svgcanvas, #svgroot, .container_, #editor_pane {
+  background-color: var(--ds-bg, #08111f) !important;
+}
+
+/* Any remaining hardcoded grey panels in svg-editor */
+[id^=tools_], [id$=_panel]:not(#editor_panel) {
+  background-color: var(--ds-panel, #0f1a2e) !important;
+  color: var(--ds-text, #edf4ff) !important;
 }
 /*!*********************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[5].rules[0].oneOf[0].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[5].rules[0].oneOf[0].use[2]!./node_modules/uplot/dist/uPlot.min.css?ngGlobalStyle ***!
@@ -6684,4 +6727,4 @@ svg.leaflet-image-layer.leaflet-interactive path {
 .ng-resizable{position:relative}.ng-resizable-handle{position:absolute;font-size:0.1px;display:block;touch-action:none}.ng-resizable-handle.ng-resizable-e{cursor:e-resize;width:7px;right:-5px;height:100%;top:0}.ng-resizable-handle.ng-resizable-w{cursor:w-resize;width:7px;left:-5px;height:100%;top:0}.ng-resizable-handle.ng-resizable-s{cursor:s-resize;height:7px;bottom:-5px;width:100%;left:0}.ng-resizable-handle.ng-resizable-n{cursor:n-resize;height:7px;top:-5px;width:100%;left:0}.ng-resizable-handle.ng-resizable-se{cursor:se-resize;width:12px;height:12px;right:1px;bottom:1px}.ng-resizable-handle.ng-resizable-sw{cursor:sw-resize;width:12px;height:12px;left:1px;bottom:1px}.ng-resizable-handle.ng-resizable-ne{cursor:ne-resize;width:12px;height:12px;right:1px;top:1px}.ng-resizable-handle.ng-resizable-nw{cursor:nw-resize;width:12px;height:12px;left:1px;top:1px}.ng-resizable-diagonal{box-sizing:border-box;width:0;height:0;border-bottom:12px solid #aaa;border-left:12px solid transparent}
 
 
-/*# sourceMappingURL=styles.dc90a62a2756b7e3.css.map*/
+/*# sourceMappingURL=styles.fd90cc0764fe04a6.css.map*/

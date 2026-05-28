@@ -346,11 +346,19 @@ input.color-picker-input {
 }
 .header-panel {
   width: auto !important;
-  max-width: 340px !important;
-  padding-right: 12px !important;
+  max-width: 360px !important;          /* fits the longer "Edit Project" label */
+  padding-right: 14px !important;
   border-right: 1px solid var(--ds-border) !important;
 }
-#tools_top { left: 320px !important; }   /* tight gap; auto-width header-panel hugs its content */
+/* External svg-editor top toolbar — force dark + light icons (id selector wins over class) */
+#tools_top {
+  left: 320px !important;
+  background: var(--ds-panel, #0f1a2e) !important;
+  color: var(--ds-text, #edf4ff) !important;
+  border-bottom: 1px solid var(--ds-border) !important;
+}
+#tools_top *, #tools_top .mat-icon, #tools_top .main-btn { color: var(--ds-text, #edf4ff) !important; }
+#tools_top .main-btn:hover { background: rgba(var(--ds-brand-rgb), .18) !important; }
 
 /* brand mark */
 .app-brand { display: inline-flex; align-items: center; gap: 6px; padding: 0 8px 0 2px; margin-right: 2px; }
@@ -429,4 +437,27 @@ ds-page-header + .work-panel table { background: transparent !important; }
 .mat-mdc-table, .mat-table, mat-table, table.mat-table {
   --mat-table-background-color: transparent !important;
   background-color: transparent !important;
+}
+
+/* ============================================================
+   External svg-editor lib hardcodes light greys (#a0a0a0 workarea,
+   #d0d0d0/#b0b0b0 rulers/panels). Override them to dark theme.
+   ============================================================ */
+#workarea {
+  background-color: var(--ds-bg, #08111f) !important;
+  border-color: var(--ds-border, rgba(148,184,255,.16)) !important;
+}
+#rulers, #rulers > div, #ruler_corner, #ruler_x, #ruler_y {
+  background: var(--ds-panel, #0f1a2e) !important;
+  color: var(--ds-text-muted, #9db0cb) !important;
+  border-color: var(--ds-border, rgba(148,184,255,.16)) !important;
+}
+#rulers canvas, #ruler_x canvas, #ruler_y canvas { background: transparent !important; filter: invert(.92) hue-rotate(180deg); }
+#svg_editor, #svgcanvas, #svgroot, .container_, #editor_pane {
+  background-color: var(--ds-bg, #08111f) !important;
+}
+/* Any remaining hardcoded grey panels in svg-editor */
+[id^="tools_"], [id$="_panel"]:not(#editor_panel) {
+  background-color: var(--ds-panel, #0f1a2e) !important;
+  color: var(--ds-text, #edf4ff) !important;
 }
