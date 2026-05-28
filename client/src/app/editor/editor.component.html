@@ -237,6 +237,7 @@
                         <div id="__tools_left" class="leftbar-panel h200">
                             <div *ngFor="let shape of shGrp.shapes" style="margin-left: 3px;margin-right: 3px;" class="svg-tool-button"
                                 [appPaletteDraggable]="shape.name"
+                                [appSymbolTooltip]="symbolTooltipModel(shape, shGrp.name)"
                                 [ngClass]="{'svg-tool-active': isModeActive(shape.name)}" (click)="setMode(shape.name)">
                                 <span class="icon-tool" [style.backgroundImage]="'url(' + shape.ico + ')'"> </span>
                             </div>

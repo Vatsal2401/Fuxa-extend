@@ -693,3 +693,46 @@ body.ds-dragging-shape .bottom-bar {
     width: 28px; height: 28px;
     align-items: center; justify-content: center;
 }
+
+/* =============================================================================
+   Tooltip system — global
+   - .ds-tooltip-panel / .ds-symbol-tooltip-panel: CDK overlay wrappers used by
+     [appTooltip] and [appSymbolTooltip]. Themed via --ds-tooltip-* tokens.
+   - .mat-mdc-tooltip / .mdc-tooltip__surface: restyle Material's built-in
+     tooltip so existing matTooltip call-sites (~34) inherit the same look
+     without touching each template.
+   ============================================================================= */
+:root,
+.dark-theme {
+    --ds-tooltip-bg:     rgba(15, 24, 42, 0.96);
+    --ds-tooltip-fg:     #edf4ff;
+    --ds-tooltip-border: rgba(76, 159, 255, 0.22);
+}
+
+/* CDK overlay panels host the bubble component — no border/background here;
+   the bubble paints its own surface so transforms don't break the backdrop. */
+.ds-tooltip-panel,
+.ds-symbol-tooltip-panel {
+    pointer-events: none;
+}
+.ds-symbol-tooltip-panel.cdk-overlay-pane {
+    pointer-events: auto;  /* allow Alt-pinned card to receive hover */
+}
+
+/* Restyle Material's tooltip globally so the 34 existing matTooltip calls
+   match the new design language without per-template edits. */
+.mdc-tooltip .mdc-tooltip__surface,
+.mat-mdc-tooltip .mdc-tooltip__surface {
+    background: var(--ds-tooltip-bg) !important;
+    color: var(--ds-tooltip-fg) !important;
+    border: 1px solid var(--ds-tooltip-border);
+    border-radius: 8px !important;
+    padding: 6px 10px !important;
+    font-size: 12px !important;
+    font-weight: 500 !important;
+    letter-spacing: 0.01em;
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(8px) saturate(120%);
+    -webkit-backdrop-filter: blur(8px) saturate(120%);
+    max-width: 280px;
+}

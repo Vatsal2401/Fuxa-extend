@@ -439,6 +439,25 @@ export class EditorComponent implements OnInit, AfterViewInit, OnDestroy {
         return `${raw} ${noPrefix} ${alias} ${cat}`;
     }
 
+    /**
+     * Build the rich-preview model consumed by [appSymbolTooltip] on palette items.
+     * Reuses the alias map so search keywords and tooltip tags stay in sync.
+     */
+    public symbolTooltipModel(shape: any, groupName: string): any {
+        const raw = (shape?.name || '');
+        const noPrefix = raw.toLowerCase().replace(/^[a-z0-9]+-/, '');
+        const alias = EditorComponent.SYMBOL_ALIASES[noPrefix] || '';
+        const tags = Array.from(new Set(
+            [noPrefix, ...alias.split(' ')].filter(t => t && t.length > 1)
+        )).slice(0, 4);
+        return {
+            name: (noPrefix || raw).replace(/[-_]/g, ' '),
+            category: groupName || '',
+            iconUrl: shape?.ico,
+            tags,
+        };
+    }
+
     /** Live filter over the data-driven shape libraries. */
     applySymbolFilter(query: string): void {
         const q = (query || '').trim().toLowerCase();

@@ -3,7 +3,7 @@
         <mat-icon class="app-brand-logo" aria-hidden="true">hub</mat-icon>
         <span class="app-brand-name">FUXA</span>
     </span>
-    <button mat-button title="{{'header.save-project' | translate}}" [matMenuTriggerFor]="prjview" #prjviewtrigger="matMenuTrigger" class="main-btn labeled">
+    <button mat-button [appTooltip]="'header.save-project' | translate" appTooltipShortcut="Ctrl+S" appTooltipPlacement="below" [matMenuTriggerFor]="prjview" #prjviewtrigger="matMenuTrigger" class="main-btn labeled">
         <mat-icon aria-label="Save Project">save</mat-icon>
         <span class="btn-label">{{'header.save-project' | translate}}</span>
     </button>
@@ -18,7 +18,7 @@
         <button mat-menu-item (click)="onRenameProject()">{{'header.rename-project' | translate}}</button>
         <input type="file" #fileImportInput style="display: none" id="projectFileUpload" (change)="onFileChangeListener($event)" accept=".json" />
     </mat-menu>
-    <button mat-button title="{{'header.edit-project' | translate}}" class="main-btn labeled" (click)="onSetup()">
+    <button mat-button [appTooltip]="'header.edit-project' | translate" appTooltipPlacement="below" class="main-btn labeled" (click)="onSetup()">
         <mat-icon aria-label="Edit Views">settings</mat-icon>
         <span class="btn-label">{{'header.edit-project' | translate}}</span>
     </button>
@@ -27,7 +27,7 @@
 
 <div class="header-right" *ngIf="editorMode">
     <div class="header-help">
-        <button mat-button title="{{'header.help' | translate}}" [matMenuTriggerFor]="helpmenu" class="main-btn labeled">
+        <button mat-button [appTooltip]="'header.help' | translate" appTooltipPlacement="below" [matMenuTriggerFor]="helpmenu" class="main-btn labeled">
             <mat-icon aria-label="HELP">help_outline</mat-icon>
             <span class="btn-label">{{'header.help' | translate}}</span>
         </button>
