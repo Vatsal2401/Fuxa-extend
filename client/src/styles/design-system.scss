@@ -350,31 +350,30 @@ input.color-picker-input {
   padding-right: 14px !important;
   border-right: 1px solid var(--ds-border) !important;
 }
-/* External svg-editor top toolbar — hardcoded dark (var fallback wasn't winning).
-   Make every conceivable svg-editor toolbar wrapper dark with light icons. */
-#tools_top,
-#tools_top > div,
-#tools_top.tools_panel,
-#editor_panel,
-#selected_panel,
-#multiselected_panel,
-#text_panel,
-#path_node_panel,
-#g_panel,
-#rect_panel,
-#circle_panel,
-#ellipse_panel,
-#line_panel,
-#polygon_panel,
-#image_panel {
+/* External svg-editor top toolbar — solid dark bar matching the branded header.
+   Maximum-specificity selectors so this wins over anything else. */
+html body #tools_top,
+html body #tools_top > div,
+html body #tools_top.tools_panel,
+html body #editor_panel,
+html body #selected_panel,
+html body #multiselected_panel,
+html body #text_panel,
+html body #path_node_panel,
+html body #g_panel,
+html body [id$="_panel"]:not(.tabset-pane):not(#editor_panel) {
   background: #0b1626 !important;
   background-color: #0b1626 !important;
   color: #edf4ff !important;
   border-color: rgba(148,184,255,.16) !important;
 }
-#tools_top { left: 320px !important; border-bottom: 1px solid rgba(148,184,255,.16) !important; }
-#tools_top *, #tools_top .mat-icon, #tools_top .main-btn { color: #edf4ff !important; }
-#tools_top .main-btn:hover { background: rgba(76,159,255,.18) !important; }
+html body #tools_top {
+  left: 320px !important;
+  border-bottom: 1px solid rgba(148,184,255,.16) !important;
+  background-image: none !important;
+}
+html body #tools_top *, html body #tools_top .mat-icon, html body #tools_top .main-btn { color: #edf4ff !important; }
+html body #tools_top .main-btn:hover { background: rgba(76,159,255,.18) !important; }
 
 /* brand mark */
 .app-brand { display: inline-flex; align-items: center; gap: 6px; padding: 0 8px 0 2px; margin-right: 2px; }
