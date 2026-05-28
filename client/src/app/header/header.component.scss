@@ -1,8 +1,7 @@
 :host {
     /* Real flex layout: app-header is a normal block at the top with a brand cluster (left)
-       and an actions cluster (right). No fixed positioning, no overlap, no magic numbers. */
+       and an actions cluster pinned to the right via margin-left:auto. */
     display: flex;
-    justify-content: space-between;
     align-items: center;
     width: 100%;
     height: 36px;
@@ -10,6 +9,11 @@
     color: var(--headerColor, #edf4ff);
     position: relative;
     z-index: 99;
+
+    /* push .header-right to the right edge regardless of other flex siblings (app-tutorial) */
+    .header-right { margin-left: auto; }
+    /* keep app-tutorial out of the flex layout (it pops over on demand) */
+    app-tutorial { position: absolute; left: 0; top: 0; }
 
     .header-panel {
         display: inline-flex;
