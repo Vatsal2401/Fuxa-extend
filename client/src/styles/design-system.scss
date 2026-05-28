@@ -353,18 +353,18 @@ html body [id$="_panel"]:not(.tabset-pane):not(#editor_panel) {
 }
 html body #tools_top {
   /* One-row topbar: #tools_top is fixed at viewport top, occupying the space
-     BETWEEN the brand cluster (left) and the help cluster (right) inside app-header. */
+     BETWEEN the brand cluster (left) and the help cluster (right) inside app-header.
+     IMPORTANT: keep its natural block/float layout — children are float:left.
+     Don't set display:flex here or the floats collapse. */
   position: fixed !important;
   top: 0 !important;
   height: 36px !important;
-  left: 320px !important;          /* sits right after brand cluster (~300px wide) */
-  right: 150px !important;         /* leaves room for the help cluster on the right */
-  z-index: 100 !important;          /* above app-header bg but below dialogs */
+  left: 320px !important;
+  right: 150px !important;
+  z-index: 100 !important;
   border-bottom: 1px solid rgba(148,184,255,.16) !important;
   background-image: none !important;
-  display: flex !important;
-  align-items: center !important;
-  overflow: visible !important;
+  overflow: hidden !important;
 }
 /* Trim svg-editor's internal margin before the play button */
 html body #tools_top > #editor_panel { padding-left: 8px !important; }
