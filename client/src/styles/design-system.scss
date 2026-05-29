@@ -464,10 +464,10 @@ html body #tools_top .main-btn:hover { background: rgba(76,159,255,.18) !importa
    absolute .work-panel (top:37px), offset it below the header.
    One rule covers logs/reports/users/etc.
    ============================================================ */
-ds-page-header { display: block; padding: var(--ds-sp-2) var(--ds-sp-5) 0; }
+ds-page-header { display: block; padding: var(--ds-sp-2) var(--ds-sp-5) 0; margin-top: 44px; }
 ds-page-header + .work-panel {
-  top: 96px !important;
-  height: calc(100% - 112px) !important;
+  top: 141px !important;
+  height: calc(100% - 157px) !important;
   left: var(--ds-sp-5) !important;
   right: var(--ds-sp-5) !important;
   border: 1px solid var(--ds-border) !important;
