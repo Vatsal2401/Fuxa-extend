@@ -5,9 +5,6 @@
             <!-- Checkbox Column -->
             <ng-container matColumnDef="select">
                 <mat-header-cell *matHeaderCellDef [ngClass]="'selectidthClass'">
-                    <button mat-icon-button (click)="onAddNotification()" class="remove">
-                        <mat-icon>add</mat-icon>
-                    </button>
                 </mat-header-cell>
                 <mat-cell *matCellDef="let element" [ngClass]="'selectidthClass'">
                     <button mat-icon-button (click)="onEditNotification(element)" class="remove">
@@ -65,6 +62,10 @@
             <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
             <mat-row *matRowDef="let row; columns: displayedColumns;" class="mat-row"></mat-row>
         </mat-table>
+        <ds-empty-state *ngIf="!dataSource.data.length" icon="notifications_none"
+            title="No notifications configured"
+            message="Use the + button to add your first notification.">
+        </ds-empty-state>
     </div>
 </div>
 <button mat-fab color="primary" (click)="onAddNotification()" class="fab-add">

@@ -2,30 +2,9 @@
     display: block;
     height: 100%;
 
-    .header-panel {
-        background-color: var(--headerBackground);
-        color: var(--headerColor);
-        position: absolute;
-        top: 44px;
-        left: 0px;
-        height: 36px;
-        width: 100%;
-        text-align: center;
-        line-height: 36px;
-        border-bottom: 1px solid var(--headerBorder);
-
-        mat-icon {
-            display: inline-block;
-            vertical-align: middle;
-        }
-        span {
-            margin-left: 10px;
-        }
-    }
-
     .work-panel {
         position: absolute;
-        top: 81px;
+        top: 37px;
         left: 0px;
         right: 0px;
         bottom: 0px;

@@ -4,9 +4,6 @@
         <mat-table #table [dataSource]="dataSource" matSort>
             <ng-container matColumnDef="select">
                 <mat-header-cell *matHeaderCellDef [ngClass]="'selectidthClass'">
-                    <button mat-icon-button (click)="onAddLocation()" class="remove">
-                        <mat-icon>add</mat-icon>
-                    </button>
                 </mat-header-cell>
                 <mat-cell *matCellDef="let element" [ngClass]="'selectidthClass'">
                     <button mat-icon-button (click)="onEditLocation(element)" class="remove">
@@ -40,6 +37,10 @@
             <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
             <mat-row *matRowDef="let row; columns: displayedColumns;" class="my-mat-row"></mat-row>
         </mat-table>
+        <ds-empty-state *ngIf="!dataSource.data.length" icon="place"
+            title="No locations defined"
+            message="Use the + button to add your first map location.">
+        </ds-empty-state>
     </div>
 </div>
 
