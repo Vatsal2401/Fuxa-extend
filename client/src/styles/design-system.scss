@@ -387,8 +387,8 @@ html body #tools_top {
   right: 0 !important;
   background-image: none !important;
   overflow: visible !important;
-  height: 56px !important;            /* taller toolbar — canvas auto-shrinks accordingly */
-  min-height: 56px !important;
+  height: 48px !important;            /* small breathing margin — not too tall */
+  min-height: 48px !important;
   display: flex !important;
   align-items: center !important;
 }
