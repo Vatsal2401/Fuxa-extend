@@ -26,12 +26,7 @@
 </div>
 
 <div class="header-right" *ngIf="editorMode">
-    <button mat-icon-button class="header-theme-toggle"
-            [appTooltip]="(isDark ? 'header.theme-switch-light' : 'header.theme-switch-dark') | translate"
-            appTooltipPlacement="below"
-            (click)="onToggleTheme()">
-        <mat-icon>{{ isDark ? 'light_mode' : 'dark_mode' }}</mat-icon>
-    </button>
+    <!-- theme toggle hidden — dark theme only -->
     <div class="header-help">
         <button mat-button [appTooltip]="'header.help' | translate" appTooltipPlacement="below" [matMenuTriggerFor]="helpmenu" class="main-btn labeled">
             <mat-icon aria-label="HELP">help_outline</mat-icon>
