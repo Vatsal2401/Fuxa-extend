@@ -17,7 +17,7 @@ import { ConfirmDialogComponent, ConfirmDialogData } from '../../gui-helpers/con
 @Component({
     selector: 'app-report-list',
     templateUrl: './report-list.component.html',
-    styleUrls: ['./report-list.component.css'],
+    styleUrls: ['./report-list.component.scss'],
     animations: [
         trigger('detailExpand', [
           state('collapsed', style({height: '0px', minHeight: '0'})),

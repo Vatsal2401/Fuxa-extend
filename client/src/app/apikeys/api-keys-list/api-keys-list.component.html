@@ -1,7 +1,4 @@
-<div class="header-panel">
-    <mat-icon>vpn_key</mat-icon>
-    <span>{{'apikeys.list-title' | translate}}</span>
-</div>
+<ds-page-header [title]="'apikeys.list-title' | translate"></ds-page-header>
 <div class="work-panel">
     <div class="container">
         <mat-table #table [dataSource]="dataSource" matSort>
@@ -63,6 +60,10 @@
             <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
             <mat-row *matRowDef="let row; columns: displayedColumns;" class="my-mat-row"></mat-row>
         </mat-table>
+        <ds-empty-state *ngIf="!dataSource.data.length" icon="vpn_key"
+            title="No API keys configured"
+            message="Use the + button to generate your first API key.">
+        </ds-empty-state>
     </div>
 </div>
 

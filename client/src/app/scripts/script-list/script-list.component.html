@@ -5,9 +5,6 @@
             <!-- Checkbox Column -->
             <ng-container matColumnDef="select">
                 <mat-header-cell *matHeaderCellDef [ngClass]="'selectidthClass'">
-                    <button mat-icon-button (click)="onAddScript()" class="remove">
-                        <mat-icon>add</mat-icon>
-                    </button>
                 </mat-header-cell>
                 <mat-cell *matCellDef="let element" [ngClass]="'selectidthClass'">
                     <button mat-icon-button (click)="onEditScript(element)" class="remove">
@@ -66,6 +63,10 @@
             <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
             <mat-row *matRowDef="let row; columns: displayedColumns;" class="mat-row"></mat-row>
         </mat-table>
+        <ds-empty-state *ngIf="!dataSource.data.length" icon="code"
+            title="No scripts defined"
+            message="Use the + button to create your first script.">
+        </ds-empty-state>
     </div>
 </div>
 <button mat-fab color="primary" (click)="onAddScript()" class="fab-add">

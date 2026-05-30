@@ -92,9 +92,14 @@ export class SetupComponent {
         }
         let dialogRef = this.dialog.open(LayoutPropertyComponent, {
             position: { top: '60px' },
-            width: '80vw',
-            minWidth: '950px',
-            maxWidth: 'none',
+            // Responsive sizing — was hardcoded minWidth:950 which clipped on
+            // viewports < 1100px. Now: prefer 90vw, max 1100px, min 0 (the
+            // component's own SCSS handles internal layout breakpoints).
+            width: 'min(1100px, 92vw)',
+            minWidth: '0',
+            maxWidth: '92vw',
+            maxHeight: '88vh',
+            panelClass: 'layout-settings-dialog',
             data: <ILayoutPropertyData>{ layout: templayout, views: hmi.views, securityEnabled: this.projectService.isSecurityEnabled() }
         });
         dialogRef.afterClosed().subscribe(result => {

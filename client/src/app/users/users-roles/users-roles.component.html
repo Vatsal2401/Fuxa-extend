@@ -4,9 +4,6 @@
 		<mat-table #table [dataSource]="dataSource" matSort>
 			<ng-container matColumnDef="select">
 				<mat-header-cell *matHeaderCellDef [ngClass]="'selectidthClass'">
-					<button mat-icon-button (click)="onAddRole()" class="remove">
-						<mat-icon>add</mat-icon>
-					</button>
 				</mat-header-cell>
 				<mat-cell *matCellDef="let element" [ngClass]="'selectidthClass'">
 					<button mat-icon-button (click)="onEditRole(element)" class="remove">
@@ -42,6 +39,10 @@
 			<mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
 			<mat-row *matRowDef="let row; columns: displayedColumns;" class="my-mat-row"></mat-row>
 		</mat-table>
+		<ds-empty-state *ngIf="!dataSource.data.length" icon="manage_accounts"
+			title="No roles defined"
+			message="Use the + button to create the first role.">
+		</ds-empty-state>
 	</div>
 </div>
 

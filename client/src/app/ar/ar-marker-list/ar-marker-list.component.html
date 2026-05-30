@@ -1,7 +1,4 @@
-<div class="header-panel">
-    <mat-icon>view_in_ar</mat-icon>
-    {{'ar.markers-list-title' | translate}}
-</div>
+<ds-page-header [title]="'ar.markers-list-title' | translate"></ds-page-header>
 <div class="work-panel">
     <div class="container">
         <mat-table #table [dataSource]="dataSource" matSort>
@@ -60,6 +57,10 @@
             <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
             <mat-row *matRowDef="let row; columns: displayedColumns;" class="my-mat-row"></mat-row>
         </mat-table>
+        <ds-empty-state *ngIf="!dataSource.data.length" icon="view_in_ar"
+            title="No AR markers defined"
+            message="Use the + button to add your first AR marker.">
+        </ds-empty-state>
     </div>
 </div>
 

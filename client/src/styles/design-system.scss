@@ -251,10 +251,16 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible,
 router-outlet + * { animation: ds-fade-in var(--ds-dur-base) var(--ds-ease-out); }
 @keyframes ds-fade-in { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
 
-/* FUXA "+" add FAB (device/connections) → brand */
+/* FUXA "+" add FAB (device/connections) → brand + fixed floating position */
 .add-button, .fab-add, button.mat-fab.add {
   background: linear-gradient(135deg, var(--ds-brand), var(--ds-brand-2)) !important;
   color: var(--ds-on-brand) !important;
+}
+.fab-add {
+  position: fixed !important;
+  bottom: 24px !important;
+  right: 24px !important;
+  z-index: 50;
 }
 
 /* ============================================================
@@ -382,8 +388,14 @@ html body #tools_top {
   display: flex !important;
   align-items: center !important;
 }
-/* Trim svg-editor's internal margin before the play button */
-html body #tools_top > #editor_panel { padding-left: 8px !important; }
+/* Trim svg-editor's internal margin before the play button.
+   The BrandX header-panel (position:fixed, left:0, z-index:99) overlaps
+   the start of #tools_top — it would cover the play button. Push the
+   editor_panel's content past the BrandX brand + Save + Edit cluster
+   so the play button surfaces beside the zoom magnifier. */
+html body #tools_top > #editor_panel {
+    padding-left: 330px !important;
+}
 html body #tools_top > #editor_panel > .main-btn-sep:first-child { display: none !important; }
 /* Neutralise the vintage outset grey separators between toolbar buttons */
 html body #tools_top .main-btn-sep {
@@ -407,6 +419,32 @@ html body #tools_top > #editor_panel > .main-btn-sep:first-of-type + .main-btn {
 html body #svg_editor { z-index: auto !important; }
 html body #tools_top *, html body #tools_top .mat-icon, html body #tools_top .main-btn { color: #edf4ff !important; }
 html body #tools_top .main-btn:hover { background: rgba(76,159,255,.18) !important; }
+
+/* Toolbar button + icon visibility — explicit sizing so the FIRST button
+   (play/Launch Current View) and every other button renders its mat-icon
+   reliably. Material 18 strips inline sizing on mat-button children, so
+   we need to enforce min dimensions here. */
+html body #tools_top .main-btn {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    min-width: 34px !important;
+    height: 34px !important;
+    padding: 0 8px !important;
+}
+html body #tools_top .main-btn .mat-icon,
+html body #tools_top .main-btn .mat-mdc-icon,
+html body #tools_top .main-btn mat-icon {
+    font-size: 22px !important;
+    width: 22px !important;
+    height: 22px !important;
+    line-height: 22px !important;
+    color: #edf4ff !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    display: inline-flex !important;
+    margin: 0 !important;
+}
 
 /* brand mark */
 .app-brand { display: inline-flex; align-items: center; gap: 6px; padding: 0 8px 0 2px; margin-right: 2px; }
@@ -464,10 +502,10 @@ html body #tools_top .main-btn:hover { background: rgba(76,159,255,.18) !importa
    absolute .work-panel (top:37px), offset it below the header.
    One rule covers logs/reports/users/etc.
    ============================================================ */
-ds-page-header { display: block; padding: var(--ds-sp-2) var(--ds-sp-5) 0; }
+ds-page-header { display: block; padding: var(--ds-sp-2) var(--ds-sp-5) 0; margin-top: 44px; }
 ds-page-header + .work-panel {
-  top: 96px !important;
-  height: calc(100% - 112px) !important;
+  top: 141px !important;
+  height: calc(100% - 157px) !important;
   left: var(--ds-sp-5) !important;
   right: var(--ds-sp-5) !important;
   border: 1px solid var(--ds-border) !important;
@@ -504,8 +542,26 @@ html body mat-drawer-content.mat-drawer-content {
   border-color: rgba(148,184,255,.16) !important;
 }
 html body #workarea { top: 36px !important; }
-#rulers, #rulers > div, #ruler_corner, #ruler_x, #ruler_y {
-  display: none !important;
+/* Rulers — themed to match the design system (kept visible, not hidden).
+   The lib generates them as separate <div>s (#ruler_x horizontal,
+   #ruler_y vertical, #ruler_corner top-left intersection). They show
+   only when curConfig.showRulers = true (toggled from EditorGridService). */
+#rulers,
+#ruler_corner,
+#ruler_x, #ruler_x .rulers_top,
+#ruler_y, #ruler_y .rulers_left {
+  background: var(--svgEditRulersBackground, var(--ds-panel, #0b1626)) !important;
+  color: var(--svgEditRulersColor, var(--ds-text-muted, #9db0cb)) !important;
+  border-color: var(--ds-border, rgba(148,184,255,.16)) !important;
+}
+#ruler_x canvas, #ruler_y canvas {
+  filter: brightness(1.15);   /* lift the tick marks so they read on dark */
+}
+#ruler_x, #ruler_x > div, #ruler_x .rulers_top {
+  border-bottom: 1px solid var(--ds-border, rgba(148,184,255,.16)) !important;
+}
+#ruler_y, #ruler_y > div, #ruler_y .rulers_left {
+  border-right: 1px solid var(--ds-border, rgba(148,184,255,.16)) !important;
 }
 #svg_editor, #svgcanvas, #svgroot, .container_, #editor_pane {
   background-color: var(--ds-bg, #08111f) !important;

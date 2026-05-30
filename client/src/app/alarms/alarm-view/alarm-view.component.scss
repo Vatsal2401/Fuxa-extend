@@ -261,8 +261,8 @@
 /* Full-page mode: offset the absolutely-positioned work-panel below the ds-page-header
    (the original layout assumed a 37px header). Inline ngStyle height is overridden with !important. */
 .work-panel:not(.embedded) {
-    top: 96px !important;
-    height: calc(100% - 112px) !important;
+    top: 129px !important;
+    height: calc(100% - 145px) !important;
     left: var(--ds-sp-5, 20px);
     right: var(--ds-sp-5, 20px);
     box-sizing: border-box;

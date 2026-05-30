@@ -1724,8 +1724,10 @@ export class EditorComponent implements OnInit, AfterViewInit, OnDestroy {
     onWidgetKiosk() {
         let dialogRef = this.dialog.open(KioskWidgetsComponent, {
             disableClose: true,
-            position: { top: '60px' },
+            position: { top: '56px' },
             width: '1020px',
+            maxHeight: 'calc(100vh - 72px)',
+            panelClass: 'ds-dialog-panel',
         });
         dialogRef.afterClosed().subscribe((result) => {
             if (result) {

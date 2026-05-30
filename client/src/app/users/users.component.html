@@ -8,9 +8,6 @@
 		<mat-table #table [dataSource]="dataSource" matSort>
 			<ng-container matColumnDef="select">
 				<mat-header-cell *matHeaderCellDef [ngClass]="'selectidthClass'">
-					<button mat-icon-button (click)="onAddUser()" class="remove">
-						<mat-icon>add</mat-icon>
-					</button>
 				</mat-header-cell>
 				<mat-cell *matCellDef="let element" [ngClass]="'selectidthClass'">
 					<button mat-icon-button (click)="onEditUser(element)" class="remove">
@@ -51,6 +48,10 @@
 			<mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
 			<mat-row *matRowDef="let row; columns: displayedColumns;" class="my-mat-row"></mat-row>
 		</mat-table>
+		<ds-empty-state *ngIf="!dataSource.data.length" icon="person_outline"
+			title="No users found"
+			message="Use the + button to add the first user.">
+		</ds-empty-state>
 	</div>
 </div>
 

@@ -1,7 +1,4 @@
-<div class="header-panel">
-    <mat-icon>warning_amber</mat-icon>
-    {{'alarms.list-title' | translate}}
-</div>
+<ds-page-header [title]="'alarms.list-title' | translate"></ds-page-header>
 <div class="work-panel">
     <!-- <div class="filter">
       <div class="my-form-field" style="padding-right: 10px;">
@@ -93,6 +90,10 @@
             <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
             <mat-row *matRowDef="let row; columns: displayedColumns;" class="mat-row"></mat-row>
         </mat-table>
+        <ds-empty-state *ngIf="!dataSource.data.length && !importingAlarms" icon="warning_amber"
+            title="No alarms configured"
+            message="Use the + button to define your first alarm threshold.">
+        </ds-empty-state>
     </div>
     <div *ngIf="importingAlarms" class="spinner-overlay">
         <mat-spinner style="margin: auto" diameter="40" class="spinner"></mat-spinner>

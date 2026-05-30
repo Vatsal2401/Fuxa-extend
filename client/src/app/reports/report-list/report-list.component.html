@@ -9,9 +9,6 @@
             <!-- Checkbox Column -->
             <ng-container matColumnDef="select">
                 <th mat-header-cell *matHeaderCellDef [ngClass]="'selectidthClass'">
-                    <button mat-icon-button (click)="$event.stopPropagation();onAddReport()" class="remove">
-                        <mat-icon>add</mat-icon>
-                    </button>
                 </th>
                 <td mat-cell *matCellDef="let element" [ngClass]="'selectidthClass'">
                     <button mat-icon-button (click)="$event.stopPropagation();onEditReport(element)" class="remove">
@@ -93,6 +90,10 @@
             </tr>
             <tr mat-row *matRowDef="let row; columns: ['detailColumns']" class="detail-row"></tr>
         </table>
+        <ds-empty-state *ngIf="!dataSource.data.length" icon="assessment"
+            title="No reports created"
+            message="Use the + button to create your first report.">
+        </ds-empty-state>
     </div>
 </div>
 <button mat-fab color="primary" (click)="onAddReport()" class="fab-add">
