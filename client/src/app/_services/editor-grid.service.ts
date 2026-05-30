@@ -33,6 +33,7 @@ export class EditorGridService {
         cfg.showGrid     = this.showGrid$.value;
         cfg.gridSnapping = this.effectiveSnap();
         cfg.snappingStep = this.gridSize$.value;
+        cfg.showRulers   = true;                 // always-on rulers (themed in design-system.scss)
         this.installCustomGridOnce();
         this.repaintGridPattern();
         this.paintGrid(this.showGrid$.value);

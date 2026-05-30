@@ -1,7 +1,12 @@
 :host {
     .content {
-        min-width: 950px;
-        min-height: 700px;
+        /* Was: hardcoded min-width 950px which overflowed on laptops < 950px wide.
+           Now: stretch up to 950px BUT clamp to viewport, leaving room for the
+           dialog's own padding + close button. */
+        width: 100%;
+        min-width: 0;
+        max-width: min(950px, 92vw);
+        min-height: min(700px, 80vh);
         box-sizing: border-box;
     }
 
@@ -9,9 +14,12 @@
         display: block;
         margin-top: 10px;
         width: 100%;
-        min-height: 500px;
+        min-height: 0;
         overflow-y: auto;
-        height: 650px;
+        /* Was: hardcoded 650px. Now: respect available viewport, leave space
+           for the dialog header (Layout settings title) + tab strip. */
+        height: clamp(380px, 65vh, 650px);
+        max-height: 65vh;
     }
 
     .layout-menu-item-icon {
@@ -33,14 +41,20 @@
 
     .nav-config {
         overflow-y: auto;
+        position: relative;
 
         .config-left {
             display: inline-block;
+            position: relative;
+            max-width: 100%;
 
             .nav-item {
                 display: flex;
                 line-height: 35px;
                 min-width: max-content;
+                /* Desktop: floats off the right of the parent (original behavior).
+                   On smaller viewports the absolute right:-300px would push it
+                   off the dialog edge — switch to in-flow stacking below. */
                 position: absolute;
                 right: -300px;
                 width: 300px;
@@ -552,4 +566,42 @@
   font-size: 28px;
   width: 28px;
   height: 28px;
+}
+
+/* ============================================================
+   Responsive breakpoints for the Layout-settings dialog
+   ============================================================
+   < 1200px → bring the absolute-positioned nav-item back in flow.
+   < 768px  → stack form fields, drop the right-side preview block,
+              shrink the header-layout preview to viewport width. */
+@media (max-width: 1200px) {
+    :host .nav-config .config-left .nav-item {
+        position: static;
+        right: auto;
+        top: auto;
+        transform: none;
+        width: 100%;
+        margin-top: 12px;
+    }
+    :host .nav-config .config-right,
+    :host .header-config .config-right {
+        float: none;
+        display: block;
+        width: 100%;
+        margin-top: 18px;
+    }
+}
+
+@media (max-width: 768px) {
+    :host .content {
+        max-width: 96vw;
+        min-height: min(720px, 88vh);
+    }
+    :host .tab-container { height: clamp(360px, 70vh, 540px); max-height: 70vh; }
+    :host .nav-config .config-left,
+    :host .header-config .config-left { display: block; width: 100%; }
+    :host .nav-config .config-right .colors,
+    :host .header-config .config-right .colors { width: 100%; }
+    /* Single-column form */
+    :host ::ng-deep .my-form-field { width: 100%; display: block; margin-bottom: 8px; }
 }
