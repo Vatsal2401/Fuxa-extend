@@ -573,6 +573,12 @@ html body #workarea { top: 36px !important; }
 #ruler_x, #ruler_x > div, #ruler_x .rulers_top {
   border-bottom: 1px solid var(--ds-border, rgba(148,184,255,.16)) !important;
 }
+/* Push the horizontal ruler 8px down so the #tools_top toolbar icons
+   above it have breathing room — hover highlights no longer touch
+   the ruler's tick marks. */
+#ruler_x {
+  margin-top: 8px !important;
+}
 #ruler_y, #ruler_y > div, #ruler_y .rulers_left {
   border-right: 1px solid var(--ds-border, rgba(148,184,255,.16)) !important;
 }

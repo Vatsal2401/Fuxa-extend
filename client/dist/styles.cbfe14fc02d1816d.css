@@ -6095,6 +6095,13 @@ html body #workarea {
   border-bottom: 1px solid var(--ds-border, rgba(148, 184, 255, 0.16)) !important;
 }
 
+/* Push the horizontal ruler 8px down so the #tools_top toolbar icons
+   above it have breathing room — hover highlights no longer touch
+   the ruler's tick marks. */
+#ruler_x {
+  margin-top: 8px !important;
+}
+
 #ruler_y, #ruler_y > div, #ruler_y .rulers_left {
   border-right: 1px solid var(--ds-border, rgba(148, 184, 255, 0.16)) !important;
 }
@@ -7426,4 +7433,4 @@ svg.leaflet-image-layer.leaflet-interactive path {
 .ng-resizable{position:relative}.ng-resizable-handle{position:absolute;font-size:0.1px;display:block;touch-action:none}.ng-resizable-handle.ng-resizable-e{cursor:e-resize;width:7px;right:-5px;height:100%;top:0}.ng-resizable-handle.ng-resizable-w{cursor:w-resize;width:7px;left:-5px;height:100%;top:0}.ng-resizable-handle.ng-resizable-s{cursor:s-resize;height:7px;bottom:-5px;width:100%;left:0}.ng-resizable-handle.ng-resizable-n{cursor:n-resize;height:7px;top:-5px;width:100%;left:0}.ng-resizable-handle.ng-resizable-se{cursor:se-resize;width:12px;height:12px;right:1px;bottom:1px}.ng-resizable-handle.ng-resizable-sw{cursor:sw-resize;width:12px;height:12px;left:1px;bottom:1px}.ng-resizable-handle.ng-resizable-ne{cursor:ne-resize;width:12px;height:12px;right:1px;top:1px}.ng-resizable-handle.ng-resizable-nw{cursor:nw-resize;width:12px;height:12px;left:1px;top:1px}.ng-resizable-diagonal{box-sizing:border-box;width:0;height:0;border-bottom:12px solid #aaa;border-left:12px solid transparent}
 
 
-/*# sourceMappingURL=styles.2a1d03bb24a31a2c.css.map*/
+/*# sourceMappingURL=styles.cbfe14fc02d1816d.css.map*/
