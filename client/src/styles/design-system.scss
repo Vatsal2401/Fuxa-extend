@@ -15,9 +15,12 @@ html, body {
 }
 * { @include themed-scrollbar; }
 
-.mat-typography, .mat-app-background, app-root, .home-body, .content,
-mat-sidenav-content, .mat-drawer-content, .mat-sidenav-content {
+.mat-typography, .mat-app-background, app-root, .home-body, .content {
   background: transparent !important;
+  color: var(--ds-text);
+}
+/* mat-sidenav-content holds the home view background-color inline style — must NOT be forced transparent */
+mat-sidenav-content, .mat-drawer-content, .mat-sidenav-content {
   color: var(--ds-text);
 }
 

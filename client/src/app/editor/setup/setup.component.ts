@@ -99,6 +99,11 @@ export class SetupComponent {
             minWidth: '0',
             maxWidth: '92vw',
             maxHeight: '88vh',
+            // Prevent the dialog from auto-focusing the first form field,
+            // which would scroll the content past the title + tab strip
+            // when the body is taller than the viewport.
+            autoFocus: 'dialog',
+            restoreFocus: false,
             panelClass: 'layout-settings-dialog',
             data: <ILayoutPropertyData>{ layout: templayout, views: hmi.views, securityEnabled: this.projectService.isSecurityEnabled() }
         });

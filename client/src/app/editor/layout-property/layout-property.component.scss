@@ -1,12 +1,11 @@
 :host {
     .content {
-        /* Was: hardcoded min-width 950px which overflowed on laptops < 950px wide.
-           Now: stretch up to 950px BUT clamp to viewport, leaving room for the
-           dialog's own padding + close button. */
+        /* Responsive sizing — clamp to viewport leaving room for dialog
+           padding + close button. No artificial min-height (the dialog
+           naturally wraps its content). */
         width: 100%;
         min-width: 0;
         max-width: min(950px, 92vw);
-        min-height: min(700px, 80vh);
         box-sizing: border-box;
     }
 
@@ -18,8 +17,19 @@
         overflow-y: auto;
         /* Was: hardcoded 650px. Now: respect available viewport, leave space
            for the dialog header (Layout settings title) + tab strip. */
-        height: clamp(380px, 65vh, 650px);
-        max-height: 65vh;
+        height: clamp(380px, 60vh, 600px);
+        max-height: 60vh;
+    }
+
+    /* Keep the tab strip pinned to the top of the dialog content while the
+       form below scrolls — was scrolling past the tabs on small viewports. */
+    ::ng-deep .mat-mdc-tab-header,
+    ::ng-deep .mat-tab-header {
+        position: sticky;
+        top: 0;
+        z-index: 5;
+        background: var(--ds-panel, #0b1626);
+        border-bottom: 1px solid var(--ds-border, rgba(148,184,255,.16));
     }
 
     .layout-menu-item-icon {
