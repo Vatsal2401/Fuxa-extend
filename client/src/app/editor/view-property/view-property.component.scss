@@ -87,33 +87,22 @@
         }
     }
 
-    /* Dark-theme overrides for the ngx-color-picker inline widget */
-    ::ng-deep .vp-picker color-picker {
-        position: static !important;
-        box-shadow: none !important;
-    }
-
+    /* Dark-theme styling for ngx-color-picker inline widget.
+       IMPORTANT: Never override width/height/position on .color-picker or its
+       canvas — the library uses getBoundingClientRect() for mouse tracking and
+       any size distortion breaks the cursor ↔ colour sync. */
     ::ng-deep .vp-picker .color-picker {
-        position: static !important;
-        width: 100% !important;
-        max-width: 420px;
+        /* visual polish only — no dimension changes */
         border: 1px solid var(--ds-border, rgba(255,255,255,0.1)) !important;
         border-radius: 10px !important;
         background: var(--ds-surface-2, #0f1b2d) !important;
-        box-shadow: var(--ds-shadow-md, 0 4px 20px rgba(0,0,0,0.4)) !important;
+        box-shadow: 0 4px 24px rgba(0,0,0,0.45) !important;
         overflow: hidden;
 
-        /* Gradient canvas */
-        .saturation-lightness { border-radius: 6px 6px 0 0 !important; }
-
-        /* Hue + alpha sliders area */
-        .hue-alpha { padding: 10px 12px 0 !important; }
-
-        /* Hex input row */
         .hex-text input, .type-policy input {
-            background: rgba(255,255,255,0.06) !important;
+            background: rgba(255,255,255,0.07) !important;
             color: var(--ds-text, #edf4ff) !important;
-            border: 1px solid var(--ds-border, rgba(255,255,255,0.12)) !important;
+            border: 1px solid var(--ds-border, rgba(255,255,255,0.14)) !important;
             border-radius: 4px !important;
         }
 
@@ -122,9 +111,7 @@
             font-size: 10px !important;
         }
 
-        /* Preset color swatches */
         .preset-area {
-            padding: 8px 12px !important;
             border-top: 1px solid var(--ds-border, rgba(255,255,255,0.08)) !important;
 
             .preset-label {
@@ -142,7 +129,6 @@
             }
         }
 
-        /* Arrow pointer hidden for inline */
         .arrow { display: none !important; }
     }
 }
