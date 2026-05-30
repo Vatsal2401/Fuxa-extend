@@ -242,11 +242,23 @@
 }
 
 .main-btn mat-icon {
-    font-size: 24px;
-    height: unset;
-    width: unset;
-    margin: unset;
-    line-height: 34px;
+    font-family: 'Material Icons', 'Material Symbols Outlined' !important;
+    font-size: 22px;
+    width: 22px;
+    height: 22px;
+    line-height: 22px;
+    margin: 0;
+    color: #edf4ff;
+    opacity: 1;
+    visibility: visible;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    /* Material 18 sometimes hides ligature text via font-feature-settings off —
+       force them on so glyphs like play_arrow render. */
+    font-feature-settings: 'liga' on;
+    -webkit-font-feature-settings: 'liga' on;
+    text-rendering: optimizeLegibility;
 }
 
 .main-btn .to-top {
