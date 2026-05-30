@@ -18,6 +18,7 @@ import { MatTab as MatTab } from '@angular/material/tabs';
 })
 export class ViewPropertyComponent implements OnInit, OnDestroy {
     defaultColor = Utils.defaultColor;
+    showBkPicker = false;
     viewType = ViewType;
     alignType = DocAlignType;
     formGroup: UntypedFormGroup;

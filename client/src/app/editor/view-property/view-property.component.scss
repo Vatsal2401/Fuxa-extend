@@ -3,10 +3,6 @@
         width: 760px;
     }
 
-    .property-container {
-        width: 300px;
-    }
-
     .slider-field span {
         padding-left: 2px;
         text-overflow: clip;
@@ -26,15 +22,127 @@
     }
 
     .toolbox button {
-        /* margin-right: 8px; */
         margin-left: 10px;
     }
 
+    /* Two-column tab layout */
     .mat-tab-container {
-        min-height:300px;
+        min-height: 300px;
         height: 60vmin;
+        padding-top: 15px;
+        overflow: hidden;
+    }
+
+    .vp-layout {
+        display: flex;
+        gap: 24px;
+        height: 100%;
+        overflow: hidden;
+    }
+
+    /* Left column — form fields */
+    .vp-fields {
+        flex: 0 0 280px;
         overflow-y: auto;
         overflow-x: hidden;
-        padding-top: 15px;
+        padding-right: 8px;
+    }
+
+    /* Right column — inline color picker */
+    .vp-picker {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding-top: 2px;
+        overflow: hidden;
+    }
+
+    .vp-picker-label {
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--ds-text-muted, rgba(237,244,255,.55));
+        margin-bottom: 10px;
+    }
+
+    /* Background swatch preview (left column) */
+    .bkcolor-swatch {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        height: 30px;
+        border-radius: 6px;
+        border: 1px solid var(--ds-border, rgba(255,255,255,0.15));
+        padding: 0 10px;
+        box-sizing: border-box;
+        cursor: default;
+
+        .bkcolor-hex {
+            font-size: 12px;
+            font-family: monospace;
+            color: #fff;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.7);
+        }
+    }
+
+    /* Dark-theme overrides for the ngx-color-picker inline widget */
+    ::ng-deep .vp-picker color-picker {
+        position: static !important;
+        box-shadow: none !important;
+    }
+
+    ::ng-deep .vp-picker .color-picker {
+        position: static !important;
+        width: 100% !important;
+        max-width: 420px;
+        border: 1px solid var(--ds-border, rgba(255,255,255,0.1)) !important;
+        border-radius: 10px !important;
+        background: var(--ds-surface-2, #0f1b2d) !important;
+        box-shadow: var(--ds-shadow-md, 0 4px 20px rgba(0,0,0,0.4)) !important;
+        overflow: hidden;
+
+        /* Gradient canvas */
+        .saturation-lightness { border-radius: 6px 6px 0 0 !important; }
+
+        /* Hue + alpha sliders area */
+        .hue-alpha { padding: 10px 12px 0 !important; }
+
+        /* Hex input row */
+        .hex-text input, .type-policy input {
+            background: rgba(255,255,255,0.06) !important;
+            color: var(--ds-text, #edf4ff) !important;
+            border: 1px solid var(--ds-border, rgba(255,255,255,0.12)) !important;
+            border-radius: 4px !important;
+        }
+
+        .hex-text label, .type-policy label {
+            color: var(--ds-text-muted, rgba(237,244,255,.5)) !important;
+            font-size: 10px !important;
+        }
+
+        /* Preset color swatches */
+        .preset-area {
+            padding: 8px 12px !important;
+            border-top: 1px solid var(--ds-border, rgba(255,255,255,0.08)) !important;
+
+            .preset-label {
+                color: var(--ds-text-muted, rgba(237,244,255,.5)) !important;
+                font-size: 10px !important;
+                letter-spacing: 0.05em !important;
+                text-transform: uppercase !important;
+            }
+
+            .preset-color {
+                border-radius: 4px !important;
+                border: 1px solid rgba(255,255,255,0.15) !important;
+                transition: transform 100ms ease !important;
+                &:hover { transform: scale(1.15) !important; }
+            }
+        }
+
+        /* Arrow pointer hidden for inline */
+        .arrow { display: none !important; }
     }
 }

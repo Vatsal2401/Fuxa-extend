@@ -182,7 +182,7 @@
     z-index: 9999;
     position: absolute;
     right: 15px;
-    top: 75px;       /* BrandX header 44 + #tools_top 48 - small inset offset */
+    top: 71px;       /* BrandX header 44 + #tools_top 44 - small inset offset */
     /* overflow-y: auto; */
     max-height: calc(100% - 75px);
     background-color: var(--toolboxBackground);

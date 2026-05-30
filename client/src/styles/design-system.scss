@@ -387,8 +387,8 @@ html body #tools_top {
   right: 0 !important;
   background-image: none !important;
   overflow: visible !important;
-  height: 48px !important;            /* small breathing margin — not too tall */
-  min-height: 48px !important;
+  height: 44px !important;            /* matches BrandX header — icons centered, no overlap with ruler */
+  min-height: 44px !important;
   display: flex !important;
   align-items: center !important;
 }
@@ -435,6 +435,15 @@ html body #tools_top .main-btn {
     min-width: 34px !important;
     height: 34px !important;
     padding: 0 8px !important;
+}
+/* Cap the Material touch-target so it can't extend below the toolbar
+   into the ruler row underneath. Material 18 makes the touch-target
+   match the parent button's height, but that 48px tap area used to
+   bleed over the ruler when the user hovered. */
+html body #tools_top .main-btn .mat-mdc-button-touch-target {
+    height: 34px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
 }
 html body #tools_top .main-btn .mat-icon,
 html body #tools_top .main-btn .mat-mdc-icon,
