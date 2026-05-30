@@ -26,13 +26,14 @@ mat-sidenav-content, .mat-drawer-content, .mat-sidenav-content {
    contains position:fixed children (.header-panel), and a filter on an
    ancestor would break their fixed positioning (hide the Save/Edit/Help bar). */
 .header, mat-toolbar, .mat-toolbar {
-  background: rgba(8,17,31,.92);
+  background: rgba(8,17,31,.92) !important;
+  background-color: rgba(8,17,31,.92) !important;
   border: none;
   border-bottom: 1px solid var(--ds-border);
   color: var(--ds-text) !important;
   box-shadow: var(--ds-shadow-md);
 }
-.header *, .header-menu *, mat-toolbar * { color: var(--ds-text); }
+.header *, .header-menu *, mat-toolbar * { color: var(--ds-text) !important; }
 
 /* ---- side navigation ----
    NOTE: NO backdrop-filter / transform / filter here! These host palette items
