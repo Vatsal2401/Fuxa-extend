@@ -387,8 +387,8 @@ html body #tools_top {
   right: 0 !important;
   background-image: none !important;
   overflow: visible !important;
-  height: 44px !important;            /* match BrandX header height */
-  min-height: 44px !important;
+  height: 56px !important;            /* taller toolbar — canvas auto-shrinks accordingly */
+  min-height: 56px !important;
   display: flex !important;
   align-items: center !important;
 }
