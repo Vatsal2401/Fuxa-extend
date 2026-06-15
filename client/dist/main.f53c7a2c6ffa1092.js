@@ -64533,17 +64533,21 @@ var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../../../../node_mo
 var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(___CSS_LOADER_API_SOURCEMAP_IMPORT___);
 // Module
 ___CSS_LOADER_EXPORT___.push([module.id, `.grid-conta {
-    /* margin-left: 30px; */
-    /* max-height: 260px; */
-    /* overflow: auto; */
+    width: 100%;
 }
 
 .item {
     display: block;
-    /* min-height: 54px; */
     width: 100%;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-    padding: 0px 0px 5px 0px;
+    /* Token-driven divider — was a hardcoded near-invisible black that
+       disappeared on dark theme. */
+    border-bottom: 1px solid var(--ds-border, rgba(148, 184, 255, .14));
+    padding: 8px 0 12px 0;
+
+    &:last-child {
+        border-bottom: none;
+        padding-bottom: 0;
+    }
 }
 
 .item-alarm {
@@ -64564,8 +64568,13 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.grid-conta {
     width: 320px;
 }
 
+/* The Min/Max/Fill/Stroke row — use flex with gap so cells distribute
+   evenly and don't collide with the floating color-picker pop-up. */
 .item-minmax {
-    display: inline-block;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 14px 18px;
     width: 100%;
 }
 
@@ -64625,8 +64634,21 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.grid-conta {
 }
 
 .input-minmax input {
-    font-size: 15px;
+    font-size: 14px;
     text-align: center;
+    width: 100%;
+    padding: 5px 8px;
+    border-radius: 6px;
+    border: 1px solid var(--ds-border, rgba(148, 184, 255, .16));
+    background: rgba(255, 255, 255, .04);
+    color: var(--ds-text, #edf4ff);
+    box-sizing: border-box;
+
+    &:focus {
+        outline: none;
+        border-color: var(--ds-brand, #4c9fff);
+        box-shadow: 0 0 0 3px rgba(var(--ds-brand-rgb, 76 159 255), .18);
+    }
 }
 
 .input-step {
@@ -64688,7 +64710,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.grid-conta {
     background-color: var(--formInputBackground);
     height: 30px;
 }
-`, "",{"version":3,"sources":["webpack://./src/app/gauges/gauge-property/flex-input/flex-input.component.css"],"names":[],"mappings":"AAAA;IACI,uBAAuB;IACvB,uBAAuB;IACvB,oBAAoB;AACxB;;AAEA;IACI,cAAc;IACd,sBAAsB;IACtB,WAAW;IACX,2CAA2C;IAC3C,wBAAwB;AAC5B;;AAEA;IACI,kBAAkB;IAClB,wBAAwB;AAC5B;;AAEA;IACI,kBAAkB;IAClB,QAAQ;IACR,UAAU;AACd;;AAEA;IACI,qBAAqB;IACrB,gBAAgB;IAChB,gBAAgB;IAChB,YAAY;AAChB;;AAEA;IACI,qBAAqB;IACrB,WAAW;AACf;;AAEA;IACI,qBAAqB;IACrB,WAAW;IACX,eAAe;AACnB;;AAEA;IACI,qBAAqB;IACrB,kBAAkB;AACtB;;AAEA;IACI,YAAY;IACZ,sBAAsB;IACtB,sBAAsB;AAC1B;;AAEA;IACI,kBAAkB;IAClB,SAAS;AACb;;AAEA;IACI,qBAAqB;IACrB,iBAAiB;IACjB,eAAe;IACf,uCAAuC;IACvC,YAAY;IACZ,iBAAiB;IACjB,kBAAkB;AACtB;;AAEA;IACI,uBAAuB;AAC3B;;AAEA;IACI,2BAA2B;AAC/B;;AAEA;IACI,qBAAqB;IACrB,eAAe;AACnB;;AAEA;IACI,eAAe;IACf,kBAAkB;AACtB;;AAEA;IACI,qBAAqB;IACrB,eAAe;AACnB;;AAEA;IACI,eAAe;IACf,kBAAkB;AACtB;;AAEA;IACI,qBAAqB;IACrB,eAAe;AACnB;;AAEA;IACI,eAAe;IACf,kBAAkB;AACtB;;AAEA;IACI,eAAe;AACnB;;AAEA;IACI,+BAA+B;AACnC;;AAEA;IACI,gBAAgB;IAChB,mBAAmB;AACvB;;AAEA;IACI,eAAe;IACf,kBAAkB;AACtB;;AAEA;IACI,eAAe;IACf,sBAAsB;AAC1B;;AAEA;IACI,0BAA0B;AAC9B;;AAEA;IACI,eAAe;IACf,kBAAkB;AACtB;;AAEA;IACI,iBAAiB;IACjB,gBAAgB;AACpB;;AAEA;IACI,iBAAiB;IACjB,mBAAmB;IACnB,gBAAgB;IAChB,mBAAmB;IACnB,gBAAgB;AACpB;;AAEA;IACI,4CAA4C;IAC5C,YAAY;AAChB","sourcesContent":[".grid-conta {\n    /* margin-left: 30px; */\n    /* max-height: 260px; */\n    /* overflow: auto; */\n}\n\n.item {\n    display: block;\n    /* min-height: 54px; */\n    width: 100%;\n    border-bottom: 1px solid rgba(0, 0, 0, 0.1);\n    padding: 0px 0px 5px 0px;\n}\n\n.item-alarm {\n    margin-left: -30px;\n    width: calc(100% + 30px);\n}\n\n.remove {\n    position: relative;\n    top: 4px;\n    right: 0px;\n}\n\n.item-range {\n    display: inline-block;\n    min-width: 320px;\n    max-width: 320px;\n    width: 320px;\n}\n\n.item-minmax {\n    display: inline-block;\n    width: 100%;\n}\n\n.item-step {\n    display: inline-block;\n    width: 100%;\n    margin-top: 5px;\n}\n\n.item-unit {\n    display: inline-block;\n    /* width: 520px; */\n}\n\n.item-remove {\n    float: right;\n    /* padding-top: 6px; */\n    /* min-width: 140px; */\n}\n\n.panel-color-class {\n    position: relative;\n    top: 30px;\n}\n\n.panel-color {\n    display: inline-block;\n    padding-top: 10px;\n    max-width: 60px;\n    /* border: 1px solid rgba(0,0,0,0.1); */\n    height: 21px;\n    line-height: 12px;\n    margin-right: 25px;\n}\n\n.option-color {\n    height: 32px !important;\n}\n\n.panel-color-class {\n    margin-top: 30px !important;\n}\n\n.input-range {\n    display: inline-block;\n    max-width: 80px;\n}\n\n.input-range input {\n    font-size: 15px;\n    text-align: center;\n}\n\n.input-minmax {\n    display: inline-block;\n    max-width: 80px;\n}\n\n.input-minmax input {\n    font-size: 15px;\n    text-align: center;\n}\n\n.input-step {\n    display: inline-block;\n    max-width: 80px;\n}\n\n.input-step input {\n    font-size: 15px;\n    text-align: center;\n}\n\n.input-minmax-cb {\n    font-size: 15px;\n}\n\n::ng-deep .input-range .input-step .input-minmax .mat-form-field-wrapper {\n    margin-bottom: -15px !important;\n}\n\n::ng-deep .input-range .input-step .input-minmax .mat-form-field-infix {\n    padding-top: 1px;\n    padding-bottom: 5px;\n}\n\n.input-step input {\n    font-size: 15px;\n    text-align: center;\n}\n\n.input-slider {\n    display: inline;\n    /* max-width: 160px; */\n}\n\n::ng-deep .input-slider span {\n    font-size: 14px !important;\n}\n\n.toolbox {\n    margin-top: 3px;\n    margin-bottom: 3px;\n}\n\n.toolbox button {\n    margin-right: 8px;\n    margin-left: 8px;\n}\n\n.slider-field span {\n    padding-left: 2px;\n    text-overflow: clip;\n    max-width: 125px;\n    white-space: nowrap;\n    overflow: hidden;\n}\n\n.slider-field mat-slider {\n    background-color: var(--formInputBackground);\n    height: 30px;\n}\n"],"sourceRoot":""}]);
+`, "",{"version":3,"sources":["webpack://./src/app/gauges/gauge-property/flex-input/flex-input.component.css"],"names":[],"mappings":"AAAA;IACI,WAAW;AACf;;AAEA;IACI,cAAc;IACd,WAAW;IACX;mCAC+B;IAC/B,mEAAmE;IACnE,qBAAqB;;IAErB;QACI,mBAAmB;QACnB,iBAAiB;IACrB;AACJ;;AAEA;IACI,kBAAkB;IAClB,wBAAwB;AAC5B;;AAEA;IACI,kBAAkB;IAClB,QAAQ;IACR,UAAU;AACd;;AAEA;IACI,qBAAqB;IACrB,gBAAgB;IAChB,gBAAgB;IAChB,YAAY;AAChB;;AAEA;oEACoE;AACpE;IACI,aAAa;IACb,eAAe;IACf,qBAAqB;IACrB,cAAc;IACd,WAAW;AACf;;AAEA;IACI,qBAAqB;IACrB,WAAW;IACX,eAAe;AACnB;;AAEA;IACI,qBAAqB;IACrB,kBAAkB;AACtB;;AAEA;IACI,YAAY;IACZ,sBAAsB;IACtB,sBAAsB;AAC1B;;AAEA;IACI,kBAAkB;IAClB,SAAS;AACb;;AAEA;IACI,qBAAqB;IACrB,iBAAiB;IACjB,eAAe;IACf,uCAAuC;IACvC,YAAY;IACZ,iBAAiB;IACjB,kBAAkB;AACtB;;AAEA;IACI,uBAAuB;AAC3B;;AAEA;IACI,2BAA2B;AAC/B;;AAEA;IACI,qBAAqB;IACrB,eAAe;AACnB;;AAEA;IACI,eAAe;IACf,kBAAkB;AACtB;;AAEA;IACI,qBAAqB;IACrB,eAAe;AACnB;;AAEA;IACI,eAAe;IACf,kBAAkB;IAClB,WAAW;IACX,gBAAgB;IAChB,kBAAkB;IAClB,4DAA4D;IAC5D,oCAAoC;IACpC,8BAA8B;IAC9B,sBAAsB;;IAEtB;QACI,aAAa;QACb,sCAAsC;QACtC,gEAAgE;IACpE;AACJ;;AAEA;IACI,qBAAqB;IACrB,eAAe;AACnB;;AAEA;IACI,eAAe;IACf,kBAAkB;AACtB;;AAEA;IACI,eAAe;AACnB;;AAEA;IACI,+BAA+B;AACnC;;AAEA;IACI,gBAAgB;IAChB,mBAAmB;AACvB;;AAEA;IACI,eAAe;IACf,kBAAkB;AACtB;;AAEA;IACI,eAAe;IACf,sBAAsB;AAC1B;;AAEA;IACI,0BAA0B;AAC9B;;AAEA;IACI,eAAe;IACf,kBAAkB;AACtB;;AAEA;IACI,iBAAiB;IACjB,gBAAgB;AACpB;;AAEA;IACI,iBAAiB;IACjB,mBAAmB;IACnB,gBAAgB;IAChB,mBAAmB;IACnB,gBAAgB;AACpB;;AAEA;IACI,4CAA4C;IAC5C,YAAY;AAChB","sourcesContent":[".grid-conta {\n    width: 100%;\n}\n\n.item {\n    display: block;\n    width: 100%;\n    /* Token-driven divider — was a hardcoded near-invisible black that\n       disappeared on dark theme. */\n    border-bottom: 1px solid var(--ds-border, rgba(148, 184, 255, .14));\n    padding: 8px 0 12px 0;\n\n    &:last-child {\n        border-bottom: none;\n        padding-bottom: 0;\n    }\n}\n\n.item-alarm {\n    margin-left: -30px;\n    width: calc(100% + 30px);\n}\n\n.remove {\n    position: relative;\n    top: 4px;\n    right: 0px;\n}\n\n.item-range {\n    display: inline-block;\n    min-width: 320px;\n    max-width: 320px;\n    width: 320px;\n}\n\n/* The Min/Max/Fill/Stroke row — use flex with gap so cells distribute\n   evenly and don't collide with the floating color-picker pop-up. */\n.item-minmax {\n    display: flex;\n    flex-wrap: wrap;\n    align-items: flex-end;\n    gap: 14px 18px;\n    width: 100%;\n}\n\n.item-step {\n    display: inline-block;\n    width: 100%;\n    margin-top: 5px;\n}\n\n.item-unit {\n    display: inline-block;\n    /* width: 520px; */\n}\n\n.item-remove {\n    float: right;\n    /* padding-top: 6px; */\n    /* min-width: 140px; */\n}\n\n.panel-color-class {\n    position: relative;\n    top: 30px;\n}\n\n.panel-color {\n    display: inline-block;\n    padding-top: 10px;\n    max-width: 60px;\n    /* border: 1px solid rgba(0,0,0,0.1); */\n    height: 21px;\n    line-height: 12px;\n    margin-right: 25px;\n}\n\n.option-color {\n    height: 32px !important;\n}\n\n.panel-color-class {\n    margin-top: 30px !important;\n}\n\n.input-range {\n    display: inline-block;\n    max-width: 80px;\n}\n\n.input-range input {\n    font-size: 15px;\n    text-align: center;\n}\n\n.input-minmax {\n    display: inline-block;\n    max-width: 80px;\n}\n\n.input-minmax input {\n    font-size: 14px;\n    text-align: center;\n    width: 100%;\n    padding: 5px 8px;\n    border-radius: 6px;\n    border: 1px solid var(--ds-border, rgba(148, 184, 255, .16));\n    background: rgba(255, 255, 255, .04);\n    color: var(--ds-text, #edf4ff);\n    box-sizing: border-box;\n\n    &:focus {\n        outline: none;\n        border-color: var(--ds-brand, #4c9fff);\n        box-shadow: 0 0 0 3px rgba(var(--ds-brand-rgb, 76 159 255), .18);\n    }\n}\n\n.input-step {\n    display: inline-block;\n    max-width: 80px;\n}\n\n.input-step input {\n    font-size: 15px;\n    text-align: center;\n}\n\n.input-minmax-cb {\n    font-size: 15px;\n}\n\n::ng-deep .input-range .input-step .input-minmax .mat-form-field-wrapper {\n    margin-bottom: -15px !important;\n}\n\n::ng-deep .input-range .input-step .input-minmax .mat-form-field-infix {\n    padding-top: 1px;\n    padding-bottom: 5px;\n}\n\n.input-step input {\n    font-size: 15px;\n    text-align: center;\n}\n\n.input-slider {\n    display: inline;\n    /* max-width: 160px; */\n}\n\n::ng-deep .input-slider span {\n    font-size: 14px !important;\n}\n\n.toolbox {\n    margin-top: 3px;\n    margin-bottom: 3px;\n}\n\n.toolbox button {\n    margin-right: 8px;\n    margin-left: 8px;\n}\n\n.slider-field span {\n    padding-left: 2px;\n    text-overflow: clip;\n    max-width: 125px;\n    white-space: nowrap;\n    overflow: hidden;\n}\n\n.slider-field mat-slider {\n    background-color: var(--formInputBackground);\n    height: 30px;\n}\n"],"sourceRoot":""}]);
 // Exports
 module.exports = ___CSS_LOADER_EXPORT___.toString();
 
@@ -73446,8 +73468,22 @@ var ___CSS_LOADER_API_SOURCEMAP_IMPORT___ = __webpack_require__(/*! ../../../../
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../../../node_modules/css-loader/dist/runtime/api.js */ 35950);
 var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(___CSS_LOADER_API_SOURCEMAP_IMPORT___);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, `:host .container {
-  width: 830px;
+___CSS_LOADER_EXPORT___.push([module.id, `@charset "UTF-8";
+:host {
+  /* Match view-property: responsive tab container with comfortable
+     scroll area, padded breathing room above the form fields. */
+  /* Inline color picker swatches (Fill, Stroke, Value) — token-driven
+     border + radius so they match the rest of the dark theme rather
+     than rendering as a 1px bare-text-cursor on dark bg. */
+  /* The floating ngx-color-picker pop-up: dark surface + brand-tinted
+     border so it stops looking like a stray Windows-95 popup over the
+     dialog. Width/height/position NEVER overridden — the lib uses
+     getBoundingClientRect() for cursor math. */
+}
+:host .container {
+  /* Was: hardcoded 830px which overflowed on laptops < 900px wide.
+     Now: matches view-property's responsive width. */
+  width: min(820px, 92vw);
   position: relative;
 }
 :host .toolbox {
@@ -73455,7 +73491,6 @@ ___CSS_LOADER_EXPORT___.push([module.id, `:host .container {
   line-height: 44px;
 }
 :host .toolbox button {
-  /* margin-right: 8px; */
   margin-left: 10px;
 }
 :host ::ng-deep .input-text .mat-form-field-infix {
@@ -73465,12 +73500,16 @@ ___CSS_LOADER_EXPORT___.push([module.id, `:host .container {
 :host ::ng-deep .mat-dialog-container {
   display: inline-table !important;
 }
-:host ::ng-deep .mat-tab-label {
+:host ::ng-deep .mat-tab-label,
+:host ::ng-deep .mat-mdc-tab .mdc-tab__text-label {
   height: 34px !important;
+  font-weight: 600;
+  letter-spacing: 0.02em;
 }
 :host .mat-tab-container {
   min-height: 300px;
-  height: 60vmin;
+  height: clamp(380px, 60vh, 580px);
+  max-height: 60vh;
   overflow-y: auto;
   overflow-x: hidden;
   padding-top: 15px;
@@ -73480,7 +73519,61 @@ ___CSS_LOADER_EXPORT___.push([module.id, `:host .container {
 }
 :host .icon-property-field {
   vertical-align: bottom;
-}`, "",{"version":3,"sources":["webpack://./src/app/gauges/gauge-property/gauge-property.component.scss"],"names":[],"mappings":"AACE;EACE,YAAA;EACA,kBAAA;AAAJ;AAEE;EACI,YAAA;EACA,iBAAA;AAAN;AAGE;EACI,uBAAA;EACA,iBAAA;AADN;AAIE;EACI,gBAAA;EACA,mBAAA;AAFN;AAKE;EACI,gCAAA;AAHN;AAME;EACE,uBAAA;AAJJ;AAOE;EACE,iBAAA;EACA,cAAA;EACA,gBAAA;EACA,kBAAA;EACA,iBAAA;AALJ;AAQE;EACE,cAAA;AANJ;AASE;EACE,sBAAA;AAPJ","sourcesContent":[":host {\n  .container {\n    width: 830px;\n    position: relative;\n  }\n  .toolbox {\n      float: right;\n      line-height: 44px;\n  }\n\n  .toolbox button {\n      /* margin-right: 8px; */\n      margin-left: 10px;\n  }\n\n  ::ng-deep .input-text .mat-form-field-infix {\n      padding-top: 5px;\n      padding-bottom: 0px;\n  }\n\n  ::ng-deep .mat-dialog-container {\n      display: inline-table !important;\n  }\n\n  ::ng-deep .mat-tab-label {\n    height: 34px !important;\n  }\n\n  .mat-tab-container {\n    min-height:300px;\n    height:60vmin;\n    overflow-y: auto;\n    overflow-x: hidden;\n    padding-top: 15px;\n  }\n\n  .mat-tab-container > div {\n    display: block;\n  }\n\n  .icon-property-field {\n    vertical-align: bottom;\n  }\n}\n"],"sourceRoot":""}]);
+}
+:host ::ng-deep .input-color {
+  width: 48px !important;
+  height: 28px !important;
+  border-radius: 6px !important;
+  border: 1px solid var(--ds-border, rgba(148, 184, 255, 0.16)) !important;
+  cursor: pointer;
+  box-sizing: border-box;
+  padding: 0 !important;
+  background-clip: padding-box !important;
+  transition: transform 100ms ease, border-color 100ms ease;
+}
+:host ::ng-deep .input-color:hover {
+  transform: scale(1.04);
+  border-color: var(--ds-brand, #4c9fff) !important;
+}
+:host ::ng-deep .color-picker {
+  border: 1px solid var(--ds-border, rgba(148, 184, 255, 0.18)) !important;
+  border-radius: 10px !important;
+  background: var(--ds-surface-2, #0f1b2d) !important;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.55) !important;
+  overflow: hidden !important;
+}
+:host ::ng-deep .color-picker .hex-text input,
+:host ::ng-deep .color-picker .type-policy input {
+  background: rgba(255, 255, 255, 0.06) !important;
+  color: var(--ds-text, #edf4ff) !important;
+  border: 1px solid var(--ds-border, rgba(148, 184, 255, 0.16)) !important;
+  border-radius: 4px !important;
+}
+:host ::ng-deep .color-picker .hex-text label,
+:host ::ng-deep .color-picker .type-policy label {
+  color: var(--ds-text-muted, rgba(237, 244, 255, 0.55)) !important;
+  font-size: 10px !important;
+}
+:host ::ng-deep .color-picker .preset-area {
+  border-top: 1px solid var(--ds-border, rgba(148, 184, 255, 0.12)) !important;
+}
+:host ::ng-deep .color-picker .preset-area .preset-label {
+  color: var(--ds-text-muted, rgba(237, 244, 255, 0.55)) !important;
+  font-size: 10px !important;
+  letter-spacing: 0.05em !important;
+  text-transform: uppercase !important;
+}
+:host ::ng-deep .color-picker .preset-area .preset-color {
+  border-radius: 4px !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  transition: transform 100ms ease !important;
+}
+:host ::ng-deep .color-picker .preset-area .preset-color:hover {
+  transform: scale(1.15) !important;
+}
+:host ::ng-deep .color-picker .arrow {
+  display: none !important;
+}`, "",{"version":3,"sources":["webpack://./src/app/gauges/gauge-property/gauge-property.component.scss"],"names":[],"mappings":"AAAA,gBAAgB;AAAhB;EAiCE;gEAAA;EAmBA;;2DAAA;EAoBA;;;+CAAA;AA7DF;AAVE;EACE;qDAAA;EAEA,uBAAA;EACA,kBAAA;AAYJ;AATE;EACI,YAAA;EACA,iBAAA;AAWN;AARE;EACI,iBAAA;AAUN;AAPE;EACI,gBAAA;EACA,mBAAA;AASN;AANE;EACI,gCAAA;AAQN;AALE;;EAEE,uBAAA;EACA,gBAAA;EACA,sBAAA;AAOJ;AAFE;EACE,iBAAA;EACA,iCAAA;EACA,gBAAA;EACA,gBAAA;EACA,kBAAA;EACA,iBAAA;AAIJ;AADE;EACE,cAAA;AAGJ;AAAE;EACE,sBAAA;AAEJ;AAIE;EACE,sBAAA;EACA,uBAAA;EACA,6BAAA;EACA,wEAAA;EACA,eAAA;EACA,sBAAA;EACA,qBAAA;EACA,uCAAA;EACA,yDAAA;AAFJ;AAII;EACE,sBAAA;EACA,iDAAA;AAFN;AAUE;EACE,wEAAA;EACA,8BAAA;EACA,mDAAA;EACA,sDAAA;EACA,2BAAA;AARJ;AAUI;;EAEE,gDAAA;EACA,yCAAA;EACA,wEAAA;EACA,6BAAA;AARN;AAUI;;EAEE,iEAAA;EACA,0BAAA;AARN;AAUI;EACE,4EAAA;AARN;AAUM;EACE,iEAAA;EACA,0BAAA;EACA,iCAAA;EACA,oCAAA;AARR;AAUM;EACE,6BAAA;EACA,sDAAA;EACA,2CAAA;AARR;AASQ;EAAU,iCAAA;AANlB;AASI;EAAS,wBAAA;AANb","sourcesContent":[":host {\n  .container {\n    /* Was: hardcoded 830px which overflowed on laptops < 900px wide.\n       Now: matches view-property's responsive width. */\n    width: min(820px, 92vw);\n    position: relative;\n  }\n\n  .toolbox {\n      float: right;\n      line-height: 44px;\n  }\n\n  .toolbox button {\n      margin-left: 10px;\n  }\n\n  ::ng-deep .input-text .mat-form-field-infix {\n      padding-top: 5px;\n      padding-bottom: 0px;\n  }\n\n  ::ng-deep .mat-dialog-container {\n      display: inline-table !important;\n  }\n\n  ::ng-deep .mat-tab-label,\n  ::ng-deep .mat-mdc-tab .mdc-tab__text-label {\n    height: 34px !important;\n    font-weight: 600;\n    letter-spacing: 0.02em;\n  }\n\n  /* Match view-property: responsive tab container with comfortable\n     scroll area, padded breathing room above the form fields. */\n  .mat-tab-container {\n    min-height: 300px;\n    height: clamp(380px, 60vh, 580px);\n    max-height: 60vh;\n    overflow-y: auto;\n    overflow-x: hidden;\n    padding-top: 15px;\n  }\n\n  .mat-tab-container > div {\n    display: block;\n  }\n\n  .icon-property-field {\n    vertical-align: bottom;\n  }\n\n  /* Inline color picker swatches (Fill, Stroke, Value) — token-driven\n     border + radius so they match the rest of the dark theme rather\n     than rendering as a 1px bare-text-cursor on dark bg. */\n  ::ng-deep .input-color {\n    width: 48px !important;\n    height: 28px !important;\n    border-radius: 6px !important;\n    border: 1px solid var(--ds-border, rgba(148,184,255,.16)) !important;\n    cursor: pointer;\n    box-sizing: border-box;\n    padding: 0 !important;\n    background-clip: padding-box !important;\n    transition: transform 100ms ease, border-color 100ms ease;\n\n    &:hover {\n      transform: scale(1.04);\n      border-color: var(--ds-brand, #4c9fff) !important;\n    }\n  }\n\n  /* The floating ngx-color-picker pop-up: dark surface + brand-tinted\n     border so it stops looking like a stray Windows-95 popup over the\n     dialog. Width/height/position NEVER overridden — the lib uses\n     getBoundingClientRect() for cursor math. */\n  ::ng-deep .color-picker {\n    border: 1px solid var(--ds-border, rgba(148,184,255,.18)) !important;\n    border-radius: 10px !important;\n    background: var(--ds-surface-2, #0f1b2d) !important;\n    box-shadow: 0 12px 32px rgba(0, 0, 0, .55) !important;\n    overflow: hidden !important;\n\n    .hex-text input,\n    .type-policy input {\n      background: rgba(255, 255, 255, .06) !important;\n      color: var(--ds-text, #edf4ff) !important;\n      border: 1px solid var(--ds-border, rgba(148,184,255,.16)) !important;\n      border-radius: 4px !important;\n    }\n    .hex-text label,\n    .type-policy label {\n      color: var(--ds-text-muted, rgba(237,244,255,.55)) !important;\n      font-size: 10px !important;\n    }\n    .preset-area {\n      border-top: 1px solid var(--ds-border, rgba(148,184,255,.12)) !important;\n\n      .preset-label {\n        color: var(--ds-text-muted, rgba(237,244,255,.55)) !important;\n        font-size: 10px !important;\n        letter-spacing: 0.05em !important;\n        text-transform: uppercase !important;\n      }\n      .preset-color {\n        border-radius: 4px !important;\n        border: 1px solid rgba(255, 255, 255, .15) !important;\n        transition: transform 100ms ease !important;\n        &:hover { transform: scale(1.15) !important; }\n      }\n    }\n    .arrow { display: none !important; }\n  }\n}\n"],"sourceRoot":""}]);
 // Exports
 module.exports = ___CSS_LOADER_EXPORT___.toString();
 
@@ -79863,4 +79956,4 @@ module.exports = /*#__PURE__*/JSON.parse('{"name":"fuxa","version":"1.3.3-2835",
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=main.ef5399427a24b321.js.map
+//# sourceMappingURL=main.f53c7a2c6ffa1092.js.map

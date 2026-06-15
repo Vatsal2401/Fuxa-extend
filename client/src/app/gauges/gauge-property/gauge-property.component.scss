@@ -1,15 +1,17 @@
 :host {
   .container {
-    width: 830px;
+    /* Was: hardcoded 830px which overflowed on laptops < 900px wide.
+       Now: matches view-property's responsive width. */
+    width: min(820px, 92vw);
     position: relative;
   }
+
   .toolbox {
       float: right;
       line-height: 44px;
   }
 
   .toolbox button {
-      /* margin-right: 8px; */
       margin-left: 10px;
   }
 
@@ -22,13 +24,19 @@
       display: inline-table !important;
   }
 
-  ::ng-deep .mat-tab-label {
+  ::ng-deep .mat-tab-label,
+  ::ng-deep .mat-mdc-tab .mdc-tab__text-label {
     height: 34px !important;
+    font-weight: 600;
+    letter-spacing: 0.02em;
   }
 
+  /* Match view-property: responsive tab container with comfortable
+     scroll area, padded breathing room above the form fields. */
   .mat-tab-container {
-    min-height:300px;
-    height:60vmin;
+    min-height: 300px;
+    height: clamp(380px, 60vh, 580px);
+    max-height: 60vh;
     overflow-y: auto;
     overflow-x: hidden;
     padding-top: 15px;
@@ -40,5 +48,67 @@
 
   .icon-property-field {
     vertical-align: bottom;
+  }
+
+  /* Inline color picker swatches (Fill, Stroke, Value) — token-driven
+     border + radius so they match the rest of the dark theme rather
+     than rendering as a 1px bare-text-cursor on dark bg. */
+  ::ng-deep .input-color {
+    width: 48px !important;
+    height: 28px !important;
+    border-radius: 6px !important;
+    border: 1px solid var(--ds-border, rgba(148,184,255,.16)) !important;
+    cursor: pointer;
+    box-sizing: border-box;
+    padding: 0 !important;
+    background-clip: padding-box !important;
+    transition: transform 100ms ease, border-color 100ms ease;
+
+    &:hover {
+      transform: scale(1.04);
+      border-color: var(--ds-brand, #4c9fff) !important;
+    }
+  }
+
+  /* The floating ngx-color-picker pop-up: dark surface + brand-tinted
+     border so it stops looking like a stray Windows-95 popup over the
+     dialog. Width/height/position NEVER overridden — the lib uses
+     getBoundingClientRect() for cursor math. */
+  ::ng-deep .color-picker {
+    border: 1px solid var(--ds-border, rgba(148,184,255,.18)) !important;
+    border-radius: 10px !important;
+    background: var(--ds-surface-2, #0f1b2d) !important;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, .55) !important;
+    overflow: hidden !important;
+
+    .hex-text input,
+    .type-policy input {
+      background: rgba(255, 255, 255, .06) !important;
+      color: var(--ds-text, #edf4ff) !important;
+      border: 1px solid var(--ds-border, rgba(148,184,255,.16)) !important;
+      border-radius: 4px !important;
+    }
+    .hex-text label,
+    .type-policy label {
+      color: var(--ds-text-muted, rgba(237,244,255,.55)) !important;
+      font-size: 10px !important;
+    }
+    .preset-area {
+      border-top: 1px solid var(--ds-border, rgba(148,184,255,.12)) !important;
+
+      .preset-label {
+        color: var(--ds-text-muted, rgba(237,244,255,.55)) !important;
+        font-size: 10px !important;
+        letter-spacing: 0.05em !important;
+        text-transform: uppercase !important;
+      }
+      .preset-color {
+        border-radius: 4px !important;
+        border: 1px solid rgba(255, 255, 255, .15) !important;
+        transition: transform 100ms ease !important;
+        &:hover { transform: scale(1.15) !important; }
+      }
+    }
+    .arrow { display: none !important; }
   }
 }

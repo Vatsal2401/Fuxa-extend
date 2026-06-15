@@ -1,15 +1,19 @@
 .grid-conta {
-    /* margin-left: 30px; */
-    /* max-height: 260px; */
-    /* overflow: auto; */
+    width: 100%;
 }
 
 .item {
     display: block;
-    /* min-height: 54px; */
     width: 100%;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-    padding: 0px 0px 5px 0px;
+    /* Token-driven divider — was a hardcoded near-invisible black that
+       disappeared on dark theme. */
+    border-bottom: 1px solid var(--ds-border, rgba(148, 184, 255, .14));
+    padding: 8px 0 12px 0;
+
+    &:last-child {
+        border-bottom: none;
+        padding-bottom: 0;
+    }
 }
 
 .item-alarm {
@@ -30,8 +34,13 @@
     width: 320px;
 }
 
+/* The Min/Max/Fill/Stroke row — use flex with gap so cells distribute
+   evenly and don't collide with the floating color-picker pop-up. */
 .item-minmax {
-    display: inline-block;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 14px 18px;
     width: 100%;
 }
 
@@ -91,8 +100,21 @@
 }
 
 .input-minmax input {
-    font-size: 15px;
+    font-size: 14px;
     text-align: center;
+    width: 100%;
+    padding: 5px 8px;
+    border-radius: 6px;
+    border: 1px solid var(--ds-border, rgba(148, 184, 255, .16));
+    background: rgba(255, 255, 255, .04);
+    color: var(--ds-text, #edf4ff);
+    box-sizing: border-box;
+
+    &:focus {
+        outline: none;
+        border-color: var(--ds-brand, #4c9fff);
+        box-shadow: 0 0 0 3px rgba(var(--ds-brand-rgb, 76 159 255), .18);
+    }
 }
 
 .input-step {
