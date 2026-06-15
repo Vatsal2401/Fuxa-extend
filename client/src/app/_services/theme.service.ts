@@ -31,17 +31,27 @@ export class ThemeService {
     readonly themeChanges: Observable<'dark' | 'light'> = this.theme$.asObservable();
 
     constructor(@Inject(DOCUMENT) private document: Document) {
-        this.initFromEnvironment();
-        this.watchSystemPreference();
+        // Dark-only mode: always boot in dark theme, ignore OS preference,
+        // ignore any stale `light` value in localStorage. The in-app theme
+        // toggle has been removed.
+        this.forceDark();
     }
 
     /** Current theme name (mirrors the body class). */
     getCurrent(): 'dark' | 'light' { return this.theme$.value; }
     isDark(): boolean { return this.theme$.value === 'dark'; }
 
-    /** Toggle dark ↔ light (also persists to localStorage). */
-    toggle(): void {
-        this.setTheme(this.isDark() ? ThemeService.ThemeType.Default : ThemeService.ThemeType.Dark);
+    /** No-op — dark-only mode. Kept for API compatibility. */
+    toggle(): void { /* dark-only */ }
+
+    /** Force dark theme on every entry path. */
+    private forceDark(): void {
+        const html = this.document.documentElement;
+        const body = this.document.body;
+        html.classList.add('dark-theme');
+        body?.classList.add('dark-theme');
+        try { localStorage.setItem(ThemeService.STORAGE_KEY, 'dark'); } catch { /* private mode */ }
+        this.theme$.next('dark');
     }
 
     /**
@@ -49,15 +59,10 @@ export class ThemeService {
      * call sites (HeaderComponent.onChangeTheme, ProjectService.layoutTheme)
      * keep working.
      */
-    setTheme(name: string = ThemeService.ThemeType.Dark, persist = true): void {
-        const isDark = name === ThemeService.ThemeType.Dark;
-        const next: 'dark' | 'light' = isDark ? 'dark' : 'light';
-        if (next === this.theme$.value && this.classApplied(next)) { return; }   // no-op
-        this.applyClass(next);
-        if (persist) {
-            try { localStorage.setItem(ThemeService.STORAGE_KEY, next); } catch { /* private mode */ }
-        }
-        this.theme$.next(next);
+    setTheme(_name: string = ThemeService.ThemeType.Dark, _persist = true): void {
+        // Dark-only — any call from legacy code paths (HeaderComponent,
+        // project layoutTheme restore) still ends up dark.
+        this.forceDark();
     }
 
     /* -------- internal -------- */

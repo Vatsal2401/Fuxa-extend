@@ -13442,8 +13442,10 @@ let ThemeService = class ThemeService {
   themeChanges = this.theme$.asObservable();
   constructor(document) {
     this.document = document;
-    this.initFromEnvironment();
-    this.watchSystemPreference();
+    // Dark-only mode: always boot in dark theme, ignore OS preference,
+    // ignore any stale `light` value in localStorage. The in-app theme
+    // toggle has been removed.
+    this.forceDark();
   }
   /** Current theme name (mirrors the body class). */
   getCurrent() {
@@ -13452,28 +13454,28 @@ let ThemeService = class ThemeService {
   isDark() {
     return this.theme$.value === 'dark';
   }
-  /** Toggle dark ↔ light (also persists to localStorage). */
-  toggle() {
-    this.setTheme(this.isDark() ? ThemeService_1.ThemeType.Default : ThemeService_1.ThemeType.Dark);
+  /** No-op — dark-only mode. Kept for API compatibility. */
+  toggle() {}
+  /** Force dark theme on every entry path. */
+  forceDark() {
+    const html = this.document.documentElement;
+    const body = this.document.body;
+    html.classList.add('dark-theme');
+    body?.classList.add('dark-theme');
+    try {
+      localStorage.setItem(ThemeService_1.STORAGE_KEY, 'dark');
+    } catch {/* private mode */}
+    this.theme$.next('dark');
   }
   /**
    * Apply a theme. Accepts the legacy 'dark' | 'default' strings so existing
    * call sites (HeaderComponent.onChangeTheme, ProjectService.layoutTheme)
    * keep working.
    */
-  setTheme(name = ThemeService_1.ThemeType.Dark, persist = true) {
-    const isDark = name === ThemeService_1.ThemeType.Dark;
-    const next = isDark ? 'dark' : 'light';
-    if (next === this.theme$.value && this.classApplied(next)) {
-      return;
-    } // no-op
-    this.applyClass(next);
-    if (persist) {
-      try {
-        localStorage.setItem(ThemeService_1.STORAGE_KEY, next);
-      } catch {/* private mode */}
-    }
-    this.theme$.next(next);
+  setTheme(_name = ThemeService_1.ThemeType.Dark, _persist = true) {
+    // Dark-only — any call from legacy code paths (HeaderComponent,
+    // project layoutTheme restore) still ends up dark.
+    this.forceDark();
   }
   /* -------- internal -------- */
   initFromEnvironment() {
@@ -79861,4 +79863,4 @@ module.exports = /*#__PURE__*/JSON.parse('{"name":"fuxa","version":"1.3.3-2835",
 /******/ var __webpack_exports__ = __webpack_require__.O();
 /******/ }
 ]);
-//# sourceMappingURL=main.a84a74f0f66a264f.js.map
+//# sourceMappingURL=main.ef5399427a24b321.js.map
