@@ -33,31 +33,31 @@
                             <span>{{'scheduler.property-settings-theme' | translate}}</span>
                             <input [(colorPicker)]="data.settings.property.accentColor" [cpAlphaChannel]="'always'" class="input-color" [style.background]="data.settings.property.accentColor"
                                 [cpPresetColors]="defaultColor" [cpOKButton]="true" [cpCancelButton]="true" [cpCancelButtonClass]="'cpCancelButtonClass'"
-                                (colorPickerChange)="onPropertyChanged()" />
+                                (colorPickerChange)="onPropertyChanged()" [cpPosition]="'bottom'" />
                         </div>
                         <div class="my-form-field">
                             <span>{{'scheduler.property-settings-background' | translate}}</span>
                             <input [(colorPicker)]="data.settings.property.backgroundColor" [cpAlphaChannel]="'always'" class="input-color" [style.background]="data.settings.property.backgroundColor"
                                 [cpPresetColors]="defaultColor" [cpOKButton]="true" [cpCancelButton]="true" [cpCancelButtonClass]="'cpCancelButtonClass'"
-                                (colorPickerChange)="onPropertyChanged()" />
+                                (colorPickerChange)="onPropertyChanged()" [cpPosition]="'bottom'" />
                         </div>
                         <div class="my-form-field">
                             <span>{{'scheduler.property-settings-border' | translate}}</span>
                             <input [(colorPicker)]="data.settings.property.borderColor" [cpAlphaChannel]="'always'" class="input-color" [style.background]="data.settings.property.borderColor"
                                 [cpPresetColors]="defaultColor" [cpOKButton]="true" [cpCancelButton]="true" [cpCancelButtonClass]="'cpCancelButtonClass'"
-                                (colorPickerChange)="onPropertyChanged()" />
+                                (colorPickerChange)="onPropertyChanged()" [cpPosition]="'bottom'" />
                         </div>
                         <div class="my-form-field">
                             <span>{{'scheduler.property-settings-primary-text' | translate}}</span>
                             <input [(colorPicker)]="data.settings.property.textColor" [cpAlphaChannel]="'always'" class="input-color" [style.background]="data.settings.property.textColor"
                                 [cpPresetColors]="defaultColor" [cpOKButton]="true" [cpCancelButton]="true" [cpCancelButtonClass]="'cpCancelButtonClass'"
-                                (colorPickerChange)="onPropertyChanged()" />
+                                (colorPickerChange)="onPropertyChanged()" [cpPosition]="'bottom'" />
                         </div>
                         <div class="my-form-field">
                             <span>{{'scheduler.property-settings-secondary-text' | translate}}</span>
                             <input [(colorPicker)]="data.settings.property.secondaryTextColor" [cpAlphaChannel]="'always'" class="input-color" [style.background]="data.settings.property.secondaryTextColor"
                                 [cpPresetColors]="defaultColor" [cpOKButton]="true" [cpCancelButton]="true" [cpCancelButtonClass]="'cpCancelButtonClass'"
-                                (colorPickerChange)="onPropertyChanged()" />
+                                (colorPickerChange)="onPropertyChanged()" [cpPosition]="'bottom'" />
                         </div>
                     </div>
                 </div>

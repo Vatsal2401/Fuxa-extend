@@ -19,14 +19,14 @@
                             <input [(colorPicker)]="options.offBackground" [style.background]="options.offBackground" [cpAlphaChannel]="'always'" class="input-color"
                                 [cpPresetColors]="defaultColor" [cpOKButton]="true" [cpCancelButton]="true" [cpCancelButtonClass]="'cpCancelButtonClass'"
                                 [cpCancelButtonText]="'Cancel'" [cpOKButtonText]="'OK'" [cpOKButtonClass]="'cpOKButtonClass'" style="padding: 8px 0 0 0; width: 90px"
-                                [cpPosition]="'right'" (colorPickerChange)="updateOptions()" />
+                                [cpPosition]="'bottom'" (colorPickerChange)="updateOptions()" />
                         </div>
                         <div class="my-form-field color-field ml10">
                             <span>{{'html-switch.property-off-slider-color' | translate}}</span>
                             <input [(colorPicker)]="options.offSliderColor" [style.background]="options.offSliderColor" [cpAlphaChannel]="'always'" class="input-color"
                                 [cpPresetColors]="defaultColor" [cpOKButton]="true" [cpCancelButton]="true" [cpCancelButtonClass]="'cpCancelButtonClass'"
                                 [cpCancelButtonText]="'Cancel'" [cpOKButtonText]="'OK'" [cpOKButtonClass]="'cpOKButtonClass'" style="padding: 8px 0 0 0; width: 90px"
-                                [cpPosition]="'right'" (colorPickerChange)="updateOptions()" />
+                                [cpPosition]="'bottom'" (colorPickerChange)="updateOptions()" />
                         </div>
                         <div class="my-form-field ml10">
                             <span>{{'html-switch.property-off-value' | translate}}</span>

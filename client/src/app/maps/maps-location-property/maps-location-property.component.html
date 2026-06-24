@@ -82,14 +82,14 @@
                                     [style.background]="formGroup.get('markerBackground')?.value" [cpAlphaChannel]="'always'" [cpPresetColors]="defaultColor" [cpOKButton]="true"
                                     [cpOKButtonClass]="'cpOKButtonClass'" [cpCancelButton]="true" [cpCancelButtonClass]="'cpCancelButtonClass'" [cpCancelButtonText]="'Cancel'"
                                     [cpOKButtonText]="'OK'" [cpOKButtonClass]="'cpOKButtonClass'" class="input-color" formControlName="markerBackground"
-                                    style="padding: 8px 0 0 0; width: 90px">
+                                    style="padding: 8px 0 0 0; width: 90px" [cpPosition]="'bottom'">
                             </div>
                             <div class="my-form-field mt10">
                                 <span>{{'maps.location-property-marker-color' | translate}}</span>
                                 <input [colorPicker]="formGroup.get('markerColor')?.value" (colorPickerChange)="formGroup.get('markerColor')?.setValue($event)"
                                     [style.background]="formGroup.get('markerColor')?.value" [cpAlphaChannel]="'always'" [cpPresetColors]="defaultColor" [cpOKButton]="true"
                                     [cpCancelButton]="true" [cpCancelButtonClass]="'cpCancelButtonClass'" [cpCancelButtonText]="'Cancel'" [cpOKButtonText]="'OK'"
-                                    [cpOKButtonClass]="'cpOKButtonClass'" class="input-color" formControlName="markerColor" style="padding: 8px 0 0 0; width: 90px">
+                                    [cpOKButtonClass]="'cpOKButtonClass'" class="input-color" formControlName="markerColor" style="padding: 8px 0 0 0; width: 90px" [cpPosition]="'bottom'">
                             </div>
                         </div>
                     </div>
