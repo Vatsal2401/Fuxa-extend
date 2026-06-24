@@ -19,16 +19,16 @@
 	"header.edit-users": "Kullanıcı Ayarları",
 	"header.edit-alarms": "Alarm Ayarları",
 	"header.edit-texts": "Metin Ayarları",
-	"header.help": "BrandX Yardımı",
+	"header.help": "TracloT Yardımı",
 	"header.help-tutorial": "Öğretici",
 	"header.help-info": "Hakkında",
 	"header.info-version": "Sürüm ",
 
-	"sidenav.title": "BrandX",
+	"sidenav.title": "TracloT",
 
-	"tutorial.title": "BrandX Öğretici",
+	"tutorial.title": "TracloT Öğretici",
 
-	"dlg.info-title": "BrandX",
+	"dlg.info-title": "TracloT",
 
 	"dlg.layout-title": "Yerleşim Ayarları",
 	"dlg.layout-general": "Genel",
@@ -413,7 +413,7 @@
 	"device.list-value": "Değer",
 
 	"device.property-client": "Aygıt Özellikleri",
-	"device.property-server": "BrandX Sunucu Özellikleri",
+	"device.property-server": "TracloT Sunucu Özellikleri",
 	"device.property-name": "Ad",
 	"device.property-type": "Tipi",
 	"device.property-polling": "Aralık",

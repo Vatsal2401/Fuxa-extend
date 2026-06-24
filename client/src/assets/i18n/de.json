@@ -20,7 +20,7 @@
     "header.edit-users": "Benutzer-Einstellungen",
     "header.edit-alarms": "Einstellungen für Alarme",
     "header.edit-texts": "Einstellungen für Texte",
-    "header.help": "BrandX-Hilfe",
+    "header.help": "TracloT-Hilfe",
     "header.help-tutorial": "Tutorial",
     "header.help-info": "Über",
     "header.info-version": "Version",
@@ -28,11 +28,11 @@
 
     "project.name": "Projektname",
 
-    "sidenav.title": "BrandX",
+    "sidenav.title": "TracloT",
 
-    "tutorial.title": "BrandX-Tutorial",
+    "tutorial.title": "TracloT-Tutorial",
 
-    "dlg.info-title": "BrandX",
+    "dlg.info-title": "TracloT",
 
     "dlg.layout-title": "Layout-Einstellungen",
     "dlg.layout-general": "Allgemein",
@@ -724,7 +724,7 @@
     "devices.export-csv": "CSV",
     "devices.import": "Geräte importieren",
     "device.property-client": "Geräteeigenschaft",
-    "device.property-server": "BrandX-Server-Eigenschaft",
+    "device.property-server": "TracloT-Server-Eigenschaft",
     "device.property-name": "Name",
     "device.property-type": "Typ",
     "device.property-polling": "Abfrage",

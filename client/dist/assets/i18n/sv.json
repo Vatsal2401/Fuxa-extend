@@ -20,7 +20,7 @@
     "header.edit-users": "Användarinställningar",
     "header.edit-alarms": "Larminställningar",
     "header.edit-texts": "Textinställningar",
-    "header.help": "BrandX Hjälp",
+    "header.help": "TracloT Hjälp",
     "header.help-tutorial": "Guide",
     "header.help-info": "Om",
     "header.change-thema": "Byt tema (beta)",
@@ -29,11 +29,11 @@
 
     "project.name": "Projektnamn",
 
-    "sidenav.title": "BrandX",
+    "sidenav.title": "TracloT",
 
-    "tutorial.title": "BrandX Handledning",
+    "tutorial.title": "TracloT Handledning",
 
-    "dlg.info-title": "BrandX",
+    "dlg.info-title": "TracloT",
 	
     "dlg.layout-title": "Layoutinställningar",
     "dlg.layout-general": "Allmänt",
@@ -876,7 +876,7 @@
     "device.tags-template-name-title": "Taggmallens namn",
     "devices.import-template": "Importera enheter med mall",
     "device.property-client": "Anslutningsegenskaper",
-    "device.property-server": "BrandX-serveregenskaper",
+    "device.property-server": "TracloT-serveregenskaper",
     "device.property-name": "Namn",
     "device.property-type": "Typ",
     "device.property-polling": "Pollning",

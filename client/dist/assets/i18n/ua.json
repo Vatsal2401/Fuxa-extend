@@ -14,16 +14,16 @@
     "header.edit-users": "Користувацькі налаштування",
     "header.edit-alarms": "Повідомлення",
     "header.edit-texts": "Налаштування тексту",
-    "header.help": "Довідка по BrandX",
+    "header.help": "Довідка по TracloT",
     "header.help-tutorial": "Інструкція",
     "header.help-info": "Про програму",
     "header.info-version": "Версія ",
 
-    "sidenav.title": "BrandX",
+    "sidenav.title": "TracloT",
 
-    "tutorial.title": "Інструкція BrandX",
+    "tutorial.title": "Інструкція TracloT",
 
-    "dlg.info-title": "BrandX",
+    "dlg.info-title": "TracloT",
 
     "dlg.layout-title": "Налаштування шаблону",
     "dlg.layout-general": "Загальні",
@@ -388,7 +388,7 @@
     "device.list-value": "Значення",
 
     "device.property-client": "Властивості пристрою",
-    "device.property-server": "Властивості сервера BrandX",
+    "device.property-server": "Властивості сервера TracloT",
     "device.property-name": "Імя",
     "device.property-type": "Тип",
     "device.property-polling": "Опитування",

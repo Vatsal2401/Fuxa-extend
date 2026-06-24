@@ -1,4 +1,4 @@
-# BrandX — Industrial Dashboard Builder
+# TracloT — Industrial Dashboard Builder
 
 > A rebranded fork of [FUXA](https://github.com/frangoteam/FUXA) with a full design-system rewrite, modernized editor UX, smart alignment guides, and end-to-end token-driven theming.
 
@@ -8,9 +8,9 @@
 
 ---
 
-## What's BrandX?
+## What's TracloT?
 
-BrandX is a full **rebrand + UI/UX overhaul** of FUXA — same underlying SCADA / HMI engine, completely redesigned editor experience. Key additions:
+TracloT is a full **rebrand + UI/UX overhaul** of FUXA — same underlying SCADA / HMI engine, completely redesigned editor experience. Key additions:
 
 - 🎨 **Design-system foundation** — `--ds-*` CSS tokens (light + dark), proper Material dark theme, sun/moon header toggle with `localStorage` persistence + `prefers-color-scheme` watch
 - 🧭 **Modernized editor sidebar** — brand-gradient highlight on expanded panels, pill search with focus glow, soft accent stripe on selected view
@@ -19,7 +19,7 @@ BrandX is a full **rebrand + UI/UX overhaul** of FUXA — same underlying SCADA 
 - 🔌 **Plugins page polish** — readable disabled "Install" button, token-driven card hover, danger-tinted Remove hover
 - 🏠 **Welcome screen** on `/home` with 4 quick-action cards
 - 🚀 **Apps launcher dropdown** replacing the old FAB stack
-- 🌐 **13 i18n languages** rebranded with `BrandX` text + "Powered by FUXA · frangoteam" attribution in the About dialog
+- 🌐 **13 i18n languages** rebranded with `TracloT` text + "Powered by FUXA · frangoteam" attribution in the About dialog
 
 See `git log feat/design-system` for the full commit history of UX work.
 
@@ -37,8 +37,8 @@ See `git log feat/design-system` for the full commit history of UX work.
 ### One-time setup
 
 ```bash
-git clone https://github.com/Vatsal2401/Fuxa-extend.git brandx
-cd brandx
+git clone https://github.com/Vatsal2401/Fuxa-extend.git traclot
+cd traclot
 
 # Switch to the design-system branch (default)
 git checkout feat/design-system
@@ -68,7 +68,7 @@ Open **http://localhost:1881** in your browser.
 
 | Route | What you see |
 |---|---|
-| `/home` | BrandX welcome screen |
+| `/home` | TracloT welcome screen |
 | `/editor` | The full visual editor — sidebar, canvas, grid toolbar, smart guides |
 | `/device` | Device / connection configuration |
 | `/alarms` | Alarms & events |
@@ -90,12 +90,12 @@ Configure the Angular dev server to proxy `/api` requests to `:1881` if you want
 ## Project structure
 
 ```
-brandx/
+traclot/
 ├── client/                       Angular 18 frontend
 │   ├── src/
 │   │   ├── app/
 │   │   │   ├── editor/           SVG editor + property panels
-│   │   │   ├── header/           BrandX top header
+│   │   │   ├── header/           TracloT top header
 │   │   │   ├── home/             Welcome screen (when no homepage view set)
 │   │   │   ├── plugins/          Plugin manager UI
 │   │   │   ├── shared/ui/        Tooltip system, design-system components
@@ -154,12 +154,12 @@ Drop SVG files into `server/_widgets/<GroupName>/` to add new symbols to the edi
 A multi-stage `Dockerfile` is at the repo root:
 
 ```bash
-docker build -t brandx:local .
-docker run -d --name brandx -p 1881:1881 \
+docker build -t traclot:local .
+docker run -d --name traclot -p 1881:1881 \
   -v $(pwd)/_appdata:/usr/src/app/FUXA/server/_appdata \
   -v $(pwd)/_db:/usr/src/app/FUXA/server/_db \
   -v $(pwd)/_widgets:/usr/src/app/FUXA/server/_widgets \
-  brandx:local
+  traclot:local
 ```
 
 Mounts persist the project DB, DAQ history, and widget library across container restarts.
@@ -176,43 +176,43 @@ gcloud auth login --no-launch-browser
 gcloud config set project <your-project-id>
 
 # 2. Create a VM (4 vCPU / 16 GB / Mumbai)
-gcloud compute instances create brandx-fuxa \
+gcloud compute instances create traclot-fuxa \
   --zone=asia-south1-a \
   --machine-type=e2-standard-4 \
   --image-family=ubuntu-2204-lts \
   --image-project=ubuntu-os-cloud \
   --boot-disk-size=30GB \
-  --tags=brandx-fuxa
+  --tags=traclot-fuxa
 
 # 3. Open the firewall
-gcloud compute firewall-rules create allow-brandx-1881 \
+gcloud compute firewall-rules create allow-traclot-1881 \
   --direction=INGRESS --action=ALLOW \
   --rules=tcp:1881 --source-ranges=0.0.0.0/0 \
-  --target-tags=brandx-fuxa
+  --target-tags=traclot-fuxa
 
 # 4. SSH in, install Node + clone + start
-gcloud compute ssh brandx-fuxa --zone=asia-south1-a --command='
+gcloud compute ssh traclot-fuxa --zone=asia-south1-a --command='
   curl -fsSL https://deb.nodesource.com/setup_18.x | sudo bash -
   sudo apt-get install -y nodejs git build-essential python3 libsqlite3-dev
   sudo npm install -g pm2
 
-  git clone -b feat/design-system https://github.com/Vatsal2401/Fuxa-extend.git ~/brandx
-  cd ~/brandx/server && npm install
-  pm2 start main.js --name brandx
+  git clone -b feat/design-system https://github.com/Vatsal2401/Fuxa-extend.git ~/traclot
+  cd ~/traclot/server && npm install
+  pm2 start main.js --name traclot
   pm2 save
   pm2 startup systemd -u $USER --hp $HOME
 '
 
 # 5. Get the public IP
-gcloud compute instances describe brandx-fuxa --zone=asia-south1-a \
+gcloud compute instances describe traclot-fuxa --zone=asia-south1-a \
   --format="value(networkInterfaces[0].accessConfigs[0].natIP)"
 ```
 
 Browse to `http://<IP>:1881` — done. To stop / start the VM (save credit when idle):
 
 ```bash
-gcloud compute instances stop  brandx-fuxa --zone=asia-south1-a
-gcloud compute instances start brandx-fuxa --zone=asia-south1-a
+gcloud compute instances stop  traclot-fuxa --zone=asia-south1-a
+gcloud compute instances start traclot-fuxa --zone=asia-south1-a
 ```
 
 ---
@@ -255,7 +255,7 @@ In `server/`:
 
 ## Theme & branding
 
-Every visible "FUXA" string was replaced with **`BrandX`** across:
+Every visible "FUXA" string was replaced with **`TracloT`** across:
 
 - Browser tab title, loading splash
 - Header brand badge, sidenav title, Help menu, tutorial title
@@ -264,11 +264,11 @@ Every visible "FUXA" string was replaced with **`BrandX`** across:
 
 Internal identifiers (`window.fuxaScriptAPI`, npm package names, `.fuxap.db` project file extension) are **intentionally unchanged** so existing FUXA projects open without migration.
 
-To swap the placeholder `BrandX` for your actual brand name:
+To swap the placeholder `TracloT` for your actual brand name:
 
 ```bash
 find client/src -type f \( -name '*.json' -o -name '*.html' \) \
-     -exec sed -i 's/BrandX/YourBrandName/g' {} +
+     -exec sed -i 's/TracloT/YourBrandName/g' {} +
 cd client && npm run build
 ```
 

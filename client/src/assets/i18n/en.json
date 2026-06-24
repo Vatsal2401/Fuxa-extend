@@ -32,11 +32,11 @@
 
     "project.name": "Project name",
 
-    "sidenav.title": "BrandX",
+    "sidenav.title": "TracloT",
 
-    "tutorial.title": "BrandX Tutorial",
+    "tutorial.title": "TracloT Tutorial",
 
-    "dlg.info-title": "BrandX",
+    "dlg.info-title": "TracloT",
 
     "dlg.layout-title": "Layout settings",
     "dlg.layout-general": "General",
@@ -1010,7 +1010,7 @@
     "device.tags-template-name-title": "Tags template name",
     "devices.import-template": "Import Connections with template",
     "device.property-client": "Connections Property",
-    "device.property-server": "BrandX Server Property",
+    "device.property-server": "TracloT Server Property",
     "device.property-name": "Name",
     "device.property-type": "Type",
     "device.property-polling": "Polling",
@@ -1100,7 +1100,7 @@
     "device.property-redis-writeName-ph": "(ex. DAINSY.HSET)",
     "device.property-redis-write-keyName": "Write Key-Name",
     "device.property-redis-write-keyValue": "Write Key-Value",
-    "device.property-redis-write-args-tooltip": "Under Write Key-Name / Write Key-Value:  use {{token}} for dynamic values such as {{timestamp}}, {{provider}}, {{quality}}.\n\nValues without {{}} are treated as literals.\n\nExample: Name=Provider, Value=brandx — or Name=UtcTimeMs, Value={{timestamp}}.",
+    "device.property-redis-write-args-tooltip": "Under Write Key-Name / Write Key-Value:  use {{token}} for dynamic values such as {{timestamp}}, {{provider}}, {{quality}}.\n\nValues without {{}} are treated as literals.\n\nExample: Name=Provider, Value=traclot — or Name=UtcTimeMs, Value={{timestamp}}.",
     "device.property-redis-scan-title": "Scan Tags to import",
     "device.property-redis-scan-filter-query": "Filter (pattern MATCH)",
     "device.property-redis-scan-filter-list": "List filter",
@@ -1960,7 +1960,7 @@
     "device.plugins-notice-hide": "Do not show this message again",
     "device.plugins-notice-open": "Open Plugins",
     "ar.markers-notice-title": "AR Markers",
-    "ar.markers-notice-message": "AR markers connect a printed QR marker to a BrandX view. Create a marker, assign it to a view, download and print the QR code, then open the AR URL from a mobile device on the same network and point the camera at the marker.",
+    "ar.markers-notice-message": "AR markers connect a printed QR marker to a TracloT view. Create a marker, assign it to a view, download and print the QR code, then open the AR URL from a mobile device on the same network and point the camera at the marker.",
     "ar.markers-notice-hide": "Do not show this message again",
     "ar.markers-notice-open": "Open AR",
     "msg.server-connection-error": "Server connection failed!",
