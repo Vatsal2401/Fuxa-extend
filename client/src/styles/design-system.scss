@@ -12,6 +12,14 @@ html, body {
   font-family: var(--ds-font);
   font-size: var(--ds-fs-base);
   line-height: var(--ds-lh-normal);
+  /* Force grayscale antialiasing globally — sub-pixel AA produces
+     RGB colour fringing on stylised display fonts (Orbitron) with
+     wide letter-spacing AND on Material Icons rendered via the
+     icon-font ligature path. Grayscale renders crisp on the dark
+     theme without any colour separation. */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 * { @include themed-scrollbar; }
 
@@ -387,15 +395,15 @@ html body #tools_top {
   right: 0 !important;
   background-image: none !important;
   overflow: visible !important;
-  height: 44px !important;            /* matches TracloT header — icons centered, no overlap with ruler */
+  height: 44px !important;            /* matches TracIoT header — icons centered, no overlap with ruler */
   min-height: 44px !important;
   display: flex !important;
   align-items: center !important;
 }
 /* Trim svg-editor's internal margin before the play button.
-   The TracloT header-panel (position:fixed, left:0, z-index:99) overlaps
+   The TracIoT header-panel (position:fixed, left:0, z-index:99) overlaps
    the start of #tools_top — it would cover the play button. Push the
-   editor_panel's content past the TracloT brand + Save + Edit cluster
+   editor_panel's content past the TracIoT brand + Save + Edit cluster
    so the play button surfaces beside the zoom magnifier. */
 html body #tools_top > #editor_panel {
     padding-left: 330px !important;
@@ -462,7 +470,27 @@ html body #tools_top .main-btn mat-icon {
 /* brand mark */
 .app-brand { display: inline-flex; align-items: center; gap: 6px; padding: 0 8px 0 2px; margin-right: 2px; }
 .app-brand-logo { width: 36px; height: 36px; display: inline-block; object-fit: contain; vertical-align: middle; border-radius: 8px; }
-.app-brand-name { font-family: var(--ds-font-display); font-weight: 700; letter-spacing: .12em; font-size: 14px; color: #ffffff; }
+.app-brand-name {
+    font-family: var(--ds-font-display);
+    font-weight: 700;
+    letter-spacing: .12em;
+    font-size: 14px;
+    color: #ffffff;
+    /* Hard-enforce grayscale AA on the brand wordmark — Orbitron at this
+       size with wide tracking is the most chromatic-aberration-prone
+       text in the app. */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: geometricPrecision;
+}
+.mat-icon, .mat-mdc-icon, mat-icon, .material-icons, .material-symbols-outlined {
+    /* Material icon-font (ligature) glyphs ride on the same sub-pixel
+       AA pipeline as text, so apply the same crispening here. Otherwise
+       the floppy/save/etc. icons show RGB fringing matching the brand text. */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: geometricPrecision;
+}
 
 /* labeled toolbar buttons */
 .header-panel .main-btn, .header-right .main-btn {
@@ -982,7 +1010,7 @@ html.theme-transitioning *::after {
 
 /* =============================================================================
    Header right cluster — give the theme toggle + Help button enough breathing
-   room on narrower viewports so the "TracloT Help" label doesn't get clipped.
+   room on narrower viewports so the "TracIoT Help" label doesn't get clipped.
    ============================================================================= */
 .header-right {
     gap: 8px !important;

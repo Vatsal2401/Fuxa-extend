@@ -14,16 +14,16 @@
     "header.edit-users": "Користувацькі налаштування",
     "header.edit-alarms": "Повідомлення",
     "header.edit-texts": "Налаштування тексту",
-    "header.help": "Довідка по TracloT",
+    "header.help": "Довідка по TracIoT",
     "header.help-tutorial": "Інструкція",
     "header.help-info": "Про програму",
     "header.info-version": "Версія ",
 
-    "sidenav.title": "TracloT",
+    "sidenav.title": "TracIoT",
 
-    "tutorial.title": "Інструкція TracloT",
+    "tutorial.title": "Інструкція TracIoT",
 
-    "dlg.info-title": "TracloT",
+    "dlg.info-title": "TracIoT",
 
     "dlg.layout-title": "Налаштування шаблону",
     "dlg.layout-general": "Загальні",
@@ -388,7 +388,7 @@
     "device.list-value": "Значення",
 
     "device.property-client": "Властивості пристрою",
-    "device.property-server": "Властивості сервера TracloT",
+    "device.property-server": "Властивості сервера TracIoT",
     "device.property-name": "Імя",
     "device.property-type": "Тип",
     "device.property-polling": "Опитування",

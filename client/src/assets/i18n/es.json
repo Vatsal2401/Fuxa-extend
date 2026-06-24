@@ -18,17 +18,17 @@
     "header.edit-users": "Opciones de usuarios",
     "header.edit-alarms": "Opciones de alarmas",
     "header.edit-texts": "Opciones de textos",
-    "header.help": "TracloT ayuda",
+    "header.help": "TracIoT ayuda",
     "header.help-tutorial": "Tutorial",
     "header.help-info": "Acerca de",
     "header.info-version": "Version ",
     "header.theme": "Tema claro/oscuro",
 
-    "sidenav.title": "TracloT",
+    "sidenav.title": "TracIoT",
 
-    "tutorial.title": "TracloT Tutorial",
+    "tutorial.title": "TracIoT Tutorial",
 
-    "dlg.info-title": "TracloT",
+    "dlg.info-title": "TracIoT",
 
     "dlg.layout-title": "Opciones de diseño",
     "dlg.layout-general": "General",
@@ -459,7 +459,7 @@
     "devices.export": "Exportar dispositivos",
     "devices.import": "Importar dispositivos",
     "device.property-client": "Propiedades de dispositivos",
-    "device.property-server": "TracloT propiedades del servidor",
+    "device.property-server": "TracIoT propiedades del servidor",
     "device.property-name": "Nombre",
     "device.property-type": "Tipo",
     "device.property-polling": "Polling",

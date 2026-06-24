@@ -5235,6 +5235,14 @@ html, body {
   font-family: var(--ds-font);
   font-size: var(--ds-fs-base);
   line-height: var(--ds-lh-normal);
+  /* Force grayscale antialiasing globally — sub-pixel AA produces
+     RGB colour fringing on stylised display fonts (Orbitron) with
+     wide letter-spacing AND on Material Icons rendered via the
+     icon-font ligature path. Grayscale renders crisp on the dark
+     theme without any colour separation. */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
 *::-webkit-scrollbar {
@@ -5833,16 +5841,16 @@ html body #tools_top {
   right: 0 !important;
   background-image: none !important;
   overflow: visible !important;
-  height: 44px !important; /* matches TracloT header — icons centered, no overlap with ruler */
+  height: 44px !important; /* matches TracIoT header — icons centered, no overlap with ruler */
   min-height: 44px !important;
   display: flex !important;
   align-items: center !important;
 }
 
 /* Trim svg-editor's internal margin before the play button.
-   The TracloT header-panel (position:fixed, left:0, z-index:99) overlaps
+   The TracIoT header-panel (position:fixed, left:0, z-index:99) overlaps
    the start of #tools_top — it would cover the play button. Push the
-   editor_panel's content past the TracloT brand + Save + Edit cluster
+   editor_panel's content past the TracIoT brand + Save + Edit cluster
    so the play button surfaces beside the zoom magnifier. */
 html body #tools_top > #editor_panel {
   padding-left: 330px !important;
@@ -5948,6 +5956,21 @@ html body #tools_top .main-btn mat-icon {
   letter-spacing: 0.12em;
   font-size: 14px;
   color: #ffffff;
+  /* Hard-enforce grayscale AA on the brand wordmark — Orbitron at this
+     size with wide tracking is the most chromatic-aberration-prone
+     text in the app. */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: geometricPrecision;
+}
+
+.mat-icon, .mat-mdc-icon, mat-icon, .material-icons, .material-symbols-outlined {
+  /* Material icon-font (ligature) glyphs ride on the same sub-pixel
+     AA pipeline as text, so apply the same crispening here. Otherwise
+     the floppy/save/etc. icons show RGB fringing matching the brand text. */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: geometricPrecision;
 }
 
 /* labeled toolbar buttons */
@@ -6564,7 +6587,7 @@ html.theme-transitioning *::after {
 
 /* =============================================================================
    Header right cluster — give the theme toggle + Help button enough breathing
-   room on narrower viewports so the "TracloT Help" label doesn't get clipped.
+   room on narrower viewports so the "TracIoT Help" label doesn't get clipped.
    ============================================================================= */
 .header-right {
   gap: 8px !important;
@@ -7435,4 +7458,4 @@ svg.leaflet-image-layer.leaflet-interactive path {
 .ng-resizable{position:relative}.ng-resizable-handle{position:absolute;font-size:0.1px;display:block;touch-action:none}.ng-resizable-handle.ng-resizable-e{cursor:e-resize;width:7px;right:-5px;height:100%;top:0}.ng-resizable-handle.ng-resizable-w{cursor:w-resize;width:7px;left:-5px;height:100%;top:0}.ng-resizable-handle.ng-resizable-s{cursor:s-resize;height:7px;bottom:-5px;width:100%;left:0}.ng-resizable-handle.ng-resizable-n{cursor:n-resize;height:7px;top:-5px;width:100%;left:0}.ng-resizable-handle.ng-resizable-se{cursor:se-resize;width:12px;height:12px;right:1px;bottom:1px}.ng-resizable-handle.ng-resizable-sw{cursor:sw-resize;width:12px;height:12px;left:1px;bottom:1px}.ng-resizable-handle.ng-resizable-ne{cursor:ne-resize;width:12px;height:12px;right:1px;top:1px}.ng-resizable-handle.ng-resizable-nw{cursor:nw-resize;width:12px;height:12px;left:1px;top:1px}.ng-resizable-diagonal{box-sizing:border-box;width:0;height:0;border-bottom:12px solid #aaa;border-left:12px solid transparent}
 
 
-/*# sourceMappingURL=styles.ea095b045cf323dc.css.map*/
+/*# sourceMappingURL=styles.39962d3d1c90cfb3.css.map*/

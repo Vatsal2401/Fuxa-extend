@@ -18,16 +18,16 @@
     "header.edit-users": "Configurações dos utilizadores",
     "header.edit-alarms": "Configurações dos Alarmes",
     "header.edit-texts": "Configurações dos Textos",
-    "header.help": "TracloT Ajuda",
+    "header.help": "TracIoT Ajuda",
     "header.help-tutorial": "Tutorial",
     "header.help-info": "Sobre",
     "header.info-version": "Versão ",
 
-    "sidenav.title": "TracloT",
+    "sidenav.title": "TracIoT",
 
-    "tutorial.title": "TracloT Tutorial",
+    "tutorial.title": "TracIoT Tutorial",
 
-    "dlg.info-title": "TracloT",
+    "dlg.info-title": "TracIoT",
 
     "dlg.layout-title": "Configurações Layout",
     "dlg.layout-general": "Geral",
@@ -418,7 +418,7 @@
     "device.list-value": "Valor",
 
     "device.property-client": "Propriedade do Aparelho",
-    "device.property-server": "Propriedade servidor TracloT",
+    "device.property-server": "Propriedade servidor TracIoT",
     "device.property-name": "Nome",
     "device.property-type": "Tipo",
     "device.property-polling": "Polling",

@@ -325,10 +325,10 @@
 }
 
 /* =============================================================================
-   TracloT welcome screen — shown on /home when no homeView is configured.
+   TracIoT welcome screen — shown on /home when no homeView is configured.
    Token-driven so it flips between dark/light themes.
    ============================================================================= */
-.traclot-welcome {
+.tracIoT-welcome {
     /* Fill the container without depending on parent positioning — works inside
        #container.home-container regardless of its display/positioning. */
     display: block;
@@ -500,7 +500,7 @@
 }
 
 @media (max-width: 640px) {
-    .traclot-welcome { padding: 24px 16px; }
+    .tracIoT-welcome { padding: 24px 16px; }
     .bw-card { padding: 14px; }
     .bw-actions { grid-template-columns: 1fr; }
 }
