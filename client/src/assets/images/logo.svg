@@ -1,40 +1,19 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" role="img" aria-label="TracloT logo">
-  <!-- TracloT — microchip silhouette with a "T" mark.
-       Brand-blue tint (#4c9fff matches --ds-brand). Knockout panel uses
-       the app's dark surface (#0b1626 matches --ds-bg) so the logo
-       blends into the dark header without a visible square edge.
-       Used in: splash (index.html), header brand badge, favicon link. -->
+  <!-- TracloT — clean chip/T mark, optimised to read at small sizes
+       (favicon 16-32px + header 32px). Removed pin marks + circuit
+       traces — at small sizes they collapsed to noise. The mark is
+       now a chunky rounded chip with a big confident T inside. -->
   <defs>
-    <linearGradient id="t-brand" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#4c9fff"/>
+    <linearGradient id="tg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%"  stop-color="#4c9fff"/>
       <stop offset="100%" stop-color="#1ed5ff"/>
     </linearGradient>
   </defs>
-  <g fill="url(#t-brand)">
-    <!-- Top pin marks -->
-    <rect x="22" y="6"  width="4" height="10" rx="1.5"/>
-    <rect x="36" y="6"  width="4" height="10" rx="1.5"/>
-    <rect x="50" y="6"  width="4" height="10" rx="1.5"/>
-    <rect x="64" y="6"  width="4" height="10" rx="1.5"/>
-    <!-- Bottom pin marks -->
-    <rect x="22" y="84" width="4" height="10" rx="1.5"/>
-    <rect x="36" y="84" width="4" height="10" rx="1.5"/>
-    <rect x="50" y="84" width="4" height="10" rx="1.5"/>
-    <rect x="64" y="84" width="4" height="10" rx="1.5"/>
-    <!-- Chip body -->
-    <rect x="14" y="14" width="62" height="72" rx="10" ry="10"/>
-    <!-- Inner panel knocked out -->
-    <rect x="22" y="22" width="46" height="56" rx="6" ry="6" fill="#0b1626"/>
-    <!-- The "T" mark -->
-    <rect x="30" y="34" width="30" height="6" rx="1.5"/>
-    <rect x="42" y="34" width="6"  height="32" rx="1.5"/>
-    <!-- Right-side circuit traces -->
-    <path d="M76 30 L86 30" fill="none" stroke="url(#t-brand)" stroke-width="2" stroke-linecap="round"/>
-    <circle cx="89" cy="30" r="3"/>
-    <path d="M76 42 L82 42 L82 50 L88 50" fill="none" stroke="url(#t-brand)" stroke-width="2" stroke-linecap="round"/>
-    <circle cx="91" cy="50" r="3"/>
-    <path d="M76 58 L86 58" fill="none" stroke="url(#t-brand)" stroke-width="2" stroke-linecap="round"/>
-    <circle cx="89" cy="58" r="3"/>
-    <path d="M76 70 L82 70 L82 62 L88 62" fill="none" stroke="url(#t-brand)" stroke-width="2" stroke-linecap="round"/>
-  </g>
+  <!-- Chip body — full bleed rounded square so the silhouette stays
+       obvious even at favicon sizes. -->
+  <rect x="6" y="6" width="88" height="88" rx="18" ry="18" fill="url(#tg)"/>
+  <!-- "T" mark — negative-space cut from the chip face. Dark colour
+       picks up the design-system surface (--ds-bg #08111f). -->
+  <rect x="22" y="28" width="56" height="12" rx="3" fill="#08111f"/>
+  <rect x="44" y="28" width="12" height="48" rx="3" fill="#08111f"/>
 </svg>
