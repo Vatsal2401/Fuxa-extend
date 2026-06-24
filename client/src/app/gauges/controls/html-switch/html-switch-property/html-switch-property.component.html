@@ -19,14 +19,14 @@
                             <input [(colorPicker)]="options.offBackground" [style.background]="options.offBackground" [cpAlphaChannel]="'always'" class="input-color"
                                 [cpPresetColors]="defaultColor" [cpOKButton]="true" [cpCancelButton]="true" [cpCancelButtonClass]="'cpCancelButtonClass'"
                                 [cpCancelButtonText]="'Cancel'" [cpOKButtonText]="'OK'" [cpOKButtonClass]="'cpOKButtonClass'" style="padding: 8px 0 0 0; width: 90px"
-                                [cpPosition]="'bottom'" (colorPickerChange)="updateOptions()" />
+                                [cpPosition]="'bottom'" [cpUseRootViewContainer]="true" (colorPickerChange)="updateOptions()" />
                         </div>
                         <div class="my-form-field color-field ml10">
                             <span>{{'html-switch.property-off-slider-color' | translate}}</span>
                             <input [(colorPicker)]="options.offSliderColor" [style.background]="options.offSliderColor" [cpAlphaChannel]="'always'" class="input-color"
                                 [cpPresetColors]="defaultColor" [cpOKButton]="true" [cpCancelButton]="true" [cpCancelButtonClass]="'cpCancelButtonClass'"
                                 [cpCancelButtonText]="'Cancel'" [cpOKButtonText]="'OK'" [cpOKButtonClass]="'cpOKButtonClass'" style="padding: 8px 0 0 0; width: 90px"
-                                [cpPosition]="'bottom'" (colorPickerChange)="updateOptions()" />
+                                [cpPosition]="'bottom'" [cpUseRootViewContainer]="true" (colorPickerChange)="updateOptions()" />
                         </div>
                         <div class="my-form-field ml10">
                             <span>{{'html-switch.property-off-value' | translate}}</span>
@@ -37,14 +37,14 @@
                             <input [(colorPicker)]="options.onBackground" [style.background]="options.onBackground" [cpAlphaChannel]="'always'" class="input-color"
                                 [cpPresetColors]="defaultColor" [cpOKButton]="true" [cpCancelButton]="true" [cpCancelButtonClass]="'cpCancelButtonClass'"
                                 [cpCancelButtonText]="'Cancel'" [cpOKButtonText]="'OK'" [cpOKButtonClass]="'cpOKButtonClass'" style="padding: 8px 0 0 0; width: 90px"
-                                [cpPosition]="'left'" (colorPickerChange)="updateOptions()" />
+                                [cpPosition]="'left'" [cpUseRootViewContainer]="true" (colorPickerChange)="updateOptions()" />
                         </div>
                         <div class="my-form-field color-field ftr ml10">
                             <span>{{'html-switch.property-on-slider-color' | translate}}</span>
                             <input [(colorPicker)]="options.onSliderColor" [style.background]="options.onSliderColor" [cpAlphaChannel]="'always'" class="input-color"
                                 [cpPresetColors]="defaultColor" [cpOKButton]="true" [cpCancelButton]="true" [cpCancelButtonClass]="'cpCancelButtonClass'"
                                 [cpCancelButtonText]="'Cancel'" [cpOKButtonText]="'OK'" [cpOKButtonClass]="'cpOKButtonClass'" style="padding: 8px 0 0 0; width: 90px"
-                                [cpPosition]="'left'" (colorPickerChange)="updateOptions()" />
+                                [cpPosition]="'left'" [cpUseRootViewContainer]="true" (colorPickerChange)="updateOptions()" />
                         </div>
                         <div class="my-form-field ftr">
                             <span>{{'html-switch.property-on-value' | translate}}</span>
@@ -57,7 +57,7 @@
                             <input [(colorPicker)]="options.offTextColor" [style.background]="options.offTextColor" [cpAlphaChannel]="'always'" class="input-color"
                                 [cpPresetColors]="defaultColor" [cpOKButton]="true" [cpCancelButton]="true" [cpCancelButtonClass]="'cpCancelButtonClass'"
                                 [cpCancelButtonText]="'Cancel'" [cpOKButtonText]="'OK'" [cpOKButtonClass]="'cpOKButtonClass'" style="padding: 8px 0 0 0; width: 90px"
-                                [cpPosition]="'top'" (colorPickerChange)="updateOptions()" />
+                                [cpPosition]="'top'" [cpUseRootViewContainer]="true" (colorPickerChange)="updateOptions()" />
                         </div>
                         <div class="my-form-field ml10">
                             <span>{{'html-switch.property-off-text' | translate}}</span>
@@ -68,7 +68,7 @@
                             <input [(colorPicker)]="options.onTextColor" [style.background]="options.onTextColor" [cpAlphaChannel]="'always'" class="input-color"
                                 [cpPresetColors]="defaultColor" [cpOKButton]="true" [cpCancelButton]="true" [cpCancelButtonClass]="'cpCancelButtonClass'"
                                 [cpCancelButtonText]="'Cancel'" [cpOKButtonText]="'OK'" [cpOKButtonClass]="'cpOKButtonClass'" style="padding: 8px 0 0 0; width: 90px"
-                                [cpPosition]="'top'" (colorPickerChange)="updateOptions()" />
+                                [cpPosition]="'top'" [cpUseRootViewContainer]="true" (colorPickerChange)="updateOptions()" />
                         </div>
                         <div class="my-form-field ftr ml10">
                             <span>{{'html-switch.property-on-text' | translate}}</span>

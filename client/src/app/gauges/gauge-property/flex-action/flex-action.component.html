@@ -25,13 +25,13 @@
                     <span>{{'gauges.property-input-color' | translate}}</span>
                     <input [(colorPicker)]="item.options.fillA" [value]="item.options.fillA" [style.background]="item.options.fillA" [cpPresetColors]="defaultColor" [cpOKButton]="true" [cpCancelButton]="true"
                         [cpCancelButtonClass]="'cpCancelButtonClass'" [cpCancelButtonText]="'Cancel'" [cpOKButtonText]="'OK'" [cpOKButtonClass]="'cpOKButtonClass'" class="input-color"
-                        style="width:70px;" [cpPosition]="'bottom'" [cpAlphaChannel]="'always'" [cpOutputFormat]="'hex'"/>
+                        style="width:70px;" [cpPosition]="'bottom'" [cpUseRootViewContainer]="true" [cpAlphaChannel]="'always'" [cpOutputFormat]="'hex'"/>
                 </div>
                 <div class="my-form-field" style="margin-left: 10px;">
                     <span>{{'gauges.property-input-stroke' | translate}}</span>
                     <input [(colorPicker)]="item.options.strokeA" [value]="item.options.strokeA" [style.background]="item.options.strokeA" [cpPresetColors]="defaultColor" [cpOKButton]="true" [cpCancelButton]="true"
                         [cpCancelButtonClass]="'cpCancelButtonClass'" [cpCancelButtonText]="'Cancel'" [cpOKButtonText]="'OK'" [cpOKButtonClass]="'cpOKButtonClass'" class="input-color"
-                        style="width:70px;" [cpPosition]="'bottom'" [cpAlphaChannel]="'always'" [cpOutputFormat]="'hex'"/>
+                        style="width:70px;" [cpPosition]="'bottom'" [cpUseRootViewContainer]="true" [cpAlphaChannel]="'always'" [cpOutputFormat]="'hex'"/>
                 </div>
                 <div class="my-form-field" style="padding-left: 35px;padding-right: 35px;">
                     <span>{{'gauges.property-interval-msec' | translate}}</span>
@@ -41,13 +41,13 @@
                     <span>{{'gauges.property-input-color' | translate}}</span>
                     <input [(colorPicker)]="item.options.fillB" [value]="item.options.fillB" [style.background]="item.options.fillB" [cpPresetColors]="defaultColor" [cpOKButton]="true" [cpCancelButton]="true"
                         [cpCancelButtonClass]="'cpCancelButtonClass'" [cpCancelButtonText]="'Cancel'" [cpOKButtonText]="'OK'" [cpOKButtonClass]="'cpOKButtonClass'" class="input-color"
-                        style="width:70px;" [cpPosition]="'bottom'" [cpAlphaChannel]="'always'" [cpOutputFormat]="'hex'"/>
+                        style="width:70px;" [cpPosition]="'bottom'" [cpUseRootViewContainer]="true" [cpAlphaChannel]="'always'" [cpOutputFormat]="'hex'"/>
                 </div>
                 <div class="my-form-field" style="margin-left: 10px;">
                     <span>{{'gauges.property-input-stroke' | translate}}</span>
                     <input [(colorPicker)]="item.options.strokeB" [value]="item.options.strokeB" [style.background]="item.options.strokeB" [cpPresetColors]="defaultColor" [cpOKButton]="true" [cpCancelButton]="true"
                         [cpCancelButtonClass]="'cpCancelButtonClass'" [cpCancelButtonText]="'Cancel'" [cpOKButtonText]="'OK'" [cpOKButtonClass]="'cpOKButtonClass'" class="input-color"
-                        style="width:70px;" [cpPosition]="'bottom'" [cpAlphaChannel]="'always'" [cpOutputFormat]="'hex'"/>
+                        style="width:70px;" [cpPosition]="'bottom'" [cpUseRootViewContainer]="true" [cpAlphaChannel]="'always'" [cpOutputFormat]="'hex'"/>
                 </div>
             </div>
         </div>

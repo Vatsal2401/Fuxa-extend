@@ -167,28 +167,28 @@
                         <input [(colorPicker)]="options.plugins.title.color" [cpAlphaChannel]="'always'" class="input-color" [style.background]="options.plugins.title.color"
                             [cpPresetColors]="defaultColor" [cpOKButton]="true" [cpCancelButton]="true" [cpCancelButtonClass]="'cpCancelButtonClass'"
                             [cpCancelButtonText]="'Cancel'" [cpOKButtonText]="'OK'" [cpOKButtonClass]="'cpOKButtonClass'" style="width: 88px"
-                            [cpPosition]="'bottom'" (colorPickerChange)="onGraphChanged()" />
+                            [cpPosition]="'bottom'" [cpUseRootViewContainer]="true" (colorPickerChange)="onGraphChanged()" />
                     </div>
                     <div class="my-form-field section-inline-color color-field ml15">
                         <span>{{'graph.property-yaxis-color' | translate}}</span>
                         <input [(colorPicker)]="options.scales['y'].ticks.color" [cpAlphaChannel]="'always'" class="input-color" [style.background]="options.scales['y'].ticks.color"
                             [cpPresetColors]="defaultColor" [cpOKButton]="true" [cpCancelButton]="true" [cpCancelButtonClass]="'cpCancelButtonClass'"
                             [cpCancelButtonText]="'Cancel'" [cpOKButtonText]="'OK'" [cpOKButtonClass]="'cpOKButtonClass'" style="width: 88px"
-                            [cpPosition]="'bottom'" (colorPickerChange)="onGraphChanged()"/>
+                            [cpPosition]="'bottom'" [cpUseRootViewContainer]="true" (colorPickerChange)="onGraphChanged()"/>
                     </div>
                     <div class="my-form-field section-inline-color color-field ml15">
                         <span>{{'graph.property-xaxis-color' | translate}}</span>
                         <input [(colorPicker)]="options.scales['x'].ticks.color" [cpAlphaChannel]="'always'" class="input-color" [style.background]="options.scales['x'].ticks.color"
                             [cpPresetColors]="defaultColor" [cpOKButton]="true" [cpCancelButton]="true" [cpCancelButtonClass]="'cpCancelButtonClass'"
                             [cpCancelButtonText]="'Cancel'" [cpOKButtonText]="'OK'" [cpOKButtonClass]="'cpOKButtonClass'" style="width: 88px"
-                            [cpPosition]="'bottom'" (colorPickerChange)="onGraphChanged()"/>
+                            [cpPosition]="'bottom'" [cpUseRootViewContainer]="true" (colorPickerChange)="onGraphChanged()"/>
                     </div>
                     <div class="my-form-field section-inline-color color-field ml15">
                         <span>{{'graph.property-grid-color' | translate}}</span>
                         <input [(colorPicker)]="options.gridLinesColor" [cpAlphaChannel]="'always'" class="input-color" [style.background]="options.gridLinesColor"
                             [cpPresetColors]="defaultColor" [cpOKButton]="true" [cpCancelButton]="true" [cpCancelButtonClass]="'cpCancelButtonClass'"
                             [cpCancelButtonText]="'Cancel'" [cpOKButtonText]="'OK'" [cpOKButtonClass]="'cpOKButtonClass'" style="width: 88px"
-                            [cpPosition]="'bottom'" (colorPickerChange)="onGraphChanged()"/>
+                            [cpPosition]="'bottom'" [cpUseRootViewContainer]="true" (colorPickerChange)="onGraphChanged()"/>
                     </div>
                     <div class="mt5">
                         <div class="my-form-field section-inline-color color-field">
@@ -196,14 +196,14 @@
                             <input [(colorPicker)]="options.plugins.legend.labels.color" [cpAlphaChannel]="'always'" class="input-color" [style.background]="options.plugins.legend.labels.color"
                                 [cpPresetColors]="defaultColor" [cpOKButton]="true" [cpCancelButton]="true" [cpCancelButtonClass]="'cpCancelButtonClass'"
                                 [cpCancelButtonText]="'Cancel'" [cpOKButtonText]="'OK'" [cpOKButtonClass]="'cpOKButtonClass'" style="width: 88px"
-                                [cpPosition]="'bottom'" (colorPickerChange)="onGraphChanged()" />
+                                [cpPosition]="'bottom'" [cpUseRootViewContainer]="true" (colorPickerChange)="onGraphChanged()" />
                         </div>
                         <div class="my-form-field section-inline-color color-field ml15">
                             <span>{{'graph.property-datalabels-color' | translate}}</span>
                             <input [(colorPicker)]="options.plugins.datalabels.color" [cpAlphaChannel]="'always'" class="input-color" [style.background]="options.plugins.datalabels.color"
                                 [cpPresetColors]="defaultColor" [cpOKButton]="true" [cpCancelButton]="true" [cpCancelButtonClass]="'cpCancelButtonClass'"
                                 [cpCancelButtonText]="'Cancel'" [cpOKButtonText]="'OK'" [cpOKButtonClass]="'cpOKButtonClass'" style="width: 88px"
-                                [cpPosition]="'bottom'" (colorPickerChange)="onGraphChanged()" />
+                                [cpPosition]="'bottom'" [cpUseRootViewContainer]="true" (colorPickerChange)="onGraphChanged()" />
                         </div>
                     </div>
                 </div>

@@ -36,7 +36,7 @@
                         <input [(colorPicker)]="options.border" [style.background]="options.border" [cpAlphaChannel]="'always'" class="input-color"
                             [cpPresetColors]="defaultColor" [cpOKButton]="true" [cpCancelButton]="true" [cpCancelButtonClass]="'cpCancelButtonClass'"
                             [cpCancelButtonText]="'Cancel'" [cpOKButtonText]="'OK'" [cpOKButtonClass]="'cpOKButtonClass'" style="width: 80px"
-                            [cpPosition]="'bottom'" (colorPickerChange)="onChangeValue('border', $event)" />
+                            [cpPosition]="'bottom'" [cpUseRootViewContainer]="true" (colorPickerChange)="onChangeValue('border', $event)" />
                     </div>
                 </div>
                 <div class="block mt5">
@@ -56,7 +56,7 @@
                         <input [(colorPicker)]="options.pipe" [style.background]="options.pipe" [cpAlphaChannel]="'always'" class="input-color"
                             [cpPresetColors]="defaultColor" [cpOKButton]="true" [cpCancelButton]="true" [cpCancelButtonClass]="'cpCancelButtonClass'"
                             [cpCancelButtonText]="'Cancel'" [cpOKButtonText]="'OK'" [cpOKButtonClass]="'cpOKButtonClass'" style="width: 80px"
-                            [cpPosition]="'bottom'" (colorPickerChange)="onChangeValue('pipe', $event)" />
+                            [cpPosition]="'bottom'" [cpUseRootViewContainer]="true" (colorPickerChange)="onChangeValue('pipe', $event)" />
                     </div>
                 </div>
                 <div class="block mt5">
@@ -76,7 +76,7 @@
                         <input [(colorPicker)]="options.content" [style.background]="options.content" [cpAlphaChannel]="'always'" class="input-color"
                             [cpPresetColors]="defaultColor" [cpOKButton]="true" [cpCancelButton]="true" [cpCancelButtonClass]="'cpCancelButtonClass'"
                             [cpCancelButtonText]="'Cancel'" [cpOKButtonText]="'OK'" [cpOKButtonClass]="'cpOKButtonClass'" style="width: 80px"
-                            [cpPosition]="'bottom'" (colorPickerChange)="onChangeValue('content', $event)" />
+                            [cpPosition]="'bottom'" [cpUseRootViewContainer]="true" (colorPickerChange)="onChangeValue('content', $event)" />
                     </div>
                     <div class="my-form-field ml10">
                         <span>{{'pipe.property-content-space' | translate}}</span>
